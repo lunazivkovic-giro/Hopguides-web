@@ -10,7 +10,9 @@ const ReportContextProvider = (props) => {
 	
 		report: {
 			pointId: "",
-			monthlyUsedCoupons: 0
+			monthlyUsedCoupons: 0,
+			image: null,
+			showModal: false,
 		},
 		
 		

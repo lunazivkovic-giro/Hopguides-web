@@ -8,7 +8,7 @@ function App() {
 	return (
 		<Router>
 			<Switch>
-				<Route exact path="/:id" component={ReportPage} />
+				<Route path="/report/:id" component={ReportPage} />
 				<Route path="/404" component={PageNotFound} />
 				<Redirect to="/404" />
 			</Switch>
