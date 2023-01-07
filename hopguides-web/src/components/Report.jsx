@@ -12,22 +12,22 @@ const Report = () => {
         const getReportInfoHandler = async () => {
             await reportService.getReport(dispatch, id);
         };
-       
+
 
         getReportInfoHandler();
     }
     const someFetchActionCreator2 = () => {
-       
+
         const getMenuInfoHandler = async () => {
             await reportService.getMenu(dispatch, id);
         };
 
-       
+
         getMenuInfoHandler();
     }
     useEffect(() => {
 
-       someFetchActionCreator()
+        someFetchActionCreator()
         someFetchActionCreator2()
     }, [dispatch]);
 
@@ -36,28 +36,40 @@ const Report = () => {
     };
 
     return (
-        <div>
-
-            <p>Point ID:  {id}</p>
-            <p>Monthly usage:  {reportState.report.monthlyUsedCoupons}</p>
-
-            <button
-                style={{ float: "right", marginBottom: 30, marginRight: "38px" }}
-                type="button"
-                onClick={handleShowModal}
-                class="btn btn-primary btn-lg"
-            >
-                Insert new menu
-            </button>
+        <div class="login-page">
 
 
-            {
-                reportState.report.image ? (
-                    <img alt="" src={reportState.report.image} />
-                ) : (
-                    null
-                )
-            }
+            <div class="home-box">
+                <h2>ID:  {id}</h2>
+                <h2>Monthly usage:  {reportState.report.monthlyUsedCoupons || 0}</h2>
+                <a>Linkkk</a>
+            </div>
+
+
+
+            <h4 class="header2">Instructions</h4>
+            <p class="paragraph-box">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+            <div class=" button-p">
+                <button
+                    type="button"
+                    onClick={handleShowModal}
+                    class="btn btn-primary btn-lg"
+                >
+                    Update menu image
+                </button>
+            </div>
+
+
+            <div class="paragraph-box">
+                {
+                    reportState.report.image ? (
+                        <img alt="" src={reportState.report.image} />
+                    ) : (
+                        null
+                    )
+                }
+            </div>
         </div>
     );
 };
