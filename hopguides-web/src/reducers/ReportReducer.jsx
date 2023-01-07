@@ -80,6 +80,24 @@ export const reportReducer = (state, action) => {
 					showModal: false
 				},
 			};
+
+			case reportConstants.PREVIOUS_REPORT_GET_SUCCESS:
+
+			return {
+				...state,
+				previousReports: {
+					reports : action.data
+				},
+			};
+
+			case reportConstants.PREVIOUS_REPORT_GET_FAILURE:
+
+			return {
+				...state,
+				previousReports: {
+					reports: []
+				},
+			};
 		default:
 			return state;
 	}

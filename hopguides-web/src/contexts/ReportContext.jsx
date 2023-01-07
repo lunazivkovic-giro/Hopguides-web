@@ -15,7 +15,9 @@ const ReportContextProvider = (props) => {
 			showModal: false,
 		},
 		
-		
+		previousReports: {
+			reports: []
+		},
 	});
 
 	return <ReportContext.Provider value={{ reportState, dispatch }}>{props.children}</ReportContext.Provider>;
