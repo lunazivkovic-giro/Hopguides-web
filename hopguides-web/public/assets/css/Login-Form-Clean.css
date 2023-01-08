@@ -57,28 +57,36 @@ img {
   text-align: center;
 
 }
-
-a:link {
-  color: red;
-  background-color: yellow;
+a:link, a:visited {
+  background-color: white;
+  z-index: 1;
+  color: black;
+  border: 2px solid rgb(131, 145, 250);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
 }
 
-/* visited link */
-a:visited {
-  color: green;
+a:hover, a:active {
+  background-color: rgb(131, 145, 250);
+  color: white;
 }
 
-/* mouse over link */
-a:hover {
-  color: hotpink;
-  text-decoration: underline;
-}
 
-/* selected link */
-a:active {
-  color: blue;
-}
+.abutton {
 
+  outline: 0;
+  background: #5e90f6;
+  border: 0;
+  color: #ffffff;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+  margin-top: 30px
+
+}
 
 .header2 {
 

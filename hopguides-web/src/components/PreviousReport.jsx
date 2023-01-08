@@ -74,21 +74,22 @@ import { useParams } from 'react-router-dom';
 
     return (
       
-       
+      <div class="login-page">
+        <h1 class="paragraph-box">Previous monthly reports</h1>
               <MaterialTable
                 stickyHeader
                 
                 style={{
                   tableLayout: "fixed",
-                  marginLeft: 288,
+                  marginLeft: 38,
                   marginRight: 38,
                 }}
                 icons={tableIcons}
                 columns={[
-                  { title: "Month", field: "from" },
+                  { title: "Month", field: "month" },
                   {
                     title: "Year",
-                    field: "from",
+                    field: "year",
                   },
                   { title: "Number of coupons used", field: "count" },
                 
@@ -104,6 +105,7 @@ import { useParams } from 'react-router-dom';
                 data={reportState.previousReports.reports}
                 title=""
               />
+              </div>
     );
   });
   

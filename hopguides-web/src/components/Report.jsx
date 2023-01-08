@@ -42,7 +42,7 @@ const Report = () => {
             <div class="home-box">
                 <h2>ID:  {id}</h2>
                 <h2>Monthly usage:  {reportState.report.monthlyUsedCoupons || 0}</h2>
-                <a>Linkkk</a>
+                <a class ="abutton" href={"http://localhost:3001/#/previousReports/"+ id}>Get previous reports</a>
             </div>
 
 
