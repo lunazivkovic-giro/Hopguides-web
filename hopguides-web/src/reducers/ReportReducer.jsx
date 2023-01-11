@@ -6,14 +6,6 @@ export const reportReducer = (state, action) => {
 
 	switch (action.type) {
 
-		case reportConstants.SET_TASK_REQUEST:
-			return {
-				...state,
-				report: {
-					pointId: "",
-					monthlyUsedCoupons: ""
-				},
-			};
 
 		case reportConstants.REPORT_GET_SUCCESS:
 
@@ -21,7 +13,8 @@ export const reportReducer = (state, action) => {
 				...state,
 				report: {
 					pointId: action.data.pointId,
-					monthlyUsedCoupons: action.data.monthlyUsedCoupons
+					monthlyUsedCoupons: action.data.monthlyUsedCoupons,
+					name: action.data.name,
 				},
 
 
@@ -33,7 +26,9 @@ export const reportReducer = (state, action) => {
 				...state,
 				report: {
 					pointId: "",
-					monthlyUsedCoupons: ""
+					monthlyUsedCoupons: "",
+
+					name: "",
 				},
 			};
 
@@ -44,6 +39,7 @@ export const reportReducer = (state, action) => {
 				report: {
 					pointId: "",
 					monthlyUsedCoupons: "",
+					name: "",
 					showModal: true
 				},
 			};
@@ -55,60 +51,53 @@ export const reportReducer = (state, action) => {
 				report: {
 					pointId: "",
 					monthlyUsedCoupons: "",
+					name: "",
 					showModal: false
 				},
 			};
 
-			case reportConstants.GET_MENU_SUCCESS:
+		case reportConstants.GET_MENU_SUCCESS:
 
 			return {
 				...state,
-				report: {
-					image: action.data,
+				image: action.data,
 
-				},
 			};
 
-			case reportConstants.GET_MENU_FAILURE:
+		case reportConstants.GET_MENU_FAILURE:
 
 			return {
 				...state,
-				report: {
-					pointId: "",
-					monthlyUsedCoupons: "",
 					image: null,
-					showModal: false
-				},
 			};
 
-			case reportConstants.PREVIOUS_REPORT_GET_SUCCESS:
+		case reportConstants.PREVIOUS_REPORT_GET_SUCCESS:
 
 			var arrReports = []
-			for(var report of action.data){
-				if(report.from.length == 5){
+			for (var report of action.data) {
+				if (report.from.length == 5) {
 					var month = report.from.charAt(0)
-					var year = report.from.substring(1,5)
+					var year = report.from.substring(1, 5)
 					var count = report.count
-					var obj = {count, month, year}
+					var obj = { count, month, year }
 					arrReports.push(obj)
-				}else{
-					var month = report.from.substring(0,1)
-					var year = report.from.substring(2,6)
+				} else {
+					var month = report.from.substring(0, 1)
+					var year = report.from.substring(2, 6)
 					var count = report.count
-					var obj = {count, month, year}
+					var obj = { count, month, year }
 					arrReports.push(obj)
 				}
 			}
 
-			console.log(arrReports)
 			return {
 				...state,
 				previousReports: {
-					reports : arrReports
+					reports: arrReports
 				},
 			};
 
-			case reportConstants.PREVIOUS_REPORT_GET_FAILURE:
+		case reportConstants.PREVIOUS_REPORT_GET_FAILURE:
 
 			return {
 				...state,
