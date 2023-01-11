@@ -12,6 +12,9 @@ const ReportContextProvider = (props) => {
 			pointId: "",
 			monthlyUsedCoupons: 0,
 			name: "",
+			bpartnerName : "",
+			bpartnerEmail: "",
+			bpratnerPhone: "",
 			showModal: false,
 		},
 

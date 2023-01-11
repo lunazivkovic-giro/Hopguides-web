@@ -48,6 +48,15 @@ img {
 
 }
 
+
+.hotelcontact-box {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0px auto 0px;
+
+}
+
 .button-p {
   position: relative;
   z-index: 1;

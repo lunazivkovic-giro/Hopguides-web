@@ -75,6 +75,14 @@ const Report = () => {
                 </button>
             </div>}
 
+            <div class = "hotelcontact-box" >
+            <p style={{fontWeight:"bold"}}>Hotel name:  {reportState.report.bpartnerName} </p>
+
+                <p> Contact: Email: {reportState.report.bpartnerEmail}  Phone: {reportState.report.bpratnerPhone}</p>
+
+               
+            </div>
+
             <div class="home-box">
                 <h2>Name:  {reportState.report.name}</h2>
                 <h2>Monthly usage:  {reportState.report.monthlyUsedCoupons || 0}</h2>
@@ -94,7 +102,7 @@ const Report = () => {
                 >
                     Update menu image
                 </button>
-            </div>}
+            </div>}2
 
 
             <div class="paragraph-box">

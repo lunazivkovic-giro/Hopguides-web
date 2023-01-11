@@ -15,6 +15,9 @@ export const reportReducer = (state, action) => {
 					pointId: action.data.pointId,
 					monthlyUsedCoupons: action.data.monthlyUsedCoupons,
 					name: action.data.name,
+					bpartnerName : action.data.bpartnerName,
+					bpartnerEmail: action.data.bpartnerEmail,
+					bpratnerPhone: action.data.bpratnerPhone,
 				},
 
 
