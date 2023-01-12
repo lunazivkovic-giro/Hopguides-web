@@ -22,6 +22,14 @@ const HomeDataContextProvider = (props) => {
 		tours: {
 			tours: []
 		},
+
+		previousReports: {
+			reports: [],
+			id: "",
+			showModal: false,
+		},
+
+
 	});
 
 	return <HomeDataContext.Provider value={{ homeDataState, dispatch }}>{props.children}</HomeDataContext.Provider>;

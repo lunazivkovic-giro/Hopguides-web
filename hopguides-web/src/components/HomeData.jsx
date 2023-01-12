@@ -27,6 +27,7 @@ import { homeDataService } from "../services/HomeDataService";
   
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { useParams } from 'react-router-dom';
+import { homeDataConstants } from "../constants/HomeDataConstants";
   
   
   const tableIcons = {
@@ -62,9 +63,12 @@ import { useParams } from 'react-router-dom';
         
        
       };
+
+   
       getDocumentsInfoHandler();
     };
-  
+
+    
     useEffect(() => {
   
    
@@ -72,8 +76,13 @@ import { useParams } from 'react-router-dom';
     }, [dispatch]);
   
     const getHistory = (e, data) => {
-      console.log(data)
-      //dispatch({ type: documentsConstants.SHOW_EDIT_DOCUMENT_MODAL, data });
+      const getDocumentsInfoHandlerr = async () => {
+        await homeDataService.getPreviousMonthsData(dispatch, data);
+      };
+
+   
+      getDocumentsInfoHandlerr();
+      //dispatch({ type: homeDataConstants.SHOW_MODAL, data });
     };
     return (
       
