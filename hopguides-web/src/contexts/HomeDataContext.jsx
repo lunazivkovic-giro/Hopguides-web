@@ -18,6 +18,7 @@ const HomeDataContextProvider = (props) => {
 			showModal: false,
 		},
 
+		showModal: false,
 		
 		tours: {
 			tours: []

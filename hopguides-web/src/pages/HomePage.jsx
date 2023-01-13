@@ -5,6 +5,7 @@ import Report from "../components/Report";
 import HomeDataContextProvider from "../contexts/HomeDataContext";
 import HomeData from "../components/HomeData";
 import PreviousReportTourModal from "../components/PreviousReportTourModal";
+import AddNewTourForm from "../components/AddNewTourForm";
 
 
 const HomePage = () => {
@@ -14,6 +15,7 @@ const HomePage = () => {
 			<HomeDataContextProvider>
 				<HomeData />
 				<PreviousReportTourModal/>
+				<AddNewTourForm/>
 			</HomeDataContextProvider>
 		</div>
 	);

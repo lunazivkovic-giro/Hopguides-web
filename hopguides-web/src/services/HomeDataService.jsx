@@ -1,15 +1,91 @@
 import Axios from "axios";
 import { homeDataConstants } from "../constants/HomeDataConstants";
 
+import { authHeader } from "../helpers/auth-header";
 var url = process.env.REACT_APP_URL || "http://localhost:3000/";
 
 export const homeDataService = {
 	getData,
 	getPreviousMonthsData,
+	addTour,
+	updateTour
 
 };
 
 
+function addTour(tour, dispatch) {
+
+	console.log( tour)
+	dispatch(request());
+	var token = authHeader()
+	Axios.post(`${url}api/pnl/tour/`, tour, {
+		headers: {
+		  Authorization: token 
+		}},{ validateStatus: () => true })
+		.then((res) => {
+			if (res.status === 200) {
+				dispatch(success());
+			} else if (res.status === 215) {
+				dispatch(failure(res.data.response));
+			}else{
+				
+				dispatch(failure(res.data.error));
+			}
+		})
+		.catch((err) =>{		
+				dispatch(failure(err));
+			})
+
+	function request() {
+		
+		return { type: homeDataConstants.TOUR_SUBMIT_REQUEST };
+	}
+	function success() {
+		return { type: homeDataConstants.TOUR_SUBMIT_SUCCESS };
+	}
+	function failure(error) {
+		
+		return { type: homeDataConstants.TOUR_SUBMIT_FAILURE, error };
+	}
+}
+
+
+function updateTour( dispatch, tour) {
+
+	console.log( tour)
+	dispatch(request());
+	var token = authHeader()
+	Axios.post(`${url}api/pnl/tour/update/`+tour.id, tour, {
+		headers: {
+		  Authorization: token 
+		}},{ validateStatus: () => true })
+		.then((res) => {
+			if (res.status === 200) {
+				dispatch(success());
+			} else if (res.status === 215) {
+				dispatch(failure(res.data.response));
+			}else{
+				
+				dispatch(failure(res.data.error));
+			}
+		})
+		.catch((err) =>{		
+				dispatch(failure(err));
+			})
+
+	function request() {
+		
+		return { type: homeDataConstants.TOUR_UPDATE_REQUEST };
+	}
+	function success() {
+		return { type: homeDataConstants.TOUR_UPDATE_SUCCESS };
+	
+	}
+	function failure(error) {
+		
+		return { type: homeDataConstants.TOUR_UPDATE_FAILURE, error };
+	}
+}
 
 
 async function getPreviousMonthsData(dispatch ,id) {

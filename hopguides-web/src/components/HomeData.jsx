@@ -5,7 +5,7 @@ import React, {
     forwardRef,
     useContext,
   } from "react";
-  import MaterialTable from "material-table";
+  import MaterialTable, { MTableToolbar } from "material-table";
   import { HomeDataContext } from "../contexts/HomeDataContext";
   import AddBox from "@material-ui/icons/AddBox";
   import ArrowDownward from "@material-ui/icons/ArrowDownward";
@@ -23,7 +23,8 @@ import React, {
   import Search from "@material-ui/icons/Search";
   import ViewColumn from "@material-ui/icons/ViewColumn";
 import { homeDataService } from "../services/HomeDataService";
-  
+import { Button } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
   
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { useParams } from 'react-router-dom';
@@ -80,17 +81,56 @@ import { homeDataConstants } from "../constants/HomeDataConstants";
         await homeDataService.getPreviousMonthsData(dispatch, data);
       };
 
-   
       getDocumentsInfoHandlerr();
       //dispatch({ type: homeDataConstants.SHOW_MODAL, data });
     };
+
+
+    const addNew = (e) => {
+      
+      dispatch({ type: homeDataConstants.SHOW_ADD_MODAL });
+      };
+
+
+      const onUpdate = (oldData, newData) => {
+     
+        const getUpdateHandlerr = async () => {
+          return await homeDataService.updateTour(dispatch, oldData);
+        };
+  
+        return getUpdateHandlerr();
+
+        };
     return (
       
       <div class="login-page">
         <h1 class="paragraph-box">Tours</h1>
               <MaterialTable
                 stickyHeader
-                
+                components={{
+                  Toolbar: (props) => (
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        alignItems: "center"
+                      }}
+                    >
+                      <Button
+                        style={{ height: "fit-content" }}
+                        color="primary"
+                        variant="contained"
+                        onClick = {(e) => addNew(e)}
+                      >
+                        Add tour
+                      </Button>
+                      <div style={{ width: "13rem" }}>
+                        <MTableToolbar {...props} />
+                      </div>
+                    </div>
+                  ),
+                  Container: (props) => <Paper {...props} elevation={8} />
+                }}
                 style={{
                   tableLayout: "fixed",
                   marginLeft: 38,
@@ -98,12 +138,14 @@ import { homeDataConstants } from "../constants/HomeDataConstants";
                 }}
                 icons={tableIcons}
                 columns={[
-                  { title: "Name", field: "tourName" },
+                  { title: "Name", field: "tourName", 
+                  editable: "never" },
                   {
                     title: "Price",
                     field: "tourPrice",
                   },
-                  { title: "Number of executed tours for current month", field: "noOfRidesAMonth" },
+                  { title: "Number of executed tours for current month", field: "noOfRidesAMonth", 
+                  editable: "never" },
                  
                 ]}
                 actions={[
@@ -116,14 +158,34 @@ import { homeDataConstants } from "../constants/HomeDataConstants";
                  
                 ]}
                 options={{
+                  showTitle: false,
+                  toolbar: true,
+                  filtering: false,
+                  paging: false,  
                   actionsColumnIndex: -1,
-                  headerStyle: {top:0, bottom:0},
-                  maxBodyHeight: "70vh",  
+                  headerStyle: {top:0, bottom:0, backgroundColor: "#DCE4FF", fontSize: "1em"},
+                  maxBodyHeight: "70vh",
+                  rowStyle: (rowData) => ({
+                    backgroundColor:
+                      rowData.tableData.id % 2 === 1 ? "#ebebeb" : "#ffffff"
+                  })
                 }}
                 localization={{
                   header: {
                     actions: "History",
                   },
+                }}
+                editable={{
+                  onRowUpdate: (newData, oldData) =>
+                    new Promise((resolve, reject) => {
+                      setTimeout(() => {
+                         onUpdate(newData, oldData)
+                         window.location.reload()
+                        resolve();
+                      }, 1);
+                     
+                    }),
+                 
                 }}
                 data={homeDataState.tours.tours}
                 title=""

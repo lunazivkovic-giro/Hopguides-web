@@ -48,7 +48,7 @@ export const homeDataReducer = (state, action) => {
 				...state,
 				previousReports: {
 					reports: arrReports,
-					showModal : true,
+					showModal: true,
 				},
 			};
 
@@ -66,24 +66,69 @@ export const homeDataReducer = (state, action) => {
 		case homeDataConstants.SHOW_MODAL:
 			return {
 				...state,
-				previousReports:{
-					showModal : true,
+				previousReports: {
+					showModal: true,
 					id: action.data
 				}
 
 			};
-	
+
 
 		case homeDataConstants.HIDE_MODAL:
 			return {
 				...state,
-				previousReports:{
-					showModal : false
+				previousReports: {
+					showModal: false
 				}
 
-					
-				
+
+
 			};
+
+
+		case homeDataConstants.SHOW_ADD_MODAL:
+			return {
+				...state,
+				showModal: true
+
+			};
+
+
+		case homeDataConstants.HIDE_ADD_MODAL:
+			return {
+				...state,
+				showModal: false
+
+
+
+			};
+
+
+		case homeDataConstants.TOUR_SUBMIT_SUCCESS:
+
+			return {
+				...state,
+
+			};
+
+		case homeDataConstants.TOUR_UPDATE_SUCCESS:
+
+			return {
+				...state,
+				tours: {
+					tours: action.data
+				},
+			};
+
+		case homeDataConstants.TOUR_UPDATE_FAILURE:
+
+			return {
+				...state,
+				tours: {
+					tours: []
+				},
+			};
+
 
 
 		default:
