@@ -24,6 +24,24 @@ export const homeDataReducer = (state, action) => {
 				},
 			};
 
+			case homeDataConstants.DATA_TOUR_POINTS_GET_SUCCESS:
+
+			return {
+				...state,
+				toursWithPoints: {
+					toursWithPoints: action.data
+				},
+			};
+
+		case homeDataConstants.DATA_TOUR_POINTS_GET_FAILURE:
+
+			return {
+				...state,
+				toursWithPoints: {
+					toursWithPoints: []
+				},
+			};
+
 
 		case homeDataConstants.PREVIOUS_DATA_GET_SUCCESS:
 
@@ -80,6 +98,29 @@ export const homeDataReducer = (state, action) => {
 				previousReports: {
 					showModal: false
 				}
+
+
+
+			};
+
+
+			case homeDataConstants.SHOW_ADD_MENU_MODAL:
+
+			
+			return {
+				...state,
+				id: action.data,
+				showEditMenuModal: true
+
+			};
+
+
+		case homeDataConstants.HIDE_ADD_MENU_MODAL:
+			return {
+				...state,
+				id:"",
+				
+				showEditMenuModal: false
 
 
 

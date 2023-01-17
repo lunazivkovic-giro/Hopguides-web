@@ -193,6 +193,14 @@ a:hover, a:active {
   display: none;
 }
 
+.containerModal {
+  position: center;
+  z-index: 1;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+
 .container {
   position: relative;
   z-index: 1;

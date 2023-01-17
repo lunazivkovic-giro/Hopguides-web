@@ -6,9 +6,11 @@ var url = process.env.REACT_APP_URL || "http://localhost:3000/";
 
 export const homeDataService = {
 	getData,
+	getToursAndPointsData,
 	getPreviousMonthsData,
 	addTour,
-	updateTour
+	updateTour,
+	getQrCode
 
 };
 
@@ -18,7 +20,7 @@ function addTour(tour, dispatch) {
 	console.log( tour)
 	dispatch(request());
 	var token = authHeader()
-	Axios.post(`${url}api/pnl/tour/`, tour, {
+	Axios.post(`${url}api/pnl/tour/add`, tour, {
 		headers: {
 		  Authorization: token 
 		}},{ validateStatus: () => true })
@@ -52,7 +54,6 @@ function addTour(tour, dispatch) {
 
 function updateTour( dispatch, tour) {
 
-	console.log( tour)
 	dispatch(request());
 	var token = authHeader()
 	Axios.post(`${url}api/pnl/tour/update/`+tour.id, tour, {
@@ -156,3 +157,56 @@ async function getData(dispatch) {
 	}
 }
 
+
+async function getToursAndPointsData(dispatch) {
+	dispatch(request());
+	
+	
+	await Axios.get(`${url}api/pnl/tour/allToursWithPoints`, { validateStatus: () => true })
+		.then((res) => {
+			if (res.status === 200) {
+				dispatch(success(res.data));
+			} else {
+				
+				var error = "Error while fetching data"
+				dispatch(failure(error));
+			}
+		})
+		.catch((err) => {
+		
+			var error = "Unknown error, please try again later."
+				dispatch(failure(error));
+		});
+
+	function request() {
+		return { type: homeDataConstants.DATA_TOUR_POINTS_GET_REQUEST };
+	}
+	function success(data) {
+		return { type: homeDataConstants.DATA_TOUR_POINTS_GET_SUCCESS, data: data };
+	}
+	function failure(message) {
+
+		return { type: homeDataConstants.DATA_TOUR_POINTS_GET_FAILURE, errorMessage: message };
+	}
+}
+
+
+
+async function getQrCode(dispatch,id) {
+	
+	var token = authHeader()
+
+	const FileDownload = require("js-file-download");
+
+	await Axios.get(`${url}api/reports/qr/ `+id, { headers: { Authorization: token} , validateStatus: () => true,  responseType: 'blob'})
+		.then((res) => {
+			if (res.status === 200) {
+				FileDownload(res.data, id.trim() + ".png");
+				//window.location.reload(true);
+			}
+		})
+		.catch((err) => {
+
+		});
+
+}

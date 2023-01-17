@@ -1,19 +1,19 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { Modal } from "react-bootstrap";
-import { reportConstants } from "../constants/ReportConstants";
-import { ReportContext } from "../contexts/ReportContext";
+import { homeDataConstants } from "../constants/HomeDataConstants";
+import { HomeDataContext } from "../contexts/HomeDataContext";
 import Paper from "@material-ui/core/Paper";
 import Axios from "axios";
-import { reportService } from "../services/ReportService";
+import { homeDataService } from "../services/HomeDataService";
 
 import { useParams } from 'react-router-dom';
+import HomeData from "./HomeData";
 
 var url = process.env.REACT_APP_URL || "http://localhost:3000/";
 
-const ReportModal = () => {
+const UpdateMenuModal = () => {
 
-	let { id } = useParams()
-	const { reportState, dispatch } = useContext(ReportContext);
+	const { homeDataState, dispatch } = useContext(HomeDataContext);
 	const [file, setFile] = useState(null);
 	const [errMessage, setErrMessage] = useState("");
 	const uploadRef = React.useRef();
@@ -21,7 +21,7 @@ const ReportModal = () => {
 	const progressRef = React.useRef();
 
 	const handleModalClose = () => {
-		dispatch({ type: reportConstants.HIDE_ADD_MENU_MODAL });
+		dispatch({ type: homeDataConstants.HIDE_ADD_MENU_MODAL });
 		window.location.reload()
 	};
 
@@ -60,17 +60,14 @@ const ReportModal = () => {
 		e.preventDefault();
 
 
-		if (file == null || reportState.report.pointId) {
+		if (file == null || homeDataState.id=="") {
 
 			setErrMessage("Please fill all fields")
 		} else {
-			if(id == null){
-				id = reportState.id
-			}
+			
 			const formData = new FormData();
 
 			formData.append('file', file);
-			formData.append("pointId", reportState.report.pointId);
 
 			var xhr = new XMLHttpRequest();
 			xhr.upload.addEventListener("progress", ProgressHandler, false);
@@ -78,7 +75,7 @@ const ReportModal = () => {
 			xhr.addEventListener("error", ErrorHandler, false);
 			xhr.addEventListener("abort", AbortHandler, false);
 
-			xhr.open('POST', `${url}api/poi/${id}/uploadMenu`, true);
+			xhr.open('POST', `${url}api/poi/${homeDataState.id}/uploadMenu`, true);
 			//xhr.setRequestHeader("Authorization", props.token);
 			xhr.onload = function () {
 				// do something to response
@@ -99,24 +96,24 @@ const ReportModal = () => {
 
 		statusRef.current.innerHTML = "Success";
 		progressRef.current.value = 100;
-		reportService.addMenu(true, dispatch);
+		//reportService.addMenu(true, dispatch);
 	};
 	const ErrorHandler = () => {
 
 		statusRef.current.innerHTML = "Upload failed";
 
-		reportService.addMenu(false, dispatch);
+		//reportService.addMenu(false, dispatch);
 	};
 	const AbortHandler = () => {
 
 		statusRef.current.innerHTML = "Upload aborted";
 
-		reportService.addMenu(false, dispatch);
+		//reportService.addMenu(false, dispatch);
 	};
 
 	return (
 		<Modal
-			show={reportState.report.showModal} aria-labelledby="contained-modal-title-vcenter" class="modal-dialog modal-lg" centered onHide={handleModalClose} size="lg">
+			show={homeDataState.showEditMenuModal} aria-labelledby="contained-modal-title-vcenter" class="modal-dialog modal-lg" centered onHide={handleModalClose} size="lg">
 
 			<Modal.Header closeButton>
 				<Modal.Title id="contained-modal-title-vcenter">
@@ -188,4 +185,4 @@ const ReportModal = () => {
 	);
 };
 
-export default ReportModal;
+export default UpdateMenuModal;

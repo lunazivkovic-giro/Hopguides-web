@@ -20,8 +20,15 @@ const HomeDataContextProvider = (props) => {
 
 		showModal: false,
 		
+		showEditMenuModal: false,
+
+		id: "",
 		tours: {
 			tours: []
+		},
+
+		toursWithPoints: {
+			toursWithPoints: []
 		},
 
 		previousReports: {

@@ -33,10 +33,12 @@ export const reportReducer = (state, action) => {
 
 					name: "",
 				},
+
 			};
 
 		case reportConstants.SHOW_ADD_MENU_MODAL:
 
+		console.log("Evo meeee")
 			return {
 				...state,
 				report: {
@@ -45,9 +47,10 @@ export const reportReducer = (state, action) => {
 					name: "",
 					showModal: true
 				},
+				id: action.data
 			};
 
-		case reportConstants.SHOW_ADD_MENU_MODAL:
+		case reportConstants.HIDE_ADD_MENU_MODAL:
 
 			return {
 				...state,
