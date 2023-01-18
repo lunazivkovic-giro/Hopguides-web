@@ -170,6 +170,23 @@ export const homeDataReducer = (state, action) => {
 				},
 			};
 
+			case homeDataConstants.POI_UPDATE_SUCCESS:
+
+			return {
+				...state,
+				tours: {
+					tours: action.data
+				},
+			};
+
+		case homeDataConstants.POI_UPDATE_FAILURE:
+
+			return {
+				...state,
+				tours: {
+					tours: []
+				},
+			};
 
 
 		default:

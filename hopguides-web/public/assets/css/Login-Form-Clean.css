@@ -48,6 +48,59 @@ img {
 
 }
 
+.image-box {
+  position: relative;
+  z-index: 1;
+  max-width: 400px;
+  margin: 0px auto 0px;
+  padding: 45px;
+  text-align: center;
+
+}
+
+
+ul {
+  text-align: center;
+  list-style-position: inside;
+}
+.paragraph-box2 {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 20px auto 0px;
+  text-align: center;
+
+}
+.button-login {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0px auto 0px;
+  text-align: right;
+
+}
+
+.ul-box2 {
+  position: relative;
+  z-index: 1;
+  margin: 20px auto 0px;
+  text-align: center;
+
+}
+
+
+div:target {
+  border: 5px solid rgb(247, 0, 41);
+}
+.contact-box {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: 0px auto 0px;
+  padding: 0px;
+  text-align: center;
+
+}
 
 .hotelcontact-box {
   position: relative;

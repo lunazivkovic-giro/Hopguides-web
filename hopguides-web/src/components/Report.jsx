@@ -30,19 +30,19 @@ const Report = () => {
 
         var token = authHeader()
         if (token == "null") {
-            window.location = "#/unauthorized";
+           // window.location = "#/unauthorized";
         } else {
 
             Axios.get(`${url}api/users/getRole`, { headers: { Authorization: token } }, { validateStatus: () => true },
             )
                 .then((res) => {
                     if (res.status === 200) {
-                        if ( "USER" == res.data ) {
+                        if ("USER" == res.data) {
 
                             setRole(true)
                         }
 
-                        if ("ADMIN" == res.data ) {
+                        if ("ADMIN" == res.data) {
 
                             setRole(true)
                             setAdmin(true)
@@ -63,24 +63,48 @@ const Report = () => {
         dispatch({ type: reportConstants.SHOW_ADD_MENU_MODAL });
     };
 
+    const handleLogin = () => {
+        window.location.href = "#/login"
+    };
+
+
+
+    function BoldText({ children }) {
+        return (
+            <span style={{ fontWeight: 'bold' }}>{children}</span>
+        );
+    }
+
+    function ColorText({ children }) {
+        return (
+            <span style={{ color: 'green' }}>{children}</span>
+        );
+    }
+
+    function ColorTextRed({ children }) {
+        return (
+            <span style={{ color: 'red' }}>{children}</span>
+        );
+    }
+
     return (
         <div class="login-page">
-            {!role && <div class=" button-p">
+            {!role && <div class=" button-login">
                 <button
                     type="button"
-                    onClick={handleShowModal}
+                    onClick={handleLogin}
                     class="btn btn-primary btn-lg"
                 >
                     Log in
                 </button>
             </div>}
 
-            <div class = "hotelcontact-box" >
-            <p style={{fontWeight:"bold"}}>Hotel name:  {reportState.report.bpartnerName} </p>
+            <div class="hotelcontact-box" >
+                <p style={{ fontWeight: "bold" }}>Hotel name:  {reportState.report.bpartnerName} </p>
 
                 <p> Contact: Email: {reportState.report.bpartnerEmail}  Phone: {reportState.report.bpratnerPhone}</p>
 
-               
+
             </div>
 
             <div class="home-box">
@@ -92,9 +116,36 @@ const Report = () => {
 
 
             <h4 class="header2">Instructions</h4>
-            <p class="paragraph-box">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            <p class="paragraph-box2">1.  Using the camera on your phone please scan the users/customer QR code    </p><br />
+            <p class="paragraph-box2" >2. After scanning the QR code, please check the provided feedback on your phone. </p><br />
+            <ul class="ul-box2">
+                <li>If the QR code is <ColorText>VALID</ColorText> please serve the customer<BoldText> »home made« Sirove Štruklje </BoldText>as included in the tour.
+                </li>
+            </ul>
 
-           {admin && <div class=" button-p">
+            <div class="image-box">
+                {
+                   
+                        <img alt="" src="/assets/img/Screenshot_2.png" />
+                  
+                }
+            </div>
+
+            <ul class="ul-box2">
+                <li>If the QR code is <ColorTextRed>NOT VALID</ColorTextRed>  the user has not paid for the experience or has already used the said QR code
+
+                </li>
+            </ul>
+
+            <div class="image-box">
+                {
+                   
+                        <img alt="" src="/assets/img/Screenshot_1.png" />
+                  
+                }
+            </div>
+
+            {admin && <div class=" button-p">
                 <button
                     type="button"
                     onClick={handleShowModal}

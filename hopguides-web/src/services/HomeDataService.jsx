@@ -10,7 +10,8 @@ export const homeDataService = {
 	getPreviousMonthsData,
 	addTour,
 	updateTour,
-	getQrCode
+	getQrCode,
+	updatePoint
 
 };
 
@@ -27,6 +28,7 @@ function addTour(tour, dispatch) {
 		.then((res) => {
 			if (res.status === 200) {
 				dispatch(success());
+				window.location.refresh()
 			} else if (res.status === 215) {
 				dispatch(failure(res.data.response));
 			}else{
@@ -48,6 +50,43 @@ function addTour(tour, dispatch) {
 	function failure(error) {
 		
 		return { type: homeDataConstants.TOUR_SUBMIT_FAILURE, error };
+	}
+}
+
+
+function updatePoint( dispatch, point) {
+
+	dispatch(request());
+	var token = authHeader()
+	Axios.post(`${url}api/poi/update/`+point.point.id, point, {
+		headers: {
+		  Authorization: token 
+		}},{ validateStatus: () => true })
+		.then((res) => {
+			if (res.status === 200) {
+				dispatch(success());
+			} else if (res.status === 215) {
+				dispatch(failure(res.data.response));
+			}else{
+				
+				dispatch(failure(res.data.error));
+			}
+		})
+		.catch((err) =>{		
+				dispatch(failure(err));
+			})
+
+	function request() {
+		
+		return { type: homeDataConstants.POI_UPDATE_REQUEST };
+	}
+	function success() {
+		return { type: homeDataConstants.POI_UPDATE_SUCCESS };
+	
+	}
+	function failure(error) {
+		
+		return { type: homeDataConstants.POI_UPDATE_FAILURE, error };
 	}
 }
 

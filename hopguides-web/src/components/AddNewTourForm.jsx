@@ -145,40 +145,40 @@ const AddNewTourForm = (props) => {
 			setErrMessage("Please fill all fields")
 		} else {
 
-			
-				var tour = {
-					title: { en: title },
-					shortInfo: { en: shortInfo },
-					longInfo: { en: longInfo },
-					price: price,
-					points: points
-	
-	
-				}
 
-				/*const formData = new FormData();
-	
-				formData.append('files', files);
-				//formData.append("pointId", reportState.report.pointId);
-				formData.append("tour", tour);
-	
-				var xhr = new XMLHttpRequest();
-				xhr.upload.addEventListener("progress", ProgressHandler, false);
-				xhr.addEventListener("load", SuccessHandler, false);
-				xhr.addEventListener("error", ErrorHandler, false);
-				xhr.addEventListener("abort", AbortHandler, false);
-	
-				xhr.open('POST', `${url}api/pnl/tour/add`, true);
-				//xhr.setRequestHeader("Authorization", props.token);
-				xhr.onload = function () {
-					// do something to response
-				};
-	
-				xhr.send(formData);*/
-	
-			
+			var tour = {
+				title: { en: title },
+				shortInfo: { en: shortInfo },
+				longInfo: { en: longInfo },
+				price: price,
+				points: points
 
-			
+
+			}
+
+			/*const formData = new FormData();
+	
+			formData.append('files', files);
+			//formData.append("pointId", reportState.report.pointId);
+			formData.append("tour", tour);
+	
+			var xhr = new XMLHttpRequest();
+			xhr.upload.addEventListener("progress", ProgressHandler, false);
+			xhr.addEventListener("load", SuccessHandler, false);
+			xhr.addEventListener("error", ErrorHandler, false);
+			xhr.addEventListener("abort", AbortHandler, false);
+	
+			xhr.open('POST', `${url}api/pnl/tour/add`, true);
+			//xhr.setRequestHeader("Authorization", props.token);
+			xhr.onload = function () {
+				// do something to response
+			};
+	
+			xhr.send(formData);*/
+
+
+
+
 
 			homeDataService.addTour(tour, dispatch);
 
@@ -195,6 +195,8 @@ const AddNewTourForm = (props) => {
 	};
 	const handleAdd = (e) => {
 
+
+		setAdd(false)
 		var point = {
 			title: { en: titlePoint },
 			shortInfo: { en: shortInfoPoint },
@@ -204,7 +206,7 @@ const AddNewTourForm = (props) => {
 			bpartnerId: hotelId
 		}
 		const newData = [point, ...points];
-		console.log(newData)
+
 		setPoints(newData)
 	};
 
@@ -224,411 +226,413 @@ const AddNewTourForm = (props) => {
 					<Paper square>
 
 
-						<div className="containerModal"  >
+						<div   >
+
+							<div className="containerModal"  >
+
+								<div className="row mt-5">
+
+									<form id="contactForm" >
 
 
-							<div className="row mt-5">
 
-								<form id="contactForm" >
+										<table style={{ marginLeft: "4rem", marginBottom: "4rem" }}>
+											<td width="600rem"  >
+												<div className="control-group">
+													<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+														<label><b>Title</b></label>
+														<div class="row" >
+															<div class="form-group col-lg-10">
+																<input
 
+																	className={"form-control"}
+																	placeholder="Title"
+																	aria-describedby="basic-addon1"
+																	id="name"
+																	type="text"
+																	style={{ backgroundColor: 'white', outline: 'none' }}
 
-
-									<table style={{ marginLeft: "4rem", marginBottom: "4rem" }}>
-										<td width="600rem"  >
-											<div className="control-group">
-												<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
-													<label><b>Title</b></label>
-													<div class="row" >
-														<div class="form-group col-lg-10">
-															<input
-
-																className={"form-control"}
-																placeholder="Title"
-																aria-describedby="basic-addon1"
-																id="name"
-																type="text"
-																style={{ backgroundColor: 'white', outline: 'none' }}
-
-																onChange={(e) => setTitle(e.target.value)}
-																value={title}
-															/>
+																	onChange={(e) => setTitle(e.target.value)}
+																	value={title}
+																/>
+															</div>
 														</div>
 													</div>
 												</div>
-											</div>
 
-											<div className="control-group">
-												<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
-													<label><b>Short description</b></label>
-													<div class="row" >
-														<div class="form-group col-lg-10">
-															<input
+												<div className="control-group">
+													<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+														<label><b>Short description</b></label>
+														<div class="row" >
+															<div class="form-group col-lg-10">
+																<input
 
-																className={"form-control"}
-																placeholder="Short description"
-																aria-describedby="basic-addon1"
-																id="name"
-																type="text"
-																style={{ backgroundColor: 'white', outline: 'none' }}
+																	className={"form-control"}
+																	placeholder="Short description"
+																	aria-describedby="basic-addon1"
+																	id="name"
+																	type="text"
+																	style={{ backgroundColor: 'white', outline: 'none' }}
 
-																onChange={(e) => setShortInfo(e.target.value)}
-																value={shortInfo}
-															/>
+																	onChange={(e) => setShortInfo(e.target.value)}
+																	value={shortInfo}
+																/>
+															</div>
 														</div>
 													</div>
 												</div>
-											</div>
 
-											<div className="control-group">
-												<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
-													<label><b>Long description</b></label>
-													<div class="row" >
-														<div class="form-group col-lg-10">
-															<input
+												<div className="control-group">
+													<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+														<label><b>Long description</b></label>
+														<div class="row" >
+															<div class="form-group col-lg-10">
+																<input
 
-																className={"form-control"}
-																placeholder="Long description"
-																aria-describedby="basic-addon1"
-																id="name"
-																type="text"
-																style={{ backgroundColor: 'white', outline: 'none' }}
+																	className={"form-control"}
+																	placeholder="Long description"
+																	aria-describedby="basic-addon1"
+																	id="name"
+																	type="text"
+																	style={{ backgroundColor: 'white', outline: 'none' }}
 
-																onChange={(e) => setLongInfo(e.target.value)}
-																value={longInfo}
-															/>
+																	onChange={(e) => setLongInfo(e.target.value)}
+																	value={longInfo}
+																/>
+															</div>
 														</div>
 													</div>
 												</div>
-											</div>
 
-											<div className="control-group">
-												<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
-													<label><b>Price</b></label>
-													<div class="row" >
-														<div class="form-group col-lg-10">
-															<input
+												<div className="control-group">
+													<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+														<label><b>Price</b></label>
+														<div class="row" >
+															<div class="form-group col-lg-10">
+																<input
 
-																className={"form-control"}
-																placeholder="Price"
-																aria-describedby="basic-addon1"
-																id="name"
-																type="text"
-																style={{ backgroundColor: 'white', outline: 'none' }}
+																	className={"form-control"}
+																	placeholder="Price"
+																	aria-describedby="basic-addon1"
+																	id="name"
+																	type="text"
+																	style={{ backgroundColor: 'white', outline: 'none' }}
 
-																onChange={(e) => setPrice(e.target.value)}
-																value={price}
-															/>
+																	onChange={(e) => setPrice(e.target.value)}
+																	value={price}
+																/>
+															</div>
 														</div>
 													</div>
 												</div>
-											</div>
 
 
 
-											<div className="form-group text-center">
-												<button
-													style={{ background: "#1977cc", marginTop: "15px", marginRight: "55px" }}
+												<div className="form-group text-center">
+													<button
+														style={{ background: "#1977cc", marginTop: "15px", marginRight: "55px" }}
 
-													onClick={(e) => { addPoint(e) }}
-													className="btn btn-primary btn-xl"
-													id="sendMessageButton"
-													type="button"
-												>
-													Add point
-												</button>
-											</div>
-
-
-
+														onClick={(e) => { addPoint(e) }}
+														className="btn btn-primary btn-xl"
+														id="sendMessageButton"
+														type="button"
+													>
+														Add partner
+													</button>
+												</div>
 
 
 
 
 
 
-											<div>
-												{add &&
-													<div><div className="control-group">
-														<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
-															<label><b>Point Title</b></label>
-															<div class="row" >
-																<div class="form-group col-lg-10">
-																	<input
 
-																		className={"form-control"}
-																		placeholder="Point Title"
-																		aria-describedby="basic-addon1"
-																		id="name"
-																		type="text"
-																		style={{ backgroundColor: 'white', outline: 'none' }}
 
-																		onChange={(e) => setTitlePoint(e.target.value)}
-																		value={titlePoint}
-																	/>
-																</div>
-															</div>
-														</div>
-													</div>
 
-														<div className="control-group">
+												<div>
+													{add &&
+														<div><div className="control-group">
 															<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
-																<label><b>Short description </b></label>
+																<label><b>Partner's name</b></label>
 																<div class="row" >
 																	<div class="form-group col-lg-10">
 																		<input
 
 																			className={"form-control"}
-																			placeholder="Short description"
+																			placeholder="Partner's name"
 																			aria-describedby="basic-addon1"
 																			id="name"
 																			type="text"
 																			style={{ backgroundColor: 'white', outline: 'none' }}
 
-																			onChange={(e) => setShortInfoPoint(e.target.value)}
-																			value={shortInfoPoint}
+																			onChange={(e) => setTitlePoint(e.target.value)}
+																			value={titlePoint}
 																		/>
 																	</div>
 																</div>
 															</div>
 														</div>
 
-														<div className="control-group">
-															<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
-																<label><b>Long description</b></label>
-																<div class="row" >
-																	<div class="form-group col-lg-10">
-																		<input
+															<div className="control-group">
+																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+																	<label><b>Short description </b></label>
+																	<div class="row" >
+																		<div class="form-group col-lg-10">
+																			<input
 
-																			className={"form-control"}
-																			placeholder="Long description"
-																			aria-describedby="basic-addon1"
-																			id="name"
-																			type="text"
-																			style={{ backgroundColor: 'white', outline: 'none' }}
+																				className={"form-control"}
+																				placeholder="Short description"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
 
-																			onChange={(e) => setLongInfoPoint(e.target.value)}
-																			value={longInfoPoint}
-																		/>
+																				onChange={(e) => setShortInfoPoint(e.target.value)}
+																				value={shortInfoPoint}
+																			/>
+																		</div>
 																	</div>
 																</div>
 															</div>
-														</div>
 
-														<div className="control-group">
-															<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
-																<label><b>Location</b></label>
-																<div class="row" >
-																	<div class="form-group col-lg-10">
-																		<input
+															<div className="control-group">
+																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+																	<label><b>Long description</b></label>
+																	<div class="row" >
+																		<div class="form-group col-lg-10">
+																			<input
 
-																			className={"form-control"}
-																			placeholder="Location"
-																			aria-describedby="basic-addon1"
-																			id="name"
-																			type="text"
-																			style={{ backgroundColor: 'white', outline: 'none' }}
+																				className={"form-control"}
+																				placeholder="Long description"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
 
-																			onChange={(e) => setLocation(e.target.value)}
-																			value={location}
-																		/>
+																				onChange={(e) => setLongInfoPoint(e.target.value)}
+																				value={longInfoPoint}
+																			/>
+																		</div>
 																	</div>
 																</div>
 															</div>
-														</div>
 
-														<div className="control-group">
-															<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
-																<label><b>Hotel's id</b></label>
-																<div class="row" >
-																	<div class="form-group col-lg-10">
-																		<input
+															<div className="control-group">
+																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+																	<label><b>Location</b></label>
+																	<div class="row" >
+																		<div class="form-group col-lg-10">
+																			<input
 
-																			className={"form-control"}
-																			placeholder="Hotel's id"
-																			aria-describedby="basic-addon1"
-																			id="name"
-																			type="text"
-																			style={{ backgroundColor: 'white', outline: 'none' }}
+																				className={"form-control"}
+																				placeholder="Location"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
 
-																			onChange={(e) => setHotelId(e.target.value)}
-																			value={hotelId}
-																		/>
+																				onChange={(e) => setLocation(e.target.value)}
+																				value={location}
+																			/>
+																		</div>
 																	</div>
 																</div>
 															</div>
-														</div>
 
-														<h6>Contact information about point</h6>
-														<h6>  </h6>
-														<div className="control-group">
-															<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
-																<label><b>Phone</b></label>
-																<div class="row" >
-																	<div class="form-group col-lg-10">
-																		<input
+															<div className="control-group">
+																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+																	<label><b>Hotel's id</b></label>
+																	<div class="row" >
+																		<div class="form-group col-lg-10">
+																			<input
 
-																			className={"form-control"}
-																			placeholder="Phone"
-																			aria-describedby="basic-addon1"
-																			id="name"
-																			type="text"
-																			style={{ backgroundColor: 'white', outline: 'none' }}
+																				className={"form-control"}
+																				placeholder="Hotel's id"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
 
-																			onChange={(e) => setPhone(e.target.value)}
-																			value={phone}
-																		/>
+																				onChange={(e) => setHotelId(e.target.value)}
+																				value={hotelId}
+																			/>
+																		</div>
 																	</div>
 																</div>
 															</div>
-														</div>
 
-														<div className="control-group">
-															<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
-																<label><b>Email</b></label>
-																<div class="row" >
-																	<div class="form-group col-lg-10">
-																		<input
+															<h6>Contact information about partner</h6>
+															<h6>  </h6>
+															<div className="control-group">
+																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+																	<label><b>Phone</b></label>
+																	<div class="row" >
+																		<div class="form-group col-lg-10">
+																			<input
 
-																			className={"form-control"}
-																			placeholder="Email"
-																			aria-describedby="basic-addon1"
-																			id="name"
-																			type="text"
-																			style={{ backgroundColor: 'white', outline: 'none' }}
+																				className={"form-control"}
+																				placeholder="Phone"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
 
-																			onChange={(e) => setEmail(e.target.value)}
-																			value={email}
-																		/>
+																				onChange={(e) => setPhone(e.target.value)}
+																				value={phone}
+																			/>
+																		</div>
 																	</div>
 																</div>
 															</div>
-														</div>
 
-														<div className="control-group">
-															<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
-																<label><b>Address</b></label>
-																<div class="row" >
-																	<div class="form-group col-lg-10">
-																		<input
+															<div className="control-group">
+																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+																	<label><b>Email</b></label>
+																	<div class="row" >
+																		<div class="form-group col-lg-10">
+																			<input
 
-																			className={"form-control"}
-																			placeholder="Address"
-																			aria-describedby="basic-addon1"
-																			id="name"
-																			type="text"
-																			style={{ backgroundColor: 'white', outline: 'none' }}
+																				className={"form-control"}
+																				placeholder="Email"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
 
-																			onChange={(e) => setAddress(e.target.value)}
-																			value={address}
-																		/>
+																				onChange={(e) => setEmail(e.target.value)}
+																				value={email}
+																			/>
+																		</div>
 																	</div>
 																</div>
 															</div>
-														</div>
 
-														<div className="control-group">
-															<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
-																<label><b>Web page</b></label>
-																<div class="row" >
-																	<div class="form-group col-lg-10">
-																		<input
+															<div className="control-group">
+																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+																	<label><b>Address</b></label>
+																	<div class="row" >
+																		<div class="form-group col-lg-10">
+																			<input
 
-																			className={"form-control"}
-																			placeholder="Web page"
-																			aria-describedby="basic-addon1"
-																			id="name"
-																			type="text"
-																			style={{ backgroundColor: 'white', outline: 'none' }}
+																				className={"form-control"}
+																				placeholder="Address"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
 
-																			onChange={(e) => setWebUrl(e.target.value)}
-																			value={webURL}
-																		/>
+																				onChange={(e) => setAddress(e.target.value)}
+																				value={address}
+																			/>
+																		</div>
 																	</div>
 																</div>
 															</div>
+
+															<div className="control-group">
+																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+																	<label><b>Web page</b></label>
+																	<div class="row" >
+																		<div class="form-group col-lg-10">
+																			<input
+
+																				className={"form-control"}
+																				placeholder="Web page"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
+
+																				onChange={(e) => setWebUrl(e.target.value)}
+																				value={webURL}
+																			/>
+																		</div>
+																	</div>
+																</div>
+															</div>
+
+
+
+
+															<div className="form-group text-center">
+																<button
+																	style={{ background: "#1977cc", marginTop: "15px", marginRight: "55px" }}
+
+																	onClick={(e) => { handleAdd(e) }}
+																	className="btn btn-primary btn-xl"
+																	id="sendMessageButton"
+																	type="button"
+																>
+																	Add
+																</button>
+															</div>
+
 														</div>
-
-												
-
-
-														<div className="form-group text-center">
-															<button
-																style={{ background: "#1977cc", marginTop: "15px", marginRight: "55px" }}
-
-																onClick={(e) => { handleAdd(e) }}
-																className="btn btn-primary btn-xl"
-																id="sendMessageButton"
-																type="button"
-															>
-																Add
-															</button>
-														</div>
-
-													</div>
-												}</div>
-
-
-											{points.length > 0 &&
-												<MaterialTable
-													stickyHeader
-
-													style={{
-
-													}}
-													icons={tableIcons}
-													columns={[
-														{ title: "Title", field: "title.en" },
-														{
-															title: "Short description",
-															field: "shortInfo.en",
-														}, {
-															title: "Long description",
-															field: "longInfo.en",
-														},
-														{ title: "Hotel id", field: "bpartnerId" },
-														{ title: "Location", field: "location" },
-														{ title: "Email", field: "contact.email" },
-														{ title: "Phone", field: "contact.phone" },
-														{ title: "Address", field: "contact.address" },
-														{ title: "Web page", field: "contact.webURL" },
-
-													]}
-													actions={[
-
-													]}
-													options={{
-													}}
-													localization={{
-
-													}}
-													data={points}
-													title=""
-												/>}
-
-
-
-											<div className="form-group text-center" style={{ color: "red", fontSize: "0.8em", marginTop: "30px", marginRight: "40px" }} hidden={!errMessage}>
-												{errMessage}
-											</div>
-											<div className="form-group text-center">
-												<button
-													style={{ background: "#1977cc", marginTop: "15px", marginRight: "55px" }}
-
-													onClick={(e) => { handleSubmit(e) }}
-													className="btn btn-primary btn-xl"
-													id="sendMessageButton"
-													type="button"
-												>
-													Add tour
-												</button>
-											</div>
-										</td>
-									</table>
-
-
-
-								</form>
+													}</div></td>
+										</table>
+									</form>
+								</div>
 							</div>
+
+							{points.length > 0 &&
+								<MaterialTable
+									stickyHeader
+
+									style={{
+										tableLayout: "fixed",
+										
+									}}
+									icons={tableIcons}
+									columns={[
+										{ title: "Title", field: "title.en" },
+										{
+											title: "Short description",
+											field: "shortInfo.en",
+										}, {
+											title: "Long description",
+											field: "longInfo.en",
+										},
+										{ title: "Hotel id", field: "bpartnerId" },
+										{ title: "Location", field: "location" },
+										{ title: "Email", field: "contact.email" },
+										{ title: "Phone", field: "contact.phone" },
+										{ title: "Address", field: "contact.address" },
+										{ title: "Web page", field: "contact.webURL" },
+
+									]}
+									actions={[
+
+									]}
+									options={{
+									}}
+									localization={{
+
+									}}
+									data={points}
+									title=""
+								/>}
+
+
+
+							<div className="form-group text-center" style={{ color: "red", fontSize: "0.8em", marginTop: "30px", marginRight: "40px" }} hidden={!errMessage}>
+								{errMessage}
+							</div>
+							<div className="form-group text-center">
+								<button
+									style={{ background: "#1977cc", marginTop: "15px" }}
+
+									onClick={(e) => { handleSubmit(e) }}
+									className="btn btn-primary btn-xl"
+									id="sendMessageButton"
+									type="button"
+								>
+									Add tour
+								</button>
+							</div>
+
+
+
+
 
 
 						</div>

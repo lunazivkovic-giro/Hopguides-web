@@ -25,13 +25,22 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 import { homeDataService } from "../services/HomeDataService";
 import { Button } from "@material-ui/core";
 import { Paper } from "@material-ui/core";
-
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { useParams } from 'react-router-dom';
 import { homeDataConstants } from "../constants/HomeDataConstants";
 import { reportConstants } from "../constants/ReportConstants";
 import EditIcon from '@mui/icons-material/Edit';
 
+import Axios from "axios";
+import { authHeader } from "../helpers/auth-header";
+
+var url = process.env.REACT_APP_URL || "http://localhost:3000/";
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
   Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -60,6 +69,8 @@ const HomeData = forwardRef((props, ref) => {
   const { homeDataState, dispatch } = useContext(HomeDataContext);
   const [users, setUsers] = useState([]);
 
+  const [role, setRole] = useState(false);
+  const [admin, setAdmin] = useState(false);
   const someFetchActionCreator = () => {
     const getDocumentsInfoHandler = async () => {
       await homeDataService.getData(dispatch);
@@ -74,6 +85,32 @@ const HomeData = forwardRef((props, ref) => {
 
 
   useEffect(() => {
+    var token = authHeader()
+    if (token == "null") {
+      window.location = "#/unauthorized";
+    } else {
+
+      Axios.get(`${url}api/users/getRole`, { headers: { Authorization: token } }, { validateStatus: () => true },
+      )
+        .then((res) => {
+          if (res.status === 200) {
+            if ("USER" == res.data) {
+
+              setRole(true)
+            }
+
+            if ("ADMIN" == res.data) {
+
+              setRole(true)
+              setAdmin(true)
+            }
+          }
+        })
+        .catch((err) => {
+
+        })
+    }
+
 
 
     var contactUser = {
@@ -102,7 +139,7 @@ const HomeData = forwardRef((props, ref) => {
     homeDataService.getQrCode(dispatch, data);
   };
 
-  
+
   const updateMenu = (e, data) => {
 
     dispatch({ type: homeDataConstants.SHOW_ADD_MENU_MODAL, data });
@@ -123,45 +160,69 @@ const HomeData = forwardRef((props, ref) => {
     return getUpdateHandlerr();
 
   };
+
+
+
+  const onUpdatePoint = (oldData, newData) => {
+
+    const getUpdateHandlerr = async () => {
+      return await homeDataService.updatePoint(dispatch, oldData);
+    };
+
+    return getUpdateHandlerr();
+
+  };
+
+
+  const handleLogin = () => {
+    window.location.href = "#/login"
+  };
   return (
 
 
     <div class="login-page" >
+      {!role && <div class=" button-login">
+        <button
+          type="button"
 
-<MaterialTable
-        stickyHeader
-      
-        style={{
-          tableLayout: "fixed",
-          marginLeft: 38,
-          marginRight: 38,
-        }}
-        icons={tableIcons}
-        columns={[
-          {
-            title: "Name", field: "name",
-            editable: "never"
-          },
-          {
-            title: "Email",
-            field: "email",
-          },
-          {
-            title: "Number", field: "number",
-            editable: "never"
-          },
+          onClick={handleLogin}
+          class="btn btn-primary btn-lg"
+        >
+          Log in
+        </button>
+      </div>}
+      <h1 class="paragraph-box">Tourism Ljubljana</h1>
+      <div class="contact-box">
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell> </TableCell>
+                <TableCell align="right">Name</TableCell>
+                <TableCell align="right">Email</TableCell>
+                <TableCell align="right">Number</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {users.map((row) => (
+                <TableRow
+                  key={row.name}
 
-        ]}
-        actions={[
-      
+                >
+                  <TableCell component="th" scope="row">
+                    Responsible person
+                  </TableCell>
+                  <TableCell align="right">{row.name}</TableCell>
+                  <TableCell align="right">{row.email}</TableCell>
+                  <TableCell align="right">{row.number}</TableCell>
 
-        ]}
-
-        data={users}
-        title=""
-      />
-
-      <h1 class="paragraph-box">Tours</h1>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
+      <h4 class="paragraph-box">Tours</h4>
       <MaterialTable
         stickyHeader
         components={{
@@ -195,6 +256,7 @@ const HomeData = forwardRef((props, ref) => {
         }}
         icons={tableIcons}
         columns={[
+
           {
             title: "Name", field: "tourName",
             editable: "never"
@@ -212,12 +274,19 @@ const HomeData = forwardRef((props, ref) => {
         actions={[
           {
             icon: () => <GetAppIcon />,
-            title: "History",
+            title: "",
             onClick: (event, rowData) =>
               getHistory(event, rowData.tourId),
           },
 
+
         ]}
+        onRowClick={(event, rowData) => {
+          // Get your id from rowData and use with link.
+          window.location.href = `#${rowData.tourId}`;
+          event.stopPropagation();
+        }}
+
         options={{
           showTitle: false,
           toolbar: true,
@@ -233,7 +302,7 @@ const HomeData = forwardRef((props, ref) => {
         }}
         localization={{
           header: {
-            actions: "History",
+            actions: "Get monthly report/update"
           },
         }}
         editable={{
@@ -255,10 +324,9 @@ const HomeData = forwardRef((props, ref) => {
 
 
 
-
       {homeDataState.toursWithPoints.toursWithPoints.map((tour, i) =>
 
-        <div style={{ marginTop: "100px" }}>
+        <div style={{ marginTop: "100px" }} id={tour.tourId}>
 
           <MaterialTable
             stickyHeader
@@ -267,34 +335,59 @@ const HomeData = forwardRef((props, ref) => {
               tableLayout: "fixed",
               marginLeft: 38,
               marginRight: 38,
+
             }}
             icons={tableIcons}
             columns={[
-              { title: "Partners", field: "point.name", editable: "never" },
+           
+              { title: "Partners", field: "point.title.en", editable: "never" },
               { title: "Partner responsible person", field: "point.contact.email" },
               { title: "Price", field: "point.price", },
               { title: "Offer name", field: "", },
-              { title: "Upload offer photo", field: "", },
+              {
+                title: "Update menu photo",
+                render: (rowData) => {
+                  const button = (
+                    <Button
+                      color="inherit"
+                      onClick={(event) => {
+                        console.log(rowData)
+                        updateMenu(event, rowData.point.id)
+                      }}
+                    >
+                
+                <EditIcon/>
+                    </Button>
+                  );
+                  return button;
+                }
+              },
               { title: "Coupons realized by partner in current month", field: "monthlyUsed", editable: "never" },
-
+              {
+                title: "Generate QR code",
+                render: (rowData) => {
+                  const button = (
+                    <Button
+                      color="inherit"
+                      onClick={(event) => {
+                        console.log(rowData)
+                        getQrCode(event, rowData.point.id)
+                      }}
+                    >
+                      Get QR code
+                    </Button>
+                  );
+                  return button;
+                }
+              },
             ]}
             actions={[
-              {
-                icon: () => <GetAppIcon />,
-                title: "QR code for partner",
-                onClick: (event, rowData) =>
-                  getQrCode(event, rowData.point.id),
-              },
-              {
-                icon: () => <EditIcon />,
-                title: "Add/Update menu",
-                onClick: (event, rowData) =>
-                  updateMenu(event, rowData.point.id),
-              },
+             
+       
 
             ]}
             options={{
-              showTitle: false,
+              showTitle: true,
               toolbar: true,
               filtering: false,
               paging: false,
@@ -305,14 +398,14 @@ const HomeData = forwardRef((props, ref) => {
             }}
             localization={{
               header: {
-                actions: "QR code for partner",
-              }, 
+                actions: "Update"
+              },
             }}
             editable={{
               onRowUpdate: (newData, oldData) =>
                 new Promise((resolve, reject) => {
                   setTimeout(() => {
-                    onUpdate(newData, oldData)
+                    onUpdatePoint(newData, oldData)
                     window.location.reload()
                     resolve();
                   }, 1);
@@ -321,12 +414,15 @@ const HomeData = forwardRef((props, ref) => {
 
             }}
             data={tour.points}
-            title=""
+            title={tour.tourName}
           />
 
         </div>
       )}
+
+<div style={{ marginTop: "100px" }} ><p> <br/><br/>     </p></div>
     </div>
+
   );
 });
 
