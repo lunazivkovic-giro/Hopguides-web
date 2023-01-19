@@ -208,6 +208,15 @@ const AddNewTourForm = (props) => {
 		const newData = [point, ...points];
 
 		setPoints(newData)
+		setTitlePoint("")
+		setShortInfoPoint("")
+		setLongInfoPoint("")
+		setPhone("")
+		setEmail("")
+		setAddress("")
+		setWebUrl("")
+		setLocation("")
+
 	};
 
 	return (
@@ -326,7 +335,27 @@ const AddNewTourForm = (props) => {
 													</div>
 												</div>
 
+												<div className="control-group">
+																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+																	<label><b>Hotel's id</b></label>
+																	<div class="row" >
+																		<div class="form-group col-lg-10">
+																			<input
 
+																				className={"form-control"}
+																				placeholder="Hotel's id"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
+
+																				onChange={(e) => setHotelId(e.target.value)}
+																				value={hotelId}
+																			/>
+																		</div>
+																	</div>
+																</div>
+															</div>
 
 												<div className="form-group text-center">
 													<button
@@ -439,30 +468,10 @@ const AddNewTourForm = (props) => {
 																</div>
 															</div>
 
-															<div className="control-group">
-																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
-																	<label><b>Hotel's id</b></label>
-																	<div class="row" >
-																		<div class="form-group col-lg-10">
-																			<input
-
-																				className={"form-control"}
-																				placeholder="Hotel's id"
-																				aria-describedby="basic-addon1"
-																				id="name"
-																				type="text"
-																				style={{ backgroundColor: 'white', outline: 'none' }}
-
-																				onChange={(e) => setHotelId(e.target.value)}
-																				value={hotelId}
-																			/>
-																		</div>
-																	</div>
-																</div>
-															</div>
+															
 
 															<h6>Contact information about partner</h6>
-															<h6>  </h6>
+															<br/>
 															<div className="control-group">
 																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
 																	<label><b>Phone</b></label>
@@ -580,7 +589,7 @@ const AddNewTourForm = (props) => {
 
 									style={{
 										tableLayout: "fixed",
-										
+
 									}}
 									icons={tableIcons}
 									columns={[
@@ -630,6 +639,7 @@ const AddNewTourForm = (props) => {
 								</button>
 							</div>
 
+							<br />
 
 
 

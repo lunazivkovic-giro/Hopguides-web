@@ -89,6 +89,7 @@ function addMenu( tf, dispatch) {
 	}
 
 	function success() {
+		window.location.reload()
 		return { type: reportConstants.MENU_SUBMIT_SUCCESS };
 	}
 	function failure(error) {

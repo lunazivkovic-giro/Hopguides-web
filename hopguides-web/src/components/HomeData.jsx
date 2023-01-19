@@ -36,9 +36,9 @@ import { useParams } from 'react-router-dom';
 import { homeDataConstants } from "../constants/HomeDataConstants";
 import { reportConstants } from "../constants/ReportConstants";
 import EditIcon from '@mui/icons-material/Edit';
-
+import LaunchIcon from '@mui/icons-material/Launch';
 import Axios from "axios";
-import { authHeader } from "../helpers/auth-header";
+import { deleteLocalStorage, authHeader } from "../helpers/auth-header";
 
 var url = process.env.REACT_APP_URL || "http://localhost:3000/";
 const tableIcons = {
@@ -82,6 +82,11 @@ const HomeData = forwardRef((props, ref) => {
 
     getDocumentsInfoHandler();
   };
+
+  const handleLogout = () => {
+    deleteLocalStorage();
+    window.location = "#/login";
+};
 
 
   useEffect(() => {
@@ -140,10 +145,17 @@ const HomeData = forwardRef((props, ref) => {
   };
 
 
+  const visitWebsite = (e, data) => {
+
+    window.location = "#/report/" + data;
+  };
+
+  
   const updateMenu = (e, data) => {
 
     dispatch({ type: homeDataConstants.SHOW_ADD_MENU_MODAL, data });
   };
+
 
   const addNew = (e) => {
 
@@ -191,6 +203,17 @@ const HomeData = forwardRef((props, ref) => {
           Log in
         </button>
       </div>}
+
+      {role && <div class=" button-login">
+                <button
+                    type="button"
+                    onClick={handleLogout}
+                    class="btn btn-primary btn-lg"
+                >
+                    Log out
+                </button>
+            </div>}
+
       <h1 class="paragraph-box">Tourism Ljubljana</h1>
       <div class="contact-box">
         <TableContainer component={Paper}>
@@ -257,13 +280,14 @@ const HomeData = forwardRef((props, ref) => {
         icons={tableIcons}
         columns={[
 
+       
           {
             title: "Name", field: "tourName",
             editable: "never"
           },
           {
-            title: "Price",
             field: "tourPrice",
+            title: 'Price',
           },
           {
             title: "Number of executed tours for current month", field: "noOfRidesAMonth",
@@ -322,8 +346,6 @@ const HomeData = forwardRef((props, ref) => {
       />
 
 
-
-
       {homeDataState.toursWithPoints.toursWithPoints.map((tour, i) =>
 
         <div style={{ marginTop: "100px" }} id={tour.tourId}>
@@ -339,10 +361,35 @@ const HomeData = forwardRef((props, ref) => {
             }}
             icons={tableIcons}
             columns={[
-           
+              {
+                title: "Visit website",
+                render: (rowData) => {
+                  const button = (
+                    <Button
+                      color="inherit"
+                      onClick={(event) => {
+                        
+                        visitWebsite(event, rowData.point.id)
+                      }}
+                    >
+                <LaunchIcon/>
+                
+                    </Button>
+                  );
+                  return button;
+                }
+              },
               { title: "Partners", field: "point.title.en", editable: "never" },
-              { title: "Partner responsible person", field: "point.contact.email" },
-              { title: "Price", field: "point.price", },
+              {
+                render: (tour) => {
+                  return `${tour.point.contact.email}, ${tour.point.contact.phone}`;
+                },
+                title: 'Partner responsible person',editable: "never"
+              },
+              {
+                field: "point.price",
+                title: 'Price',
+              },
               { title: "Offer name", field: "", },
               {
                 title: "Update menu photo",
@@ -392,10 +439,12 @@ const HomeData = forwardRef((props, ref) => {
               filtering: false,
               paging: false,
               actionsColumnIndex: -1,
-              headerStyle: { top: 0, bottom: 0, fontSize: "1em" },
+              headerStyle: { top: 0, bottom: 0, fontSize: "1em" , backgroundColor: "#DCE4FF"},
               maxBodyHeight: "70vh",
 
             }}
+
+          
             localization={{
               header: {
                 actions: "Update"

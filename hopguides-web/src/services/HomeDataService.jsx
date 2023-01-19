@@ -28,7 +28,7 @@ function addTour(tour, dispatch) {
 		.then((res) => {
 			if (res.status === 200) {
 				dispatch(success());
-				window.location.refresh()
+				window.location.reload()
 			} else if (res.status === 215) {
 				dispatch(failure(res.data.response));
 			}else{
@@ -132,7 +132,6 @@ async function getPreviousMonthsData(dispatch ,id) {
 	dispatch(request());
 	
 	if(id==""){
-		console.log("allalalal")
 		id = "x"
 	}
 	console.log(id)
@@ -237,9 +236,11 @@ async function getQrCode(dispatch,id) {
 
 	const FileDownload = require("js-file-download");
 
+
 	await Axios.get(`${url}api/reports/qr/ `+id, { headers: { Authorization: token} , validateStatus: () => true,  responseType: 'blob'})
 		.then((res) => {
 			if (res.status === 200) {
+				console.log(res.data)
 				FileDownload(res.data, id.trim() + ".png");
 				//window.location.reload(true);
 			}

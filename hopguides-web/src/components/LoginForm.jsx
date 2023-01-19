@@ -32,10 +32,10 @@ const LoginForm = () => {
    
 
 
-        <div class="login-page">
+        <div class="login-page2">
           <div class="image-div">
             <img
-              src={process.env.PUBLIC_URL + 'assets/img/logo.png'}
+              src={process.env.PUBLIC_URL + 'assets/img/logo2.png'}
               alt="SteriPro"
               style={{ maxWidth: "130px", width: "100%", marginBottom: "30px" }}
             ></img>

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { ReportContext } from "../contexts/ReportContext";
 import { reportService } from "../services/ReportService";
 import { reportConstants } from "../constants/ReportConstants";
-import { authHeader } from "../helpers/auth-header";
+import { deleteLocalStorage, authHeader } from "../helpers/auth-header";
 import Axios from "axios";
 
 
@@ -68,6 +68,11 @@ const Report = () => {
     };
 
 
+    const handleLogout = () => {
+        deleteLocalStorage();
+        window.location = "#/login";
+    };
+
 
     function BoldText({ children }) {
         return (
@@ -99,10 +104,20 @@ const Report = () => {
                 </button>
             </div>}
 
+            {role && <div class=" button-login">
+                <button
+                    type="button"
+                    onClick={handleLogout}
+                    class="btn btn-primary btn-lg"
+                >
+                    Log out
+                </button>
+            </div>}
+
             <div class="hotelcontact-box" >
                 <p style={{ fontWeight: "bold" }}>Hotel name:  {reportState.report.bpartnerName} </p>
 
-                <p> Contact: Email: {reportState.report.bpartnerEmail}  Phone: {reportState.report.bpratnerPhone}</p>
+                <p style={{ fontWeight: "bold" }}> Contact: </p><p>Email: {reportState.report.bpartnerEmail} </p><p> Phone: {reportState.report.bpratnerPhone}</p>
 
 
             </div>

@@ -38,7 +38,6 @@ export const reportReducer = (state, action) => {
 
 		case reportConstants.SHOW_ADD_MENU_MODAL:
 
-		console.log("Evo meeee")
 			return {
 				...state,
 				report: {
@@ -83,12 +82,14 @@ export const reportReducer = (state, action) => {
 			for (var report of action.data) {
 				if (report.from.length == 5) {
 					var month = report.from.charAt(0)
+					month = parseInt(month) + 1
 					var year = report.from.substring(1, 5)
 					var count = report.count
 					var obj = { count, month, year }
 					arrReports.push(obj)
 				} else {
 					var month = report.from.substring(0, 1)
+					month = parseInt(month) + 1
 					var year = report.from.substring(2, 6)
 					var count = report.count
 					var obj = { count, month, year }
