@@ -115,7 +115,7 @@ const Report = () => {
             </div>}
 
             <div class="hotelcontact-box" >
-                <p style={{ fontWeight: "bold" }}>Hotel name:  {reportState.report.bpartnerName} </p>
+                <p style={{ fontWeight: "bold" }}>Provider name:  {reportState.report.bpartnerName} </p>
 
                 <p style={{ fontWeight: "bold" }}> Contact: </p><p>Email: {reportState.report.bpartnerEmail} </p><p> Phone: {reportState.report.bpratnerPhone}</p>
 

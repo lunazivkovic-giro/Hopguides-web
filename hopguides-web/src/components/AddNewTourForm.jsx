@@ -1,5 +1,5 @@
 
-import React, { useContext, useEffect, useState, forwardRef, } from "react";
+import React, { useContext, useEffect, useState, forwardRef, useRef } from "react";
 import Paper from "@material-ui/core/Paper";
 import { homeDataService } from "../services/HomeDataService";
 import { HomeDataContext } from "../contexts/HomeDataContext";
@@ -23,10 +23,15 @@ import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 
+import { YMaps, Map } from "react-yandex-maps";
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { useParams } from 'react-router-dom';
 
-
+const mapState = {
+	center: [44, 21],
+	zoom: 8,
+	controls: [],
+};
 const tableIcons = {
 	Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
 	Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -55,22 +60,58 @@ const tableIcons = {
 var url = process.env.REACT_APP_URL || "http://localhost:3000/";
 const AddNewTourForm = (props) => {
 
+	//const [addressInput, setAddressInput] =  React.createRef();
+
+	/*const addressInput = React.forwardRef(({ children }, ref) => {
+		return <li ref={ref}>{children}</li>;
+	});
+*/
+	const addressInput = React.createRef(null);
+
+
 	const [title, setTitle] = useState("");
 	const [shortInfo, setShortInfo] = useState("");
 	const [longInfo, setLongInfo] = useState("");
-	const [price, setPrice] = useState("");
+	const [price, setPrice] = useState("_€ incl tax");
 
 	const [titlePoint, setTitlePoint] = useState("");
 	const [shortInfoPoint, setShortInfoPoint] = useState("");
 	const [longInfoPoint, setLongInfoPoint] = useState("");
+	const [pointPrice, setPointPrice] = useState("_€ incl tax");
+	const [offerName, setOfferName] = useState("");
 	const [hotelId, setHotelId] = useState("");
 
 
 	const [location, setLocation] = useState("");
 	const [phone, setPhone] = useState("");
+	const [ymaps, setYmaps] = useState(null);
 	const [email, setEmail] = useState("");
-	const [address, setAddress] = useState("");
 	const [webURL, setWebUrl] = useState("");
+
+
+	const [mondayFrom, setMondayFrom] = useState("");
+	const [mondayTo, setMondayTo] = useState("");
+	const [tuesdayFrom, setTuesdayFrom] = useState("");
+	const [tuesdayTo, setTuesdayTo] = useState("");
+	const [wednesdayFrom, setWednesdayFrom] = useState("");
+	const [wednesdayTo, setWednesdayTo] = useState("");
+	const [thursdayFrom, setThursdayFrom] = useState("");
+	const [thursdayTo, setThursdayTo] = useState("");
+	const [fridayFrom, setFridayFrom] = useState("");
+	const [fridayTo, setFridayTo] = useState("");
+	const [saturdayFrom, setSaturdayFrom] = useState("");
+	const [saturdayTo, setSaturdayTo] = useState("");
+	const [sundayFrom, setSundayFrom] = useState("");
+	const [sundayTo, setSundayTo] = useState("");
+
+	const [mondayclosed, setMondayClosed] = useState(false);
+	const [tuesdayclosed, setTuesdayClosed] = useState(false);
+	const [wednesdayclosed, setWednesdayClosed] = useState(false);
+	const [thursdayclosed, setThursdayClosed] = useState(false);
+	const [fridayclosed, setFridayClosed] = useState(false);
+	const [saturdayclosed, setSaturdayClosed] = useState(false);
+	const [sundayclosed, setSundayClosed] = useState(false);
+
 
 	const [errMessage, setErrMessage] = useState("");
 	const [points, setPoints] = useState([]);
@@ -91,6 +132,15 @@ const AddNewTourForm = (props) => {
 		console.log(files)
 	}
 
+
+	const onYmapsLoad = (ymaps) => {
+		setYmaps(ymaps)
+		new ymaps.SuggestView(addressInput.current, {
+			provider: {
+				suggest: (request, options) => ymaps.suggest(request),
+			},
+		});
+	};
 
 	const fileData = () => {
 		if (file) {
@@ -193,31 +243,71 @@ const AddNewTourForm = (props) => {
 		setAdd(true)
 
 	};
+
+
 	const handleAdd = (e) => {
 
 
 		setAdd(false)
-		var point = {
-			title: { en: titlePoint },
-			shortInfo: { en: shortInfoPoint },
-			longInfo: { en: longInfoPoint },
-			contact: { phone: phone, email: email, address: address, webURL: webURL },
-			//menu: string;
-			bpartnerId: hotelId
-		}
-		const newData = [point, ...points];
 
-		setPoints(newData)
-		setTitlePoint("")
-		setShortInfoPoint("")
-		setLongInfoPoint("")
-		setPhone("")
-		setEmail("")
-		setAddress("")
-		setWebUrl("")
-		setLocation("")
+		let street;
+		let city;
+		let country;
+		let latitude;
+		let longitude;
+		let found = true;
+		ymaps.geocode(addressInput.current.value, {
+			results: 1,
+		})
+			.then(function (res) {
 
-	};
+				if (typeof res.geoObjects.get(0) === "undefined") found = false;
+				else {
+					var firstGeoObject = res.geoObjects.get(0),
+						coords = firstGeoObject.geometry.getCoordinates();
+
+					console.log(firstGeoObject)
+					latitude = coords[0];
+					longitude = coords[1];
+					country = firstGeoObject.getCountry();
+					street = firstGeoObject.getThoroughfare();
+					city = firstGeoObject.getLocalities().join(", ");
+				}
+			})
+			.then((res) => {
+
+				var point = {
+					title: { en: titlePoint },
+					shortInfo: { en: shortInfoPoint },
+					longInfo: { en: longInfoPoint },
+					price: pointPrice,
+					offerName: offerName,
+					contact: { phone: phone, email: email, webURL: webURL },
+					location: { street: street, country: country, city: city, latitude: latitude, longitude: longitude },
+					workingHours: { monday: {from: mondayFrom, to: mondayTo}, tuesday: {from: tuesdayFrom, to: tuesdayTo}, wednesday: {from: wednesdayFrom, to: wednesdayTo}, thursday: {from: thursdayFrom, to: thursdayTo}, friday: {from: fridayFrom, to: fridayTo} , saturday: {from: saturdayFrom, to: saturdayTo} , sunday: {from: sundayFrom, to: sundayTo} },
+					bpartnerId: hotelId
+				}
+
+				console.log(point.location)
+				const newData = [point, ...points];
+
+				setPoints(newData)
+				setTitlePoint("")
+				setShortInfoPoint("")
+				setLongInfoPoint("")
+				setPointPrice("")
+				setPhone("")
+				setEmail("")
+				//setAddressInput(null)
+				setWebUrl("")
+				setLocation("")
+
+
+			});
+	}
+
+
+
 
 	return (
 		<Modal
@@ -336,26 +426,26 @@ const AddNewTourForm = (props) => {
 												</div>
 
 												<div className="control-group">
-																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
-																	<label><b>Hotel's id</b></label>
-																	<div class="row" >
-																		<div class="form-group col-lg-10">
-																			<input
+													<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+														<label><b>Hotel's id</b></label>
+														<div class="row" >
+															<div class="form-group col-lg-10">
+																<input
 
-																				className={"form-control"}
-																				placeholder="Hotel's id"
-																				aria-describedby="basic-addon1"
-																				id="name"
-																				type="text"
-																				style={{ backgroundColor: 'white', outline: 'none' }}
+																	className={"form-control"}
+																	placeholder="Hotel's id"
+																	aria-describedby="basic-addon1"
+																	id="name"
+																	type="text"
+																	style={{ backgroundColor: 'white', outline: 'none' }}
 
-																				onChange={(e) => setHotelId(e.target.value)}
-																				value={hotelId}
-																			/>
-																		</div>
-																	</div>
-																</div>
+																	onChange={(e) => setHotelId(e.target.value)}
+																	value={hotelId}
+																/>
 															</div>
+														</div>
+													</div>
+												</div>
 
 												<div className="form-group text-center">
 													<button
@@ -445,33 +535,398 @@ const AddNewTourForm = (props) => {
 																	</div>
 																</div>
 															</div>
-
 															<div className="control-group">
 																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
-																	<label><b>Location</b></label>
+																	<label><b>Price</b></label>
 																	<div class="row" >
 																		<div class="form-group col-lg-10">
 																			<input
 
 																				className={"form-control"}
-																				placeholder="Location"
+																				placeholder="Price"
 																				aria-describedby="basic-addon1"
 																				id="name"
 																				type="text"
 																				style={{ backgroundColor: 'white', outline: 'none' }}
 
-																				onChange={(e) => setLocation(e.target.value)}
-																				value={location}
+																				onChange={(e) => setPointPrice(e.target.value)}
+																				value={pointPrice}
 																			/>
 																		</div>
 																	</div>
 																</div>
 															</div>
+															<div className="control-group">
+																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+																	<label><b>Offer name</b></label>
+																	<div class="row" >
+																		<div class="form-group col-lg-10">
+																			<input
 
-															
+																				className={"form-control"}
+																				placeholder="Offer name"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
 
-															<h6>Contact information about partner</h6>
-															<br/>
+																				onChange={(e) => setOfferName(e.target.value)}
+																				value={offerName}
+																			/>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<div className="control-group">
+																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+																	<label><b>Address</b></label>
+																	<div class="row" >
+																		<div class="form-group col-lg-10">
+																			<input className="form-control" id="suggest" ref={addressInput} placeholder="Address" />
+
+																			<YMaps
+																				query={{
+																					load: "package.full",
+																					apikey: "b0ea2fa3-aba0-4e44-a38e-4e890158ece2",
+																					lang: "en_RU",
+																				}}
+																			>
+																				<Map
+																					style={{ display: "none" }}
+																					state={mapState}
+																					onLoad={onYmapsLoad}
+																					instanceRef={(map) => (map = map)}
+																					modules={["coordSystem.geo", "geocode", "util.bounds"]}
+																				></Map>
+																			</YMaps>
+																		</div>
+																	</div>
+																</div>
+															</div>
+
+															<h6><b>Working hours </b></h6>
+															<br />
+
+															<div className="control-group">
+																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+																	<label><b>Monday</b></label>
+
+																	<br />
+																	<label>
+																		<input
+																			type="checkbox"
+																			checked={mondayclosed}
+																			onChange={(e) => setMondayClosed(!mondayclosed)}
+																		/>
+																		closed
+																	</label>
+																	{!mondayclosed && <div class="row" >
+
+																		<span  >
+																			<input
+
+																				className={"form-control "}
+																				placeholder="From"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
+
+																				onChange={(e) => setMondayFrom(e.target.value)}
+																				value={mondayFrom}
+																			/>
+																		</span>
+																		<span >
+																			<input
+
+																				className={"form-control "}
+																				placeholder="To"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
+
+																				onChange={(e) => setMondayTo(e.target.value)}
+																				value={mondayTo}
+																			/></span>
+																	</div>}
+																</div>
+															</div>
+
+															<div className="control-group">
+																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+																	<label><b>Tuesday</b></label>
+																	<br />
+																	<label>
+																		<input
+																			type="checkbox"
+																			checked={tuesdayclosed}
+																			onChange={(e) => setTuesdayClosed(!tuesdayclosed)}
+																		/>
+																		closed
+																	</label>
+																	{!tuesdayclosed && <div class="row" >
+
+																		<span  >
+																			<input
+
+																				className={"form-control "}
+																				placeholder="From"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
+
+																				onChange={(e) => setTuesdayFrom(e.target.value)}
+																				value={tuesdayFrom}
+																			/>
+																		</span>
+																		<span >
+																			<input
+
+																				className={"form-control "}
+																				placeholder="To"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
+
+																				onChange={(e) => setTuesdayTo(e.target.value)}
+																				value={tuesdayTo}
+																			/></span>
+																	</div>}
+																</div>
+															</div>
+
+															<div className="control-group">
+																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+																	<label><b>Wednesday</b></label>
+																	<br />
+																	<label>
+																		<input
+																			type="checkbox"
+																			checked={wednesdayclosed}
+																			onChange={(e) => setWednesdayClosed(!wednesdayclosed)}
+																		/>
+																		closed
+																	</label>
+																	{!wednesdayclosed && <div class="row" >
+
+																		<span  >
+																			<input
+
+																				className={"form-control "}
+																				placeholder="From"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
+
+																				onChange={(e) => setWednesdayFrom(e.target.value)}
+																				value={wednesdayFrom}
+																			/>
+																		</span>
+																		<span >
+																			<input
+
+																				className={"form-control "}
+																				placeholder="To"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
+
+																				onChange={(e) => setWednesdayTo(e.target.value)}
+																				value={wednesdayTo}
+																			/></span>
+																	</div>}
+																</div>
+															</div>
+
+															<div className="control-group">
+																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+																	<label><b>Thursday</b></label>
+																	<br />
+																	<label>
+																		<input
+																			type="checkbox"
+																			checked={thursdayclosed}
+																			onChange={(e) => setThursdayClosed(!thursdayclosed)}
+																		/>
+																		closed
+																	</label>
+																	{!thursdayclosed && <div class="row" >
+
+																		<span  >
+																			<input
+
+																				className={"form-control "}
+																				placeholder="From"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
+
+																				onChange={(e) => setThursdayFrom(e.target.value)}
+																				value={thursdayFrom}
+																			/>
+																		</span>
+																		<span >
+																			<input
+
+																				className={"form-control "}
+																				placeholder="To"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
+
+																				onChange={(e) => setThursdayTo(e.target.value)}
+																				value={thursdayTo}
+																			/></span>
+																	</div>}
+																</div>
+															</div>
+
+															<div className="control-group">
+																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+																	<label><b>Friday</b></label>
+																	<br />
+																	<label>
+																		<input
+																			type="checkbox"
+																			checked={fridayclosed}
+																			onChange={(e) => setFridayClosed(!fridayclosed)}
+																		/>
+																		closed
+																	</label>
+																	{!fridayclosed && <div class="row" >
+																		<span  >
+																			<input
+
+																				className={"form-control "}
+																				placeholder="From"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
+
+																				onChange={(e) => setFridayFrom(e.target.value)}
+																				value={fridayFrom}
+																			/>
+																		</span>
+																		<span >
+																			<input
+
+																				className={"form-control "}
+																				placeholder="To"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
+
+																				onChange={(e) => setFridayTo(e.target.value)}
+																				value={fridayTo}
+																			/></span>
+																	</div>}
+																</div>
+															</div>
+
+															<div className="control-group">
+																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+																	<label><b>Saturday</b></label>
+																	<br />
+																	<label>
+																		<input
+																			type="checkbox"
+																			checked={saturdayclosed}
+																			onChange={(e) => setSaturdayClosed(!saturdayclosed)}
+																		/>
+																		closed
+																	</label>
+																	{!saturdayclosed && <div class="row" >
+
+																		<span  >
+																			<input
+
+																				className={"form-control "}
+																				placeholder="From"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
+
+																				onChange={(e) => setSaturdayFrom(e.target.value)}
+																				value={saturdayFrom}
+																			/>
+																		</span>
+																		<span >
+																			<input
+
+																				className={"form-control "}
+																				placeholder="To"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
+
+																				onChange={(e) => setSaturdayTo(e.target.value)}
+																				value={saturdayTo}
+																			/></span>
+																	</div>}
+																</div>
+															</div>
+
+															<div className="control-group">
+																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+																	<label><b>Sunday</b></label>
+																	<br />
+																	<label>
+																		<input
+																			type="checkbox"
+																			checked={sundayclosed}
+																			onChange={(e) => setSundayClosed(!sundayclosed)}
+																		/>
+																		closed
+																	</label>
+																	{!sundayclosed && <div class="row" >
+
+																		<span  >
+																			<input
+
+																				className={"form-control "}
+																				placeholder="From"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
+
+																				onChange={(e) => setSundayFrom(e.target.value)}
+																				value={sundayFrom}
+																			/>
+																		</span>
+																		<span >
+																			<input
+
+																				className={"form-control "}
+																				placeholder="To"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
+
+																				onChange={(e) => setSundayTo(e.target.value)}
+																				value={sundayTo}
+																			/></span>
+																	</div>}
+																</div>
+															</div>
+
+
+															<br />
+
+															<h6><b>Contact information about partner</b></h6>
+															<br />
 															<div className="control-group">
 																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
 																	<label><b>Phone</b></label>
@@ -510,28 +965,6 @@ const AddNewTourForm = (props) => {
 
 																				onChange={(e) => setEmail(e.target.value)}
 																				value={email}
-																			/>
-																		</div>
-																	</div>
-																</div>
-															</div>
-
-															<div className="control-group">
-																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
-																	<label><b>Address</b></label>
-																	<div class="row" >
-																		<div class="form-group col-lg-10">
-																			<input
-
-																				className={"form-control"}
-																				placeholder="Address"
-																				aria-describedby="basic-addon1"
-																				id="name"
-																				type="text"
-																				style={{ backgroundColor: 'white', outline: 'none' }}
-
-																				onChange={(e) => setAddress(e.target.value)}
-																				value={address}
 																			/>
 																		</div>
 																	</div>
@@ -602,11 +1035,31 @@ const AddNewTourForm = (props) => {
 											field: "longInfo.en",
 										},
 										{ title: "Hotel id", field: "bpartnerId" },
-										{ title: "Location", field: "location" },
 										{ title: "Email", field: "contact.email" },
 										{ title: "Phone", field: "contact.phone" },
-										{ title: "Address", field: "contact.address" },
 										{ title: "Web page", field: "contact.webURL" },
+
+										{
+											render: (point) => {
+												return `${point.location.street}  ${point.location.city} ${point.location.country} ${point.location.latitute}  ${point.location.longitude}`;
+											},
+											title: 'Location',
+										},
+
+										{
+											render: (point) => {
+												return `Monday: ${point.workingHours.monday.from} - ${point.workingHours.monday.to}  
+												Tuesday: ${point.workingHours.tuesday.from} - ${point.workingHours.tuesday.to}
+												Wednesday: ${point.workingHours.wednesday.from} - ${point.workingHours.wednesday.to}  
+												Thursday: ${point.workingHours.thursday.from} - ${point.workingHours.thursday.to}  
+												Friday: ${point.workingHours.friday.from} - ${point.workingHours.friday.to}    
+												Saturday: ${point.workingHours.saturday.from} - ${point.workingHours.saturday.to}    
+												Sunday: ${point.workingHours.sunday.from} - ${point.workingHours.sunday.to}       `;
+											},
+											title: 'Working hours',
+										},
+
+
 
 									]}
 									actions={[
@@ -652,11 +1105,11 @@ const AddNewTourForm = (props) => {
 					</Paper>
 
 				</div>
-			</Modal.Body>
+			</Modal.Body >
 			<Modal.Footer>
 			</Modal.Footer>
 
-		</Modal>
+		</Modal >
 
 
 	);

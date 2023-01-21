@@ -390,7 +390,7 @@ const HomeData = forwardRef((props, ref) => {
                 field: "point.price",
                 title: 'Price',
               },
-              { title: "Offer name", field: "", },
+              { title: "Offer name", field: "point.offerName", },
               {
                 title: "Update menu photo",
                 render: (rowData) => {
