@@ -18,7 +18,6 @@ export const homeDataService = {
 
 function addTour(tour, dispatch) {
 
-	console.log( tour)
 	dispatch(request());
 	var token = authHeader()
 	Axios.post(`${url}api/pnl/tour/add`, tour, {

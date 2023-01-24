@@ -15,6 +15,8 @@ const ReportContextProvider = (props) => {
 			bpartnerName : "",
 			bpartnerEmail: "",
 			bpratnerPhone: "",
+			bpratnerPhone2: "",
+			offerName: "",
 			showModal: false,
 		},
 

@@ -18,6 +18,8 @@ export const reportReducer = (state, action) => {
 					bpartnerName : action.data.bpartnerName,
 					bpartnerEmail: action.data.bpartnerEmail,
 					bpratnerPhone: action.data.bpratnerPhone,
+					bpratnerPhone2: action.data.bpratnerPhone2,
+					offerName: action.data.offerName,
 				},
 
 

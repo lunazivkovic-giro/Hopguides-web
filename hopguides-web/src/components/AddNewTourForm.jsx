@@ -23,6 +23,10 @@ import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
 
+import TextField from '@mui/material/TextField';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { YMaps, Map } from "react-yandex-maps";
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { useParams } from 'react-router-dom';
@@ -79,13 +83,12 @@ const AddNewTourForm = (props) => {
 	const [longInfoPoint, setLongInfoPoint] = useState("");
 	const [pointPrice, setPointPrice] = useState("_€ incl tax");
 	const [offerName, setOfferName] = useState("");
-	const [hotelId, setHotelId] = useState("");
-
 
 	const [location, setLocation] = useState("");
 	const [phone, setPhone] = useState("");
 	const [ymaps, setYmaps] = useState(null);
 	const [email, setEmail] = useState("");
+	const [responsiblePerson, setResponsiblePerson] = useState("");
 	const [webURL, setWebUrl] = useState("");
 
 
@@ -282,10 +285,10 @@ const AddNewTourForm = (props) => {
 					longInfo: { en: longInfoPoint },
 					price: pointPrice,
 					offerName: offerName,
-					contact: { phone: phone, email: email, webURL: webURL },
+					contact: { phone: phone, email: email, webURL: webURL, name: responsiblePerson },
 					location: { street: street, country: country, city: city, latitude: latitude, longitude: longitude },
-					workingHours: { monday: {from: mondayFrom, to: mondayTo}, tuesday: {from: tuesdayFrom, to: tuesdayTo}, wednesday: {from: wednesdayFrom, to: wednesdayTo}, thursday: {from: thursdayFrom, to: thursdayTo}, friday: {from: fridayFrom, to: fridayTo} , saturday: {from: saturdayFrom, to: saturdayTo} , sunday: {from: sundayFrom, to: sundayTo} },
-					bpartnerId: hotelId
+					workingHours: { monday: { from: mondayFrom, to: mondayTo }, tuesday: { from: tuesdayFrom, to: tuesdayTo }, wednesday: { from: wednesdayFrom, to: wednesdayTo }, thursday: { from: thursdayFrom, to: thursdayTo }, friday: { from: fridayFrom, to: fridayTo }, saturday: { from: saturdayFrom, to: saturdayTo }, sunday: { from: sundayFrom, to: sundayTo } },
+
 				}
 
 				console.log(point.location)
@@ -298,6 +301,7 @@ const AddNewTourForm = (props) => {
 				setPointPrice("")
 				setPhone("")
 				setEmail("")
+				setResponsiblePerson("")
 				//setAddressInput(null)
 				setWebUrl("")
 				setLocation("")
@@ -425,27 +429,7 @@ const AddNewTourForm = (props) => {
 													</div>
 												</div>
 
-												<div className="control-group">
-													<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
-														<label><b>Hotel's id</b></label>
-														<div class="row" >
-															<div class="form-group col-lg-10">
-																<input
 
-																	className={"form-control"}
-																	placeholder="Hotel's id"
-																	aria-describedby="basic-addon1"
-																	id="name"
-																	type="text"
-																	style={{ backgroundColor: 'white', outline: 'none' }}
-
-																	onChange={(e) => setHotelId(e.target.value)}
-																	value={hotelId}
-																/>
-															</div>
-														</div>
-													</div>
-												</div>
 
 												<div className="form-group text-center">
 													<button
@@ -623,32 +607,28 @@ const AddNewTourForm = (props) => {
 																	{!mondayclosed && <div class="row" >
 
 																		<span  >
-																			<input
-
-																				className={"form-control "}
-																				placeholder="From"
-																				aria-describedby="basic-addon1"
-																				id="name"
-																				type="text"
-																				style={{ backgroundColor: 'white', outline: 'none' }}
-
-																				onChange={(e) => setMondayFrom(e.target.value)}
-																				value={mondayFrom}
-																			/>
+																			<LocalizationProvider dateAdapter={AdapterDayjs}>
+																				<TimePicker
+																					label="From"
+																					value={mondayFrom}
+																					onChange={(newValue) => {
+																						setMondayFrom(newValue);
+																					}}
+																					renderInput={(params) => <TextField {...params}  error={false}/>}
+																				/>
+																			</LocalizationProvider>
 																		</span>
 																		<span >
-																			<input
-
-																				className={"form-control "}
-																				placeholder="To"
-																				aria-describedby="basic-addon1"
-																				id="name"
-																				type="text"
-																				style={{ backgroundColor: 'white', outline: 'none' }}
-
-																				onChange={(e) => setMondayTo(e.target.value)}
-																				value={mondayTo}
-																			/></span>
+																			<LocalizationProvider dateAdapter={AdapterDayjs}>
+																				<TimePicker
+																					label="To"
+																					value={mondayTo}
+																					onChange={(newValue) => {
+																						setMondayTo(newValue);
+																					}}
+																					renderInput={(params) => <TextField {...params} error={false}/>}
+																				/>
+																			</LocalizationProvider></span>
 																	</div>}
 																</div>
 															</div>
@@ -668,32 +648,28 @@ const AddNewTourForm = (props) => {
 																	{!tuesdayclosed && <div class="row" >
 
 																		<span  >
-																			<input
-
-																				className={"form-control "}
-																				placeholder="From"
-																				aria-describedby="basic-addon1"
-																				id="name"
-																				type="text"
-																				style={{ backgroundColor: 'white', outline: 'none' }}
-
-																				onChange={(e) => setTuesdayFrom(e.target.value)}
-																				value={tuesdayFrom}
-																			/>
+																			<LocalizationProvider dateAdapter={AdapterDayjs}>
+																				<TimePicker
+																					label="From"
+																					value={tuesdayFrom}
+																					onChange={(newValue) => {
+																						setTuesdayFrom(newValue);
+																					}}
+																					renderInput={(params) => <TextField {...params} error={false}/>}
+																				/>
+																			</LocalizationProvider>
 																		</span>
 																		<span >
-																			<input
-
-																				className={"form-control "}
-																				placeholder="To"
-																				aria-describedby="basic-addon1"
-																				id="name"
-																				type="text"
-																				style={{ backgroundColor: 'white', outline: 'none' }}
-
-																				onChange={(e) => setTuesdayTo(e.target.value)}
-																				value={tuesdayTo}
-																			/></span>
+																			<LocalizationProvider dateAdapter={AdapterDayjs}>
+																				<TimePicker
+																					label="To"
+																					value={tuesdayTo}
+																					onChange={(newValue) => {
+																						setTuesdayTo(newValue);
+																					}}
+																					renderInput={(params) => <TextField {...params} error={false}/>}
+																				/>
+																			</LocalizationProvider></span>
 																	</div>}
 																</div>
 															</div>
@@ -713,32 +689,28 @@ const AddNewTourForm = (props) => {
 																	{!wednesdayclosed && <div class="row" >
 
 																		<span  >
-																			<input
-
-																				className={"form-control "}
-																				placeholder="From"
-																				aria-describedby="basic-addon1"
-																				id="name"
-																				type="text"
-																				style={{ backgroundColor: 'white', outline: 'none' }}
-
-																				onChange={(e) => setWednesdayFrom(e.target.value)}
-																				value={wednesdayFrom}
-																			/>
+																			<LocalizationProvider dateAdapter={AdapterDayjs}>
+																				<TimePicker
+																					label="From"
+																					value={wednesdayFrom}
+																					onChange={(newValue) => {
+																						setWednesdayFrom(newValue);
+																					}}
+																					renderInput={(params) => <TextField {...params} error={false}/>}
+																				/>
+																			</LocalizationProvider>
 																		</span>
 																		<span >
-																			<input
-
-																				className={"form-control "}
-																				placeholder="To"
-																				aria-describedby="basic-addon1"
-																				id="name"
-																				type="text"
-																				style={{ backgroundColor: 'white', outline: 'none' }}
-
-																				onChange={(e) => setWednesdayTo(e.target.value)}
-																				value={wednesdayTo}
-																			/></span>
+																			<LocalizationProvider dateAdapter={AdapterDayjs}>
+																				<TimePicker
+																					label="To"
+																					value={wednesdayTo}
+																					onChange={(newValue) => {
+																						setWednesdayTo(newValue);
+																					}}
+																					renderInput={(params) => <TextField {...params} error={false}/>}
+																				/>
+																			</LocalizationProvider></span>
 																	</div>}
 																</div>
 															</div>
@@ -758,32 +730,28 @@ const AddNewTourForm = (props) => {
 																	{!thursdayclosed && <div class="row" >
 
 																		<span  >
-																			<input
-
-																				className={"form-control "}
-																				placeholder="From"
-																				aria-describedby="basic-addon1"
-																				id="name"
-																				type="text"
-																				style={{ backgroundColor: 'white', outline: 'none' }}
-
-																				onChange={(e) => setThursdayFrom(e.target.value)}
-																				value={thursdayFrom}
-																			/>
+																			<LocalizationProvider dateAdapter={AdapterDayjs}>
+																				<TimePicker
+																					label="From"
+																					value={thursdayFrom}
+																					onChange={(newValue) => {
+																						setThursdayFrom(newValue);
+																					}}
+																					renderInput={(params) => <TextField {...params} error={false}/>}
+																				/>
+																			</LocalizationProvider>
 																		</span>
 																		<span >
-																			<input
-
-																				className={"form-control "}
-																				placeholder="To"
-																				aria-describedby="basic-addon1"
-																				id="name"
-																				type="text"
-																				style={{ backgroundColor: 'white', outline: 'none' }}
-
-																				onChange={(e) => setThursdayTo(e.target.value)}
-																				value={thursdayTo}
-																			/></span>
+																			<LocalizationProvider dateAdapter={AdapterDayjs}>
+																				<TimePicker
+																					label="To"
+																					value={thursdayTo}
+																					onChange={(newValue) => {
+																						setThursdayTo(newValue);
+																					}}
+																					renderInput={(params) => <TextField {...params} error={false}/>}
+																				/>
+																			</LocalizationProvider></span>
 																	</div>}
 																</div>
 															</div>
@@ -802,32 +770,28 @@ const AddNewTourForm = (props) => {
 																	</label>
 																	{!fridayclosed && <div class="row" >
 																		<span  >
-																			<input
-
-																				className={"form-control "}
-																				placeholder="From"
-																				aria-describedby="basic-addon1"
-																				id="name"
-																				type="text"
-																				style={{ backgroundColor: 'white', outline: 'none' }}
-
-																				onChange={(e) => setFridayFrom(e.target.value)}
-																				value={fridayFrom}
-																			/>
+																			<LocalizationProvider dateAdapter={AdapterDayjs}>
+																				<TimePicker
+																					label="From"
+																					value={fridayFrom}
+																					onChange={(newValue) => {
+																						setFridayFrom(newValue);
+																					}}
+																					renderInput={(params) => <TextField {...params} error={false} />}
+																				/>
+																			</LocalizationProvider>
 																		</span>
 																		<span >
-																			<input
-
-																				className={"form-control "}
-																				placeholder="To"
-																				aria-describedby="basic-addon1"
-																				id="name"
-																				type="text"
-																				style={{ backgroundColor: 'white', outline: 'none' }}
-
-																				onChange={(e) => setFridayTo(e.target.value)}
-																				value={fridayTo}
-																			/></span>
+																			<LocalizationProvider dateAdapter={AdapterDayjs}>
+																				<TimePicker
+																					label="To"
+																					value={fridayTo}
+																					onChange={(newValue) => {
+																						setFridayTo(newValue);
+																					}}
+																					renderInput={(params) => <TextField {...params} error={false} />}
+																				/>
+																			</LocalizationProvider></span>
 																	</div>}
 																</div>
 															</div>
@@ -847,32 +811,28 @@ const AddNewTourForm = (props) => {
 																	{!saturdayclosed && <div class="row" >
 
 																		<span  >
-																			<input
-
-																				className={"form-control "}
-																				placeholder="From"
-																				aria-describedby="basic-addon1"
-																				id="name"
-																				type="text"
-																				style={{ backgroundColor: 'white', outline: 'none' }}
-
-																				onChange={(e) => setSaturdayFrom(e.target.value)}
-																				value={saturdayFrom}
-																			/>
+																			<LocalizationProvider dateAdapter={AdapterDayjs}>
+																				<TimePicker
+																					label="From"
+																					value={saturdayFrom}
+																					onChange={(newValue) => {
+																						setSaturdayFrom(newValue);
+																					}}
+																					renderInput={(params) => <TextField {...params} error={false}/>}
+																				/>
+																			</LocalizationProvider>
 																		</span>
 																		<span >
-																			<input
-
-																				className={"form-control "}
-																				placeholder="To"
-																				aria-describedby="basic-addon1"
-																				id="name"
-																				type="text"
-																				style={{ backgroundColor: 'white', outline: 'none' }}
-
-																				onChange={(e) => setSaturdayTo(e.target.value)}
-																				value={saturdayTo}
-																			/></span>
+																			<LocalizationProvider dateAdapter={AdapterDayjs}>
+																				<TimePicker
+																					label="To"
+																					value={saturdayTo}
+																					onChange={(newValue) => {
+																						setSaturdayTo(newValue);
+																					}}
+																					renderInput={(params) => <TextField {...params} error={false}/>}
+																				/>
+																			</LocalizationProvider></span>
 																	</div>}
 																</div>
 															</div>
@@ -892,32 +852,28 @@ const AddNewTourForm = (props) => {
 																	{!sundayclosed && <div class="row" >
 
 																		<span  >
-																			<input
-
-																				className={"form-control "}
-																				placeholder="From"
-																				aria-describedby="basic-addon1"
-																				id="name"
-																				type="text"
-																				style={{ backgroundColor: 'white', outline: 'none' }}
-
-																				onChange={(e) => setSundayFrom(e.target.value)}
-																				value={sundayFrom}
-																			/>
+																			<LocalizationProvider dateAdapter={AdapterDayjs}>
+																				<TimePicker
+																					label="From"
+																					value={sundayFrom}
+																					onChange={(newValue) => {
+																						setSundayFrom(newValue);
+																					}}
+																					renderInput={(params) => <TextField {...params} error={false}/>}
+																				/>
+																			</LocalizationProvider>
 																		</span>
 																		<span >
-																			<input
-
-																				className={"form-control "}
-																				placeholder="To"
-																				aria-describedby="basic-addon1"
-																				id="name"
-																				type="text"
-																				style={{ backgroundColor: 'white', outline: 'none' }}
-
-																				onChange={(e) => setSundayTo(e.target.value)}
-																				value={sundayTo}
-																			/></span>
+																			<LocalizationProvider dateAdapter={AdapterDayjs}>
+																				<TimePicker
+																					label="To"
+																					value={sundayTo}
+																					onChange={(newValue) => {
+																						setSundayTo(newValue);
+																					}}
+																					renderInput={(params) => <TextField {...params}  error={false}/>}
+																				/>
+																			</LocalizationProvider></span>
 																	</div>}
 																</div>
 															</div>
@@ -927,6 +883,27 @@ const AddNewTourForm = (props) => {
 
 															<h6><b>Contact information about partner</b></h6>
 															<br />
+															<div className="control-group">
+																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
+																	<label><b>Responsible person name</b></label>
+																	<div class="row" >
+																		<div class="form-group col-lg-10">
+																			<input
+
+																				className={"form-control"}
+																				placeholder="Phone"
+																				aria-describedby="basic-addon1"
+																				id="name"
+																				type="text"
+																				style={{ backgroundColor: 'white', outline: 'none' }}
+
+																				onChange={(e) => setResponsiblePerson(e.target.value)}
+																				value={responsiblePerson}
+																			/>
+																		</div>
+																	</div>
+																</div>
+															</div>
 															<div className="control-group">
 																<div className="form-group controls mb-0 pb-2" style={{ color: "#6c757d", opacity: 1 }}>
 																	<label><b>Phone</b></label>
@@ -1034,7 +1011,7 @@ const AddNewTourForm = (props) => {
 											title: "Long description",
 											field: "longInfo.en",
 										},
-										{ title: "Hotel id", field: "bpartnerId" },
+										{ title: "Responsible person", field: "contact.name" },
 										{ title: "Email", field: "contact.email" },
 										{ title: "Phone", field: "contact.phone" },
 										{ title: "Web page", field: "contact.webURL" },

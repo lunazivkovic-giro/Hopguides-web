@@ -380,12 +380,13 @@ const HomeData = forwardRef((props, ref) => {
                 }
               },
               { title: "Partners", field: "point.title.en", editable: "never" },
-              {
-                render: (tour) => {
-                  return `${tour.point.contact.email}, ${tour.point.contact.phone}`;
-                },
-                title: 'Partner responsible person',editable: "never"
-              },
+              
+              { title: "Responsible person", field: "point.contact.name" },
+              
+              { title: "Contact email", field: "point.contact.email" },
+              
+              { title: "Contact phone", field: "point.contact.phone" },
+             
               {
                 field: "point.price",
                 title: 'Price',

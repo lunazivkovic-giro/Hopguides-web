@@ -30,7 +30,7 @@ const Report = () => {
 
         var token = authHeader()
         if (token == "null") {
-           // window.location = "#/unauthorized";
+            // window.location = "#/unauthorized";
         } else {
 
             Axios.get(`${url}api/users/getRole`, { headers: { Authorization: token } }, { validateStatus: () => true },
@@ -106,6 +106,15 @@ const Report = () => {
 
             {role && <div class=" button-login">
                 <button
+                    style={{ marginRight: "30px" }}
+                    type="button"
+                    onClick={handleLogout}
+                    class="btn btn-primary btn-lg"
+                >
+                    Print out page
+                </button>
+
+                <button
                     type="button"
                     onClick={handleLogout}
                     class="btn btn-primary btn-lg"
@@ -117,14 +126,19 @@ const Report = () => {
             <div class="hotelcontact-box" >
                 <p style={{ fontWeight: "bold" }}>Provider name:  {reportState.report.bpartnerName} </p>
 
-                <p style={{ fontWeight: "bold" }}> Contact: </p><p>Email: {reportState.report.bpartnerEmail} </p><p> Phone: {reportState.report.bpratnerPhone}</p>
+                <p style={{ fontWeight: "bold" }}> Contact: </p><p>Email: {reportState.report.bpartnerEmail} </p><p> Primary phone: {reportState.report.bpratnerPhone}</p><p> Secondary phone: {reportState.report.bpratnerPhone2}</p>
 
 
             </div>
 
+
             <div class="home-box">
-                <h2>Name:  {reportState.report.name}</h2>
-                <h2>Monthly usage:  {reportState.report.monthlyUsedCoupons || 0}</h2>
+
+                <p class="paragraph-box2">This is <b>{reportState.report.bpartnerName}</b> tourist package with digital tour guide GoGiro. You are included in <b>{reportState.report.name}</b> package <b>{reportState.report.offerName}</b>.  When the guest shows you a non used QR code this is valid confirmation that tourist has bought a <b>{reportState.report.name}</b> package
+                </p><br />
+
+                <h3><b>Tour name</b>:  {reportState.report.name}</h3>
+                <h3><b>Monthly usage</b>:  {reportState.report.monthlyUsedCoupons || 0}</h3>
                 <a class="abutton" href={"http://localhost:3001/#/previousReports/" + id}>Get previous reports</a>
             </div>
 
@@ -140,9 +154,9 @@ const Report = () => {
 
             <div class="image-box">
                 {
-                   
-                        <img alt="" src="/assets/img/Screenshot_2.png" />
-                  
+
+                    <img alt="" src="/assets/img/Screenshot_2.png" />
+
                 }
             </div>
 
@@ -154,10 +168,18 @@ const Report = () => {
 
             <div class="image-box">
                 {
-                   
-                        <img alt="" src="/assets/img/Screenshot_1.png" />
-                  
+
+                    <img alt="" src="/assets/img/Screenshot_1.png" />
+
                 }
+            </div>
+
+            <h4 class="header2">   </h4>
+            <div class="paragraph-box">
+
+
+                <h3><b>Offer name</b>:  {reportState.report.offerName}</h3>
+
             </div>
 
             {admin && <div class=" button-p">
@@ -171,7 +193,7 @@ const Report = () => {
             </div>}2
 
 
-            <div class="paragraph-box">
+            <div class="menu-box">
                 {
                     reportState.image ? (
                         <img alt="" src={reportState.image} />

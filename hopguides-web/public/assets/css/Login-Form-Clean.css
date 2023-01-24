@@ -66,6 +66,15 @@ img {
 
 }
 
+.menu-box {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+  margin: 0px auto 0px;
+  padding: 45px;
+  text-align: center;
+
+}
 
 ul {
   text-align: center;
