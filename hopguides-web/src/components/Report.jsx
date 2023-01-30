@@ -1,5 +1,5 @@
 
-import { useContext, React, useEffect, useState } from "react";
+import { useContext, React, useEffect, useState , forwardRef} from "react";
 import { useParams } from 'react-router-dom';
 import { ReportContext } from "../contexts/ReportContext";
 import { reportService } from "../services/ReportService";
@@ -9,7 +9,8 @@ import Axios from "axios";
 
 
 var url = process.env.REACT_APP_URL || "http://localhost:3000/";
-const Report = () => {
+
+const Report = forwardRef(( props, ref ) => {
     const { reportState, dispatch } = useContext(ReportContext);
 
     const [role, setRole] = useState(false);
@@ -93,35 +94,8 @@ const Report = () => {
     }
 
     return (
-        <div class="login-page">
-            {!role && <div class=" button-login">
-                <button
-                    type="button"
-                    onClick={handleLogin}
-                    class="btn btn-primary btn-lg"
-                >
-                    Log in
-                </button>
-            </div>}
-
-            {role && <div class=" button-login">
-                <button
-                    style={{ marginRight: "30px" }}
-                    type="button"
-                    onClick={handleLogout}
-                    class="btn btn-primary btn-lg"
-                >
-                    Print out page
-                </button>
-
-                <button
-                    type="button"
-                    onClick={handleLogout}
-                    class="btn btn-primary btn-lg"
-                >
-                    Log out
-                </button>
-            </div>}
+        <div class="login-page" ref={ref}>
+           
 
             <div class="hotelcontact-box" >
                 <p style={{ fontWeight: "bold" }}>Provider name:  {reportState.report.bpartnerName} </p>
@@ -190,7 +164,7 @@ const Report = () => {
                 >
                     Update menu image
                 </button>
-            </div>}2
+            </div>}
 
 
             <div class="menu-box">
@@ -203,7 +177,6 @@ const Report = () => {
                 }
             </div>
         </div>
-    );
-};
+)});
 
 export default Report;

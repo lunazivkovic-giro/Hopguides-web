@@ -51,6 +51,7 @@
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "4.0.3",
 		"react-time-picker": "^5.2.0",
+		"react-to-print": "^2.14.11",
 		"react-validation": "^3.0.7",
 		"react-widgets": "^5.2.0",
 		"react-yandex-maps": "^4.6.0",

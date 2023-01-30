@@ -363,6 +363,24 @@ body {
 .select-selected {
   background-color: DodgerBlue;
 }
+.parent {
+  background: mediumpurple;
+  padding: 3rem;
+}
+.child {
+  border: 1px solid indigo;
+  padding: 0.5rem;
+  border-radius: 10px;
+  width: 120px;
+}
+
+.inline-block-child {
+  display: inline-block;
+}
+
+.float-left-child {
+  float: right;
+}
 
 /* Style the arrow inside the select element: */
 .select-selected:after {

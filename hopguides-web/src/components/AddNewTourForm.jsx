@@ -129,6 +129,14 @@ const AddNewTourForm = (props) => {
 	const progressRef = React.useRef();
 
 
+
+	const [content, setContent] = useState('');
+	const [width, setWidth] = useState(0);
+	const span = useRef();
+
+
+
+
 	const onFileChange = (event) => {
 		setFile(event.target.files[0]);
 		setFiles({ ...files, ...event.target.files[0] });
@@ -312,7 +320,6 @@ const AddNewTourForm = (props) => {
 
 
 
-
 	return (
 		<Modal
 			show={homeDataState.showModal} aria-labelledby="contained-modal-title-vcenter" class="modal-dialog modal-lg" centered onHide={handleModalClose} size="lg">
@@ -338,7 +345,7 @@ const AddNewTourForm = (props) => {
 									<form id="contactForm" >
 
 
-
+								
 										<table style={{ marginLeft: "4rem", marginBottom: "4rem" }}>
 											<td width="600rem"  >
 												<div className="control-group">
@@ -347,7 +354,7 @@ const AddNewTourForm = (props) => {
 														<div class="row" >
 															<div class="form-group col-lg-10">
 																<input
-
+																	   
 																	className={"form-control"}
 																	placeholder="Title"
 																	aria-describedby="basic-addon1"
@@ -614,7 +621,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setMondayFrom(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params}  error={false}/>}
+																					renderInput={(params) => <TextField {...params} error={false} />}
 																				/>
 																			</LocalizationProvider>
 																		</span>
@@ -626,7 +633,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setMondayTo(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} error={false}/>}
+																					renderInput={(params) => <TextField {...params} error={false} />}
 																				/>
 																			</LocalizationProvider></span>
 																	</div>}
@@ -655,7 +662,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setTuesdayFrom(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} error={false}/>}
+																					renderInput={(params) => <TextField {...params} error={false} />}
 																				/>
 																			</LocalizationProvider>
 																		</span>
@@ -667,7 +674,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setTuesdayTo(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} error={false}/>}
+																					renderInput={(params) => <TextField {...params} error={false} />}
 																				/>
 																			</LocalizationProvider></span>
 																	</div>}
@@ -696,7 +703,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setWednesdayFrom(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} error={false}/>}
+																					renderInput={(params) => <TextField {...params} error={false} />}
 																				/>
 																			</LocalizationProvider>
 																		</span>
@@ -708,7 +715,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setWednesdayTo(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} error={false}/>}
+																					renderInput={(params) => <TextField {...params} error={false} />}
 																				/>
 																			</LocalizationProvider></span>
 																	</div>}
@@ -737,7 +744,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setThursdayFrom(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} error={false}/>}
+																					renderInput={(params) => <TextField {...params} error={false} />}
 																				/>
 																			</LocalizationProvider>
 																		</span>
@@ -749,7 +756,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setThursdayTo(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} error={false}/>}
+																					renderInput={(params) => <TextField {...params} error={false} />}
 																				/>
 																			</LocalizationProvider></span>
 																	</div>}
@@ -818,7 +825,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setSaturdayFrom(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} error={false}/>}
+																					renderInput={(params) => <TextField {...params} error={false} />}
 																				/>
 																			</LocalizationProvider>
 																		</span>
@@ -830,7 +837,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setSaturdayTo(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} error={false}/>}
+																					renderInput={(params) => <TextField {...params} error={false} />}
 																				/>
 																			</LocalizationProvider></span>
 																	</div>}
@@ -859,7 +866,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setSundayFrom(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} error={false}/>}
+																					renderInput={(params) => <TextField {...params} error={false} />}
 																				/>
 																			</LocalizationProvider>
 																		</span>
@@ -871,7 +878,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setSundayTo(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params}  error={false}/>}
+																					renderInput={(params) => <TextField {...params} error={false} />}
 																				/>
 																			</LocalizationProvider></span>
 																	</div>}
@@ -891,7 +898,7 @@ const AddNewTourForm = (props) => {
 																			<input
 
 																				className={"form-control"}
-																				placeholder="Phone"
+																				placeholder="Responsible person name"
 																				aria-describedby="basic-addon1"
 																				id="name"
 																				type="text"
@@ -937,7 +944,7 @@ const AddNewTourForm = (props) => {
 																				placeholder="Email"
 																				aria-describedby="basic-addon1"
 																				id="name"
-																				type="text"
+																				type="email"
 																				style={{ backgroundColor: 'white', outline: 'none' }}
 
 																				onChange={(e) => setEmail(e.target.value)}
