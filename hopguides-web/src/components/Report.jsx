@@ -28,7 +28,7 @@ const Report = forwardRef(( props, ref ) => {
 
 
     useEffect(() => {
-
+        window.scrollTo(0, 0);
         var token = authHeader()
         if (token == "null") {
             // window.location = "#/unauthorized";
