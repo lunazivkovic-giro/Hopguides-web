@@ -4,6 +4,7 @@ import React, {
   useImperativeHandle,
   forwardRef,
   useContext,
+  useRef
 } from "react";
 import MaterialTable, { MTableToolbar } from "material-table";
 import { HomeDataContext } from "../contexts/HomeDataContext";
@@ -88,8 +89,10 @@ const HomeData = forwardRef((props, ref) => {
     window.location = "#/login";
 };
 
-
   useEffect(() => {
+
+   
+
     var token = authHeader()
     if (token == "null") {
       window.location = "#/unauthorized";
@@ -99,12 +102,12 @@ const HomeData = forwardRef((props, ref) => {
       )
         .then((res) => {
           if (res.status === 200) {
-            if ("USER" == res.data) {
+            if ("BPARTNER" == res.data) {
 
               setRole(true)
             }
 
-            if ("ADMIN" == res.data) {
+            if ("ADMIN" == res.data || "TOURISM" == res.data) {
 
               setRole(true)
               setAdmin(true)
@@ -115,8 +118,6 @@ const HomeData = forwardRef((props, ref) => {
 
         })
     }
-
-
 
     var contactUser = {
       name: "Danijel Omrzel",
@@ -135,7 +136,6 @@ const HomeData = forwardRef((props, ref) => {
     };
 
     getDocumentsInfoHandlerr();
-    //dispatch({ type: homeDataConstants.SHOW_MODAL, data });
   };
 
 
@@ -184,8 +184,7 @@ const HomeData = forwardRef((props, ref) => {
     return getUpdateHandlerr();
 
   };
-
-
+ 
   const handleLogin = () => {
     window.location.href = "#/login"
   };
@@ -193,6 +192,8 @@ const HomeData = forwardRef((props, ref) => {
 
 
     <div class="login-page" >
+
+
       {!role && <div class=" button-login">
         <button
           type="button"
@@ -306,9 +307,19 @@ const HomeData = forwardRef((props, ref) => {
 
         ]}
         onRowClick={(event, rowData) => {
-          // Get your id from rowData and use with link.
-          window.location.href = `#${rowData.tourId}`;
-          event.stopPropagation();
+         // window.location.replace(`#${rowData.tourId}`);
+          //scrollEffect(`#${rowData.tourId}`)
+          //event.stopPropagation();
+
+        
+            const element = document.getElementById(rowData.tourId);
+            if (element) {
+              // 👇 Will scroll smoothly to the top of the next section
+              element.scrollIntoView({ behavior: 'smooth' });
+            }
+          
+
+        
         }}
 
         options={{

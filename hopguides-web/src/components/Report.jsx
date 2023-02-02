@@ -38,12 +38,12 @@ const Report = forwardRef(( props, ref ) => {
             )
                 .then((res) => {
                     if (res.status === 200) {
-                        if ("USER" == res.data) {
+                        if ("BPARTNER" == res.data) {
 
                             setRole(true)
                         }
 
-                        if ("ADMIN" == res.data) {
+                        if ("ADMIN" == res.data || "TOURISM" == res.data) {
 
                             setRole(true)
                             setAdmin(true)

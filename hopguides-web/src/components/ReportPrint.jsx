@@ -46,12 +46,12 @@ const ReportPrint = () => {
             )
                 .then((res) => {
                     if (res.status === 200) {
-                        if ("USER" == res.data) {
+                        if ("BPARTNER" == res.data) {
 
                             setRole(true)
                         }
 
-                        if ("ADMIN" == res.data) {
+                        if ("ADMIN" == res.data || "TOURISM" == res.data) {
 
                             setRole(true)
                             setAdmin(true)
@@ -119,17 +119,20 @@ const ReportPrint = () => {
 
             <div >
 
-                {!role && <div class=" button-login">
+
+            <div class='parent'>
+
+                {!role && <div >
                     <button
                         type="button"
                         onClick={handleLogin}
-                        class="btn btn-primary btn-lg"
+                        class="child float-left-child"
+                        style={{marginLeft: "30px "}}
                     >
                         Log in
                     </button>
                 </div>}
 
-                <div class='parent'>
                 {role && <div>
                     <button
                         type="button"
