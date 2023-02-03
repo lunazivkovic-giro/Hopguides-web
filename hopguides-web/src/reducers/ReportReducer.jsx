@@ -68,12 +68,14 @@ export const reportReducer = (state, action) => {
 
 
 		case reportConstants.REPORT_GET_FAILURE:
+
+		
+		window.location.href = "/#/404"
 			return {
 				...state,
 				report: {
 					pointId: "",
 					monthlyUsedCoupons: "",
-
 					name: "",
 				},
 

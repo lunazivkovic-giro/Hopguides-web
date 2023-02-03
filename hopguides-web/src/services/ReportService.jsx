@@ -21,7 +21,6 @@ async function getReport(dispatch ,id) {
 			if (res.status === 200) {
 				dispatch(success(res.data));
 			} else {
-				
 				var error = "Error while fetching data"
 				dispatch(failure(error));
 			}
@@ -39,7 +38,6 @@ async function getReport(dispatch ,id) {
 		return { type: reportConstants.REPORT_GET_SUCCESS, data: data };
 	}
 	function failure(message) {
-
 		return { type: reportConstants.REPORT_GET_FAILURE, errorMessage: message };
 	}
 }
