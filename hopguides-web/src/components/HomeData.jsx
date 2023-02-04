@@ -69,6 +69,7 @@ const HomeData = forwardRef((props, ref) => {
 
   const { homeDataState, dispatch } = useContext(HomeDataContext);
   const [users, setUsers] = useState([]);
+  const [tours, setTours] = useState(props.data);
 
   const [role, setRole] = useState(false);
   const [admin, setAdmin] = useState(false);
@@ -85,40 +86,43 @@ const HomeData = forwardRef((props, ref) => {
   };
 
   const handleLogout = () => {
-    deleteLocalStorage();
+   // deleteLocalStorage();
     window.location = "#/login";
-};
+  };
+  const timeout = (delay) => {
+    return new Promise(res => setTimeout(res, delay));
+  }
+  useEffect(async () => {
 
-  useEffect(() => {
+    await timeout(1000);
+    setTours(homeDataState.tours.tours)
 
-   
-
-    var token = authHeader()
-    if (token == "null") {
-      window.location = "#/unauthorized";
-    } else {
-
-      Axios.get(`${url}api/users/getRole`, { headers: { Authorization: token } }, { validateStatus: () => true },
-      )
-        .then((res) => {
-          if (res.status === 200) {
-            if ("BPARTNER" == res.data) {
-
-              setRole(true)
-            }
-
-            if ("ADMIN" == res.data || "TOURISM" == res.data) {
-
-              setRole(true)
-              setAdmin(true)
-            }
-          }
-        })
-        .catch((err) => {
-
-        })
-    }
-
+    /* var token = authHeader()
+     if (token == "null") {
+       window.location = "#/unauthorized";
+     } else {
+ 
+       Axios.get(`${url}api/users/getRole`, { headers: { Authorization: token } }, { validateStatus: () => true },
+       )
+         .then((res) => {
+           if (res.status === 200) {
+             if ("BPARTNER" == res.data) {
+ 
+               setRole(true)
+             }
+ 
+             if ("ADMIN" == res.data || "TOURISM" == res.data) {
+ 
+               setRole(true)
+               setAdmin(true)
+             }
+           }
+         })
+         .catch((err) => {
+ 
+         })
+     }
+ */
     var contactUser = {
       name: "Danijel Omrzel",
       email: "danijel.omrzel@visitlljubljana.si",
@@ -127,7 +131,8 @@ const HomeData = forwardRef((props, ref) => {
     var arr = []
     arr.push(contactUser)
     setUsers(arr)
-    someFetchActionCreator();
+
+
   }, [dispatch]);
 
   const getHistory = (e, data) => {
@@ -145,12 +150,13 @@ const HomeData = forwardRef((props, ref) => {
   };
 
 
+
   const visitWebsite = (e, data) => {
 
     window.location = "#/report/" + data;
   };
 
-  
+
   const updateMenu = (e, data) => {
 
     dispatch({ type: homeDataConstants.SHOW_ADD_MENU_MODAL, data });
@@ -163,18 +169,6 @@ const HomeData = forwardRef((props, ref) => {
   };
 
 
-  const onUpdate = (oldData, newData) => {
-
-    const getUpdateHandlerr = async () => {
-      return await homeDataService.updateTour(dispatch, oldData);
-    };
-
-    return getUpdateHandlerr();
-
-  };
-
-
-
   const onUpdatePoint = (oldData, newData) => {
 
     const getUpdateHandlerr = async () => {
@@ -184,17 +178,19 @@ const HomeData = forwardRef((props, ref) => {
     return getUpdateHandlerr();
 
   };
- 
+
   const handleLogin = () => {
     window.location.href = "#/login"
   };
   return (
 
-
     <div class="login-page" >
+      <div class="p-10 bg-red-500 rounded-lg">
+        This is Tailwindcss Test
+      </div>
 
-
-      {!role && <div class=" button-login">
+      {/*{!role &&*/}
+      <div class=" button-login">
         <button
           type="button"
 
@@ -203,17 +199,20 @@ const HomeData = forwardRef((props, ref) => {
         >
           Log in
         </button>
-      </div>}
+      </div>
+      {/*}*/}
 
-      {role && <div class=" button-login">
-                <button
-                    type="button"
-                    onClick={handleLogout}
-                    class="btn btn-primary btn-lg"
-                >
-                    Log out
-                </button>
-            </div>}
+      {/*{role &&}*/}
+      <div class=" button-login">
+        <button
+          type="button"
+          onClick={handleLogout}
+          class="btn btn-primary btn-lg"
+        >
+          Log out
+        </button>
+      </div>
+      {/*}*/}
 
       <h1 class="paragraph-box">Tourism Ljubljana</h1>
       <div class="contact-box">
@@ -247,6 +246,13 @@ const HomeData = forwardRef((props, ref) => {
         </TableContainer>
       </div>
       <h4 class="paragraph-box">Tours</h4>
+
+
+      {/*Ovo za sada nije vazno*/}
+      {homeDataState.tours.success && <h4 class="success">Success </h4>}
+      {homeDataState.tours.failure && <h4 class="failure">Failure  </h4>}
+      {/*Kraj nevaznog*/}
+
       <MaterialTable
         stickyHeader
         components={{
@@ -281,7 +287,7 @@ const HomeData = forwardRef((props, ref) => {
         icons={tableIcons}
         columns={[
 
-       
+
           {
             title: "Name", field: "tourName",
             editable: "never"
@@ -307,19 +313,19 @@ const HomeData = forwardRef((props, ref) => {
 
         ]}
         onRowClick={(event, rowData) => {
-         // window.location.replace(`#${rowData.tourId}`);
+          // window.location.replace(`#${rowData.tourId}`);
           //scrollEffect(`#${rowData.tourId}`)
           //event.stopPropagation();
 
-        
-            const element = document.getElementById(rowData.tourId);
-            if (element) {
-              // 👇 Will scroll smoothly to the top of the next section
-              element.scrollIntoView({ behavior: 'smooth' });
-            }
-          
 
-        
+          const element = document.getElementById(rowData.tourId);
+          if (element) {
+            // 👇 Will scroll smoothly to the top of the next section
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+
+
+
         }}
 
         options={{
@@ -343,16 +349,31 @@ const HomeData = forwardRef((props, ref) => {
         editable={{
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
-              setTimeout(() => {
-                onUpdate(newData, oldData)
-                window.location.reload()
+              setTimeout(async () => {
+                // onUpdate(newData, oldData)
+                //await props.helpFunction(newData, oldData)
+
+
+                //await timeout(2000);
+                //console.log(homeDataState.tours.tours)
+                //setTours(homeDataState.tours.tours)
+
+                /*  var arr =[]
+                  var a = {
+                   tourName: "jcbskdjnskdjfsd"
+                  }
+                  arr.push(a)
+                   setTours(arr)*/
+                //window.location.reload()
+
                 resolve();
+
               }, 1);
 
             }),
 
         }}
-        data={homeDataState.tours.tours}
+        data={tours}
         title=""
       />
 
@@ -379,25 +400,25 @@ const HomeData = forwardRef((props, ref) => {
                     <Button
                       color="inherit"
                       onClick={(event) => {
-                        
+
                         visitWebsite(event, rowData.point.id)
                       }}
                     >
-                <LaunchIcon/>
-                
+                      <LaunchIcon />
+
                     </Button>
                   );
                   return button;
                 }
               },
               { title: "Partners", field: "point.title.en", editable: "never" },
-              
+
               { title: "Responsible person", field: "point.contact.name" },
-              
+
               { title: "Contact email", field: "point.contact.email" },
-              
+
               { title: "Contact phone", field: "point.contact.phone" },
-             
+
               {
                 field: "point.price",
                 title: 'Price',
@@ -410,12 +431,11 @@ const HomeData = forwardRef((props, ref) => {
                     <Button
                       color="inherit"
                       onClick={(event) => {
-                        console.log(rowData)
                         updateMenu(event, rowData.point.id)
                       }}
                     >
-                
-                <EditIcon/>
+
+                      <EditIcon />
                     </Button>
                   );
                   return button;
@@ -430,7 +450,7 @@ const HomeData = forwardRef((props, ref) => {
                       color="inherit"
                       onClick={(event) => {
                         console.log(rowData)
-                        getQrCode(event, rowData.point.id)
+                        //getQrCode(event, rowData.point.id)
                       }}
                     >
                       Get QR code
@@ -441,8 +461,8 @@ const HomeData = forwardRef((props, ref) => {
               },
             ]}
             actions={[
-             
-       
+
+
 
             ]}
             options={{
@@ -451,12 +471,12 @@ const HomeData = forwardRef((props, ref) => {
               filtering: false,
               paging: false,
               actionsColumnIndex: -1,
-              headerStyle: { top: 0, bottom: 0, fontSize: "1em" , backgroundColor: "#DCE4FF"},
+              headerStyle: { top: 0, bottom: 0, fontSize: "1em", backgroundColor: "#DCE4FF" },
               maxBodyHeight: "70vh",
 
             }}
 
-          
+
             localization={{
               header: {
                 actions: "Update"
@@ -466,8 +486,8 @@ const HomeData = forwardRef((props, ref) => {
               onRowUpdate: (newData, oldData) =>
                 new Promise((resolve, reject) => {
                   setTimeout(() => {
-                    onUpdatePoint(newData, oldData)
-                    window.location.reload()
+                    //onUpdatePoint(newData, oldData)
+                    //window.location.reload()
                     resolve();
                   }, 1);
 
@@ -481,7 +501,7 @@ const HomeData = forwardRef((props, ref) => {
         </div>
       )}
 
-<div style={{ marginTop: "100px" }} ><p> <br/><br/>     </p></div>
+      <div style={{ marginTop: "100px" }} ><p> <br /><br />     </p></div>
     </div>
 
   );

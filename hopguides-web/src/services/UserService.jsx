@@ -13,7 +13,10 @@ export const userService = {
 
 
 function login(loginRequest, dispatch) {
-	dispatch(request());
+	
+	window.location.href="/#"
+
+	/*dispatch(request());
 	Axios.post(`${url}api/users/login`, loginRequest, { validateStatus: () => true })
 		.then((res) => {
 			if (res.status === 200) {
@@ -42,7 +45,7 @@ function login(loginRequest, dispatch) {
 	function failure(error) {
 		
 		return { type: userConstants.LOGIN_FAILURE, error };
-	}
+	}*/
 }
 
 async function getRoles(dispatch) {

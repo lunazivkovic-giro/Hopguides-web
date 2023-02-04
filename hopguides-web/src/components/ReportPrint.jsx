@@ -27,7 +27,7 @@ const ReportPrint = () => {
     const someFetchActionCreator = () => {
         const getReportInfoHandler = async () => {
             await reportService.getReport(dispatch, id);
-            await reportService.getMenu(dispatch, id);
+           // await reportService.getMenu(dispatch, id);
         };
 
 
@@ -37,7 +37,8 @@ const ReportPrint = () => {
 
     useEffect(() => {
 
-        var token = authHeader()
+       
+       /* var token = authHeader()
         if (token == "null") {
             // window.location = "#/unauthorized";
         } else {
@@ -62,7 +63,7 @@ const ReportPrint = () => {
 
                 })
         }
-
+*/
 
         someFetchActionCreator()
     }, [dispatch]);
@@ -78,7 +79,7 @@ const ReportPrint = () => {
 
 
     const handleLogout = () => {
-        deleteLocalStorage();
+       // deleteLocalStorage();
         window.location = "#/login";
     };
 
@@ -122,7 +123,7 @@ const ReportPrint = () => {
 
             <div class='parent'>
 
-                {!role && <div >
+                {/*{!role && */}<div >
                     <button
                         type="button"
                         onClick={handleLogin}
@@ -131,9 +132,9 @@ const ReportPrint = () => {
                     >
                         Log in
                     </button>
-                </div>}
+                </div>{/*}*/}
 
-                {role && <div>
+                 {/*{role && */} <div>
                     <button
                         type="button"
                         onClick={handleLogout}
@@ -143,7 +144,7 @@ const ReportPrint = () => {
                         Log out
                     </button>
 
-                </div>}
+                </div>{/*}*/}
 
 
                 <ReactToPrint

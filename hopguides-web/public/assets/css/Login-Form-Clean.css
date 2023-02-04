@@ -1,4 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .login-page {
 
@@ -166,6 +169,33 @@ a:hover, a:active {
   margin-top: 30px
 
 }
+.success {
+
+  font-family: monospace;
+  position: relative;
+  z-index: 1;
+  max-width: 1450px;
+  margin: 0px auto 0px;
+  padding: 20px;
+  text-align: center;
+  background: #27fe47;
+  color: white;
+
+}
+
+.failure {
+
+  font-family: monospace;
+  position: relative;
+  z-index: 1;
+  max-width: 1450px;
+  margin: 0px auto 0px;
+  padding: 20px;
+  text-align: center;
+  background: #c70000;
+
+}
+
 
 .header2 {
 

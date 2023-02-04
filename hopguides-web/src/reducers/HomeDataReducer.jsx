@@ -1,44 +1,44 @@
 import { InfoSharp } from "@mui/icons-material";
 import { homeDataConstants } from "../constants/HomeDataConstants";
 
-function convertMonth(month){
-	if(month == 1){
+function convertMonth(month) {
+	if (month == 1) {
 
 		return "January"
 
-	}else if(month == 2){
+	} else if (month == 2) {
 
 		return "February"
-	}else if(month == 3){
-		
+	} else if (month == 3) {
+
 		return "March"
-	}else if(month == 4){
+	} else if (month == 4) {
 
 		return "April"
-		
-	}else if(month == 5){
-		
+
+	} else if (month == 5) {
+
 		return "May"
-	}else if(month == 6){
-		
+	} else if (month == 6) {
+
 		return "June"
-	}else if(month == 7){
-		
+	} else if (month == 7) {
+
 		return "July"
-	}else if(month == 8){
-		
+	} else if (month == 8) {
+
 		return "August"
-	}else if(month == 9){
-		
+	} else if (month == 9) {
+
 		return "September"
-	}else if(month == 10){
-		
+	} else if (month == 10) {
+
 		return "October"
-	}else if(month == 11){
-		
+	} else if (month == 11) {
+
 		return "November"
-	}else if(month == 12){
-		
+	} else if (month == 12) {
+
 		return "December"
 	}
 
@@ -49,14 +49,33 @@ export const homeDataReducer = (state, action) => {
 
 		case homeDataConstants.DATA_GET_SUCCESS:
 
+			console.log(action.data)
+
+			var array = []
+			var tour = {
+				tourId: "446a706b-baa6-4feb-bc0b-0bcd9b2d2e0b",
+				tourName: "Foodie tour Ljubljana",
+				tourPrice: "49€ withouth tax",
+				noOfRidesAMonth: 2
+			}
+			var tour2 = {
+				tourId: "446a706b-baa6-4feb-bc0b-0bcd9b2d2e0a",
+				tourName: "Second tour Ljubljana",
+				tourPrice: "62€ withouth tax",
+				noOfRidesAMonth: 5
+			}
+
+			array.push(tour)
+			array.push(tour2)
 			return {
 				...state,
 				tours: {
-					tours: action.data
+					//tours: action.data
+					tours: array
 				},
 			};
 
-		case homeDataConstants.DATA_GET_SUCCESS:
+		case homeDataConstants.DATA_GET_FAILURE:
 
 			return {
 				...state,
@@ -65,12 +84,140 @@ export const homeDataReducer = (state, action) => {
 				},
 			};
 
-			case homeDataConstants.DATA_TOUR_POINTS_GET_SUCCESS:
+		case homeDataConstants.DATA_TOUR_POINTS_GET_SUCCESS:
+
+			console.log(action.data)
+
+			var array = []
+			var points = []
+			var points2 = []
+			var point1 = {
+				monthlyUsed: 0,
+				point: {
+					bpartnerId: "bec8f5a0-1580-48f1-a9c5-d8347b729aba",
+					contact: {
+						email: "info@klobasarna.si",
+						name: "Name",
+						phone: "0038651605017",
+						webURL: "https://www.klobasarna.si/"
+					},
+					id: "0c4d2a86-9083-42ee-ad4f-4c3665ff0823",
+					offerName: "half of a sausage",
+					price: "2.8€ withouth tax",
+					title: {
+						en: "Klobasarna"
+					}
+				}
+			}
+
+			var point2 = {
+				monthlyUsed: 0,
+				point: {
+					bpartnerId: "bec8f5a0-1580-48f1-a9c5-d8347b729aba",
+					contact: {
+						email: "info@struklji.si",
+						name: "Name",
+						phone: "0038651605017",
+						webURL: "https://www.struklji.si/"
+					},
+					id: "5932de05-740e-477c-b1ec-b19b845acf0a",
+					offerName: "half of a sausage",
+					price: "2.8€ withouth tax",
+					title: {
+						en: "Struklji"
+					}
+				}
+			}
+
+			var point3 = {
+				monthlyUsed: 0,
+				point: {
+					bpartnerId: "bec8f5a0-1580-48f1-a9c5-d8347b729aba",
+					contact: {
+						email: "info@daktari.si",
+						name: "Name",
+						phone: "0038651605017",
+						webURL: "https://www.daktari.si/"
+					},
+					id: "0b487422-1b2b-4ee0-9df1-9dc5d34c90cb",
+					offerName: "half of a sausage",
+					price: "2.8€ withouth tax",
+					title: {
+						en: "Daktari"
+					}
+				}
+			}
+
+			var point4 = {
+				monthlyUsed: 0,
+				point: {
+					bpartnerId: "bec8f5a0-1580-48f1-a9c5-d8347b729aba",
+					contact: {
+						email: "info@point4.si",
+						name: "Name",
+						phone: "0038651605017",
+						webURL: "https://www.point4.si/"
+					},
+					id: "0c4d2a86-9083-42ee-ad4f-4c3665ff0824",
+					offerName: "half of a sausage",
+					price: "2.8€ withouth tax",
+					title: {
+						en: "Point4"
+					}
+				}
+			}
+
+			var point5 = {
+				monthlyUsed: 0,
+				point: {
+					bpartnerId: "bec8f5a0-1580-48f1-a9c5-d8347b729aba",
+					contact: {
+						email: "info@point5.si",
+						name: "Name",
+						phone: "0038651605017",
+						webURL: "https://www.point5.si/"
+					},
+					id: "0c4d2a86-9083-42ee-ad4f-4c3665ff0825",
+					offerName: "half of a sausage",
+					price: "2.8€ withouth tax",
+					title: {
+						en: "Point 5"
+					}
+				}
+			}
+
+
+
+			points.push(point1)
+			points.push(point2)
+			points.push(point3)
+
+			points2.push(point4)
+			points2.push(point5)
+
+			var tour = {
+				tourId: "446a706b-baa6-4feb-bc0b-0bcd9b2d2e0b",
+				tourName: "Foodie tour Ljubljana",
+				tourPrice: "49€ withouth tax",
+				noOfRidesAMonth: 2,
+				points: points
+			}
+			var tour2 = {
+				tourId: "446a706b-baa6-4feb-bc0b-0bcd9b2d2e0a",
+				tourName: "Second tour Ljubljana",
+				tourPrice: "62€ withouth tax",
+				noOfRidesAMonth: 5,
+				points: points2
+			}
+
+			array.push(tour)
+			array.push(tour2)
 
 			return {
 				...state,
 				toursWithPoints: {
-					toursWithPoints: action.data
+					//toursWithPoints: action.data
+					toursWithPoints: array
 				},
 			};
 
@@ -86,8 +233,23 @@ export const homeDataReducer = (state, action) => {
 
 		case homeDataConstants.PREVIOUS_DATA_GET_SUCCESS:
 
+		console.log(action.data) 
+
+		var array =[]
+		var item = {
+			from: "32019",
+			count: 2
+		}
+		var item2 = {
+			from: "02022",
+			count: 5
+		}
+
+		array.push(item)
+		array.push(item2)
+
 			var arrReports = []
-			for (var report of action.data) {
+			for (var report of array){//action.data) { 
 				if (report.from.length == 5) {
 					var monthNum = report.from.charAt(0)
 					monthNum = parseInt(monthNum) + 1
@@ -97,7 +259,7 @@ export const homeDataReducer = (state, action) => {
 					var obj = { count, month, year }
 					arrReports.push(obj)
 				} else {
-					var monthNum = report.from.substring(0, 1) 
+					var monthNum = report.from.substring(0, 1)
 					monthNum = parseInt(monthNum) + 1
 					var month = convertMonth(monthNum)
 					var year = report.from.substring(2, 6)
@@ -149,9 +311,9 @@ export const homeDataReducer = (state, action) => {
 			};
 
 
-			case homeDataConstants.SHOW_ADD_MENU_MODAL:
+		case homeDataConstants.SHOW_ADD_MENU_MODAL:
 
-			
+
 			return {
 				...state,
 				id: action.data,
@@ -163,8 +325,8 @@ export const homeDataReducer = (state, action) => {
 		case homeDataConstants.HIDE_ADD_MENU_MODAL:
 			return {
 				...state,
-				id:"",
-				
+				id: "",
+
 				showEditMenuModal: false
 
 
@@ -202,7 +364,8 @@ export const homeDataReducer = (state, action) => {
 			return {
 				...state,
 				tours: {
-					tours: action.data
+					tours: action.data,
+					success: true
 				},
 			};
 
@@ -211,11 +374,12 @@ export const homeDataReducer = (state, action) => {
 			return {
 				...state,
 				tours: {
-					tours: []
+					tours: [],
+					failure: true
 				},
 			};
 
-			case homeDataConstants.POI_UPDATE_SUCCESS:
+		case homeDataConstants.POI_UPDATE_SUCCESS:
 
 			return {
 				...state,

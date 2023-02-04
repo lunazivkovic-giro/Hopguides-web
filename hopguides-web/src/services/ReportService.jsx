@@ -13,9 +13,15 @@ export const reportService = {
 
 
 async function getReport(dispatch ,id) {
+	function success(data) {
+		return { type: reportConstants.REPORT_GET_SUCCESS, data: data };
+	}
+
+	var data ={}
+	dispatch(success(data));
+	/*
 	dispatch(request());
 	
-	console.log( id)
 	await Axios.get(`${url}api/reports/` + id, { validateStatus: () => true })
 		.then((res) => {
 			if (res.status === 200) {
@@ -39,11 +45,19 @@ async function getReport(dispatch ,id) {
 	}
 	function failure(message) {
 		return { type: reportConstants.REPORT_GET_FAILURE, errorMessage: message };
-	}
+	}*/
 }
 
 
 async function getReports(dispatch ,id) {
+
+	var data = {}
+	dispatch(success(data));
+	function success(data) {
+		return { type: reportConstants.PREVIOUS_REPORT_GET_SUCCESS, data: data };
+	}
+
+/*
 	dispatch(request());
 	
 	
@@ -72,7 +86,7 @@ async function getReports(dispatch ,id) {
 	function failure(message) {
 
 		return { type: reportConstants.PREVIOUS_REPORT_GET_FAILURE, errorMessage: message };
-	}
+	}*/
 }
 
 
@@ -101,7 +115,7 @@ function addMenu( tf, dispatch) {
 
 async function getMenu( dispatch,id) {
 	
-	console.log(id)
+	/*console.log(id)
 	await Axios.get(`${url}api/poi/getFile/ `+id,{ validateStatus: () => true,  responseType: 'blob'})
 		.then((res) => {
 			if (res.status === 200) {
@@ -122,5 +136,5 @@ async function getMenu( dispatch,id) {
 		}
 		function failure(error) {
 			return { type: reportConstants.GET_MENU_FAILURE, error };
-		}
+		}*/
 }

@@ -29,7 +29,7 @@ const Report = forwardRef(( props, ref ) => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        var token = authHeader()
+        /*var token = authHeader()
         if (token == "null") {
             // window.location = "#/unauthorized";
         } else {
@@ -55,7 +55,7 @@ const Report = forwardRef(( props, ref ) => {
                 })
         }
 
-
+*/
         someFetchActionCreator()
     }, [dispatch]);
 
@@ -156,7 +156,8 @@ const Report = forwardRef(( props, ref ) => {
 
             </div>
 
-            {admin && <div class=" button-p">
+           {/*} {admin && */}
+           <div class=" button-p">
                 <button
                     type="button"
                     onClick={handleShowModal}
@@ -164,16 +165,17 @@ const Report = forwardRef(( props, ref ) => {
                 >
                     Update menu image
                 </button>
-            </div>}
+            </div>
+            {/*}*/}
 
 
             <div class="menu-box">
                 {
-                    reportState.image ? (
-                        <img alt="" src={reportState.image} />
-                    ) : (
-                        null
-                    )
+                   // reportState.image ? (
+                        <img alt="" src = "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"/>//src={reportState.image} />
+                   // ) : (
+                      //  null
+                   // )
                 }
             </div>
         </div>

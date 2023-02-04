@@ -62,7 +62,7 @@ const UpdateMenuModal = () => {
 
 		if (file == null || homeDataState.id=="") {
 
-			setErrMessage("Please fill all fields")
+			setErrMessage("Please pick a photo")
 		} else {
 			
 			const formData = new FormData();
@@ -74,8 +74,8 @@ const UpdateMenuModal = () => {
 			xhr.addEventListener("load", SuccessHandler, false);
 			xhr.addEventListener("error", ErrorHandler, false);
 			xhr.addEventListener("abort", AbortHandler, false);
-
-			xhr.open('POST', `${url}api/poi/${homeDataState.id}/uploadMenu`, true);
+//************************************** */
+			//xhr.open('POST', `${url}api/poi/${homeDataState.id}/uploadMenu`, true);
 			//xhr.setRequestHeader("Authorization", props.token);
 			xhr.onload = function () {
 				// do something to response

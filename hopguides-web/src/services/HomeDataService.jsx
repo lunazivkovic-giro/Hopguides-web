@@ -18,8 +18,14 @@ export const homeDataService = {
 
 function addTour(tour, dispatch) {
 
-	dispatch(request());
-	var token = authHeader()
+	//dispatch(request());
+	
+	dispatch(success());
+	function success() {
+		return { type: homeDataConstants.TOUR_SUBMIT_SUCCESS };
+	}
+
+	/*var token = authHeader()
 	Axios.post(`${url}api/pnl/tour/add`, tour, {
 		headers: {
 		  Authorization: token 
@@ -49,7 +55,7 @@ function addTour(tour, dispatch) {
 	function failure(error) {
 		
 		return { type: homeDataConstants.TOUR_SUBMIT_FAILURE, error };
-	}
+	}*/
 }
 
 
@@ -100,7 +106,8 @@ function updateTour( dispatch, tour) {
 		}},{ validateStatus: () => true })
 		.then((res) => {
 			if (res.status === 200) {
-				dispatch(success());
+				console.log(res.data)
+				dispatch(success(res.data));
 			} else if (res.status === 215) {
 				dispatch(failure(res.data.response));
 			}else{
@@ -116,8 +123,8 @@ function updateTour( dispatch, tour) {
 		
 		return { type: homeDataConstants.TOUR_UPDATE_REQUEST };
 	}
-	function success() {
-		return { type: homeDataConstants.TOUR_UPDATE_SUCCESS };
+	function success(data) {
+		return { type: homeDataConstants.TOUR_UPDATE_SUCCESS, data: data  };
 	
 	}
 	function failure(error) {
@@ -128,7 +135,15 @@ function updateTour( dispatch, tour) {
 
 
 async function getPreviousMonthsData(dispatch ,id) {
-	dispatch(request());
+	
+	var data = []
+	
+	dispatch(success(data));
+	function success(data) {
+		return { type: homeDataConstants.PREVIOUS_DATA_GET_SUCCESS, data: data };
+	}
+
+	/*dispatch(request());
 	
 	if(id==""){
 		id = "x"
@@ -159,13 +174,18 @@ async function getPreviousMonthsData(dispatch ,id) {
 	function failure(message) {
 
 		return { type: homeDataConstants.PREVIOUS_DATA_GET_FAILURE, errorMessage: message };
-	}
+	}*/
 }
 
 async function getData(dispatch) {
-	dispatch(request());
+	var data = {}
+	dispatch(success());
+	function success(data) {
+		return { type: homeDataConstants.DATA_GET_SUCCESS, data: data };
+	}
+	//dispatch(request());
 	
-	
+	/*
 	await Axios.get(`${url}api/pnl/tour/allReport`, { validateStatus: () => true })
 		.then((res) => {
 			if (res.status === 200) {
@@ -191,12 +211,18 @@ async function getData(dispatch) {
 	function failure(message) {
 
 		return { type: homeDataConstants.DATA_GET_FAILURE, errorMessage: message };
-	}
+	}*/
 }
 
 
 async function getToursAndPointsData(dispatch) {
-	dispatch(request());
+	var data = {}
+	dispatch(success(data));
+	function success(data) {
+		return { type: homeDataConstants.DATA_TOUR_POINTS_GET_SUCCESS, data: data };
+	}
+
+	/*dispatch(request());
 	
 	
 	await Axios.get(`${url}api/pnl/tour/allToursWithPoints`, { validateStatus: () => true })
@@ -224,7 +250,7 @@ async function getToursAndPointsData(dispatch) {
 	function failure(message) {
 
 		return { type: homeDataConstants.DATA_TOUR_POINTS_GET_FAILURE, errorMessage: message };
-	}
+	}*/
 }
 
 
