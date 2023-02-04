@@ -193,6 +193,9 @@ const HomeData = forwardRef((props, ref) => {
 
     <div class="login-page" >
 
+      <div class="p-10 bg-red-500 rounded-lg">
+        This is Tailwindcss Test
+      </div>
 
       {!role && <div class=" button-login">
         <button
