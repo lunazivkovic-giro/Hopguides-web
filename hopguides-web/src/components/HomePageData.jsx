@@ -87,31 +87,6 @@ const HomePageData = forwardRef((props, ref) => {
         getDocumentsInfoHandler();
     };
 
-    
-  const onUpdate = async (oldData, newData) => {
-
-    const getUpdateHandlerr = async () => {
-      return await homeDataService.updateTour(dispatch, oldData);
-    };
-
-    
-    return await getUpdateHandlerr();
-    
-
-  };
-
-  const timeout = (delay) => {
-    return new Promise(res => setTimeout(res, delay));
-  }
-  
-  const  helpFunction = async (oldData, newData) => {
-
-
-    onUpdate(oldData, newData);
-    await timeout(2000);
-    console.log(homeDataState.tours.tours)
-  
-};
 
     useEffect(() => {
 
@@ -162,7 +137,6 @@ const HomePageData = forwardRef((props, ref) => {
 
              <HomeData 
             data = {homeDataState.tours.tours}
-            helpFunction = {helpFunction}
             tours = {tours}/>
         </div>
 
