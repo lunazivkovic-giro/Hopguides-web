@@ -49,7 +49,7 @@ export const homeDataReducer = (state, action) => {
 
 		case homeDataConstants.DATA_GET_SUCCESS:
 
-			console.log(action.data)
+			
 
 			var array = []
 			var tour = {
@@ -361,10 +361,27 @@ export const homeDataReducer = (state, action) => {
 
 		case homeDataConstants.TOUR_UPDATE_SUCCESS:
 
+		var array = []
+		var tour = {
+			tourId: "446a706b-baa6-4feb-bc0b-0bcd9b2d2e0b",
+			tourName: "Blablaaaaaaa",
+			tourPrice: "49€ withouth tax",
+			noOfRidesAMonth: 2
+		}
+		var tour2 = {
+			tourId: "446a706b-baa6-4feb-bc0b-0bcd9b2d2e0a",
+			tourName: "Blablaaaaddfsdfsdfsffaaa",
+			tourPrice: "62€ withouth tax",
+			noOfRidesAMonth: 5
+		}
+
+		array.push(tour)
+		array.push(tour2)
 			return {
 				...state,
 				tours: {
-					tours: action.data,
+					//tours: action.data,
+					tours: array,
 					success: true
 				},
 			};
