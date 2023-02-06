@@ -97,8 +97,14 @@ function updatePoint( dispatch, point) {
 
 
 function updateTour( dispatch, tour) {
+	var data= {}
+	dispatch(success(data));
 
-	dispatch(request());
+	function success(data) {
+		return { type: homeDataConstants.TOUR_UPDATE_SUCCESS, data: data  };
+	
+	}
+	/*dispatch(request());
 	var token = authHeader()
 	Axios.post(`${url}api/pnl/tour/update/`+tour.id, tour, {
 		headers: {
@@ -130,7 +136,7 @@ function updateTour( dispatch, tour) {
 	function failure(error) {
 		
 		return { type: homeDataConstants.TOUR_UPDATE_FAILURE, error };
-	}
+	}*/
 }
 
 

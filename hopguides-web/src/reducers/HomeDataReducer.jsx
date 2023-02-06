@@ -1,6 +1,7 @@
 import { InfoSharp } from "@mui/icons-material";
 import { homeDataConstants } from "../constants/HomeDataConstants";
 
+var prodCpy = {};
 function convertMonth(month) {
 	if (month == 1) {
 
@@ -49,7 +50,7 @@ export const homeDataReducer = (state, action) => {
 
 		case homeDataConstants.DATA_GET_SUCCESS:
 
-			console.log(action.data)
+
 
 			var array = []
 			var tour = {
@@ -85,8 +86,6 @@ export const homeDataReducer = (state, action) => {
 			};
 
 		case homeDataConstants.DATA_TOUR_POINTS_GET_SUCCESS:
-
-			console.log(action.data)
 
 			var array = []
 			var points = []
@@ -233,23 +232,22 @@ export const homeDataReducer = (state, action) => {
 
 		case homeDataConstants.PREVIOUS_DATA_GET_SUCCESS:
 
-		console.log(action.data) 
 
-		var array =[]
-		var item = {
-			from: "32019",
-			count: 2
-		}
-		var item2 = {
-			from: "02022",
-			count: 5
-		}
+			var array = []
+			var item = {
+				from: "32019",
+				count: 2
+			}
+			var item2 = {
+				from: "02022",
+				count: 5
+			}
 
-		array.push(item)
-		array.push(item2)
+			array.push(item)
+			array.push(item2)
 
 			var arrReports = []
-			for (var report of array){//action.data) { 
+			for (var report of array) {//action.data) { 
 				if (report.from.length == 5) {
 					var monthNum = report.from.charAt(0)
 					monthNum = parseInt(monthNum) + 1
@@ -361,42 +359,198 @@ export const homeDataReducer = (state, action) => {
 
 		case homeDataConstants.TOUR_UPDATE_SUCCESS:
 
-			return {
-				...state,
-				tours: {
-					tours: action.data,
-					success: true
-				},
-			};
+			var array = []
+			var tour = {
+				tourId: "446a706b-baa6-4feb-bc0b-0bcd9b2d2e0b",
+				tourName: "Blablaaaaaaa",
+				tourPrice: "49€ withouth tax",
+				noOfRidesAMonth: 2
+			}
+			var tour2 = {
+				tourId: "446a706b-baa6-4feb-bc0b-0bcd9b2d2e0a",
+				tourName: "Blablaaaaddfsdfsdfsffaaa",
+				tourPrice: "62€ withouth tax",
+				noOfRidesAMonth: 5
+			}
+
+			array.push(tour)
+			array.push(tour2)
+
+			console.log(array)
+
+
+			prodCpy = { ...state };
+
+			prodCpy.tours.tours = array;
+			prodCpy.tours.success = true;
+
+			return prodCpy;
+
 
 		case homeDataConstants.TOUR_UPDATE_FAILURE:
 
-			return {
-				...state,
-				tours: {
-					tours: [],
-					failure: true
-				},
-			};
+
+			prodCpy = { ...state };
+
+			prodCpy.tours.tours = [];
+			prodCpy.tours.failure = true;
+
+			return prodCpy;
 
 		case homeDataConstants.POI_UPDATE_SUCCESS:
 
-			return {
-				...state,
-				tours: {
-					tours: action.data
-				},
-			};
+
+			var array = []
+			var points = []
+			var points2 = []
+			var point1 = {
+				monthlyUsed: 0,
+				point: {
+					bpartnerId: "bec8f5a0-1580-48f1-a9c5-d8347b729aba",
+					contact: {
+						email: "info@klobasarna.si",
+						name: "Name",
+						phone: "0038651605017",
+						webURL: "https://www.klobasarna.si/"
+					},
+					id: "0c4d2a86-9083-42ee-ad4f-4c3665ff0823",
+					offerName: "half of a sausage",
+					price: "2.8€ withouth tax",
+					title: {
+						en: "Klobasarna"
+					}
+				}
+			}
+
+			var point2 = {
+				monthlyUsed: 0,
+				point: {
+					bpartnerId: "bec8f5a0-1580-48f1-a9c5-d8347b729aba",
+					contact: {
+						email: "info@struklji.si",
+						name: "Name",
+						phone: "0038651605017",
+						webURL: "https://www.struklji.si/"
+					},
+					id: "5932de05-740e-477c-b1ec-b19b845acf0a",
+					offerName: "half of a sausage",
+					price: "2.8€ withouth tax",
+					title: {
+						en: "Struklji"
+					}
+				}
+			}
+
+			var point3 = {
+				monthlyUsed: 0,
+				point: {
+					bpartnerId: "bec8f5a0-1580-48f1-a9c5-d8347b729aba",
+					contact: {
+						email: "info@daktari.si",
+						name: "Name",
+						phone: "0038651605017",
+						webURL: "https://www.daktari.si/"
+					},
+					id: "0b487422-1b2b-4ee0-9df1-9dc5d34c90cb",
+					offerName: "half of a sausage",
+					price: "2.8€ withouth tax",
+					title: {
+						en: "Daktari"
+					}
+				}
+			}
+
+			var point4 = {
+				monthlyUsed: 0,
+				point: {
+					bpartnerId: "bec8f5a0-1580-48f1-a9c5-d8347b729aba",
+					contact: {
+						email: "info@point4.si",
+						name: "Name",
+						phone: "0038651605017",
+						webURL: "https://www.point4.si/"
+					},
+					id: "0c4d2a86-9083-42ee-ad4f-4c3665ff0824",
+					offerName: "half of a sausage",
+					price: "2.8€ withouth tax",
+					title: {
+						en: "Point4"
+					}
+				}
+			}
+
+			var point5 = {
+				monthlyUsed: 0,
+				point: {
+					bpartnerId: "bec8f5a0-1580-48f1-a9c5-d8347b729aba",
+					contact: {
+						email: "info@point5.si",
+						name: "Name",
+						phone: "0038651605017",
+						webURL: "https://www.point5.si/"
+					},
+					id: "0c4d2a86-9083-42ee-ad4f-4c3665ff0825",
+					offerName: "half of a sausage",
+					price: "2.8€ withouth tax",
+					title: {
+						en: "Point 5"
+					}
+				}
+			}
+
+
+
+			points.push(point1)
+			points.push(point2)
+			points.push(point3)
+
+			points2.push(point4)
+			points2.push(point5)
+
+			var tour = {
+				tourId: "446a706b-baa6-4feb-bc0b-0bcd9b2d2e0b",
+				tourName: "Foodie tour Ljubljana",
+				tourPrice: "49€ withouth tax",
+				noOfRidesAMonth: 2,
+				points: points
+			}
+			var tour2 = {
+				tourId: "446a706b-baa6-4feb-bc0b-0bcd9b2d2e0a",
+				tourName: "Second tour Ljubljana",
+				tourPrice: "62€ withouth tax",
+				noOfRidesAMonth: 5,
+				points: points2
+			}
+
+			array.push(tour)
+			array.push(tour2)
+
+
+			prodCpy = { ...state };
+
+			prodCpy.toursWithPoints.toursWithPoints = array;
+			prodCpy.toursWithPoints.success = true;
+
+			return prodCpy;
 
 		case homeDataConstants.POI_UPDATE_FAILURE:
 
-			return {
-				...state,
-				tours: {
-					tours: []
-				},
-			};
 
+			prodCpy = { ...state };
+
+
+			prodCpy.toursWithPoints.toursWithPoints = [];
+			prodCpy.toursWithPoints.failure = true;
+
+			return prodCpy;
+
+			case homeDataConstants.HIDE_SUCCESS_FAILURE_MODAL:
+				prodCpy = { ...state };
+
+
+			prodCpy.tours.success = false;
+			prodCpy.tours.failure = false;
+			return prodCpy;
 
 		default:
 			return state;

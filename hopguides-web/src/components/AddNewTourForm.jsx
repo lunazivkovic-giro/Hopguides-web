@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState, forwardRef, useRef } from "reac
 import Paper from "@material-ui/core/Paper";
 import { homeDataService } from "../services/HomeDataService";
 import { HomeDataContext } from "../contexts/HomeDataContext";
-
 import Modal from '@mui/material/Modal';
 import { homeDataConstants } from "../constants/HomeDataConstants";
 import { reportConstants } from "../constants/ReportConstants";
@@ -31,6 +30,9 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { YMaps, Map } from "react-yandex-maps";
 import GetAppIcon from '@material-ui/icons/GetApp';
 import { useParams } from 'react-router-dom';
+
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 const mapState = {
 	center: [44, 21],
@@ -61,6 +63,16 @@ const tableIcons = {
 	ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
+const style = {
+	position: 'absolute',
+	top: '50%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
+	width: 400,
+	bgcolor: 'background.paper',
+	border: '2px solid #000',
+	boxShadow: 24,
+	p: 4,}
 
 var url = process.env.REACT_APP_URL || "http://localhost:3000/";
 const AddNewTourForm = (props) => {
@@ -322,15 +334,12 @@ const AddNewTourForm = (props) => {
 
 
 	return (
-		<Modal
-			show={homeDataState.showModal} aria-labelledby="contained-modal-title-vcenter" class="modal-dialog modal-lg" centered onHide={handleModalClose} size="lg">
 
-			<Modal.Header closeButton>
-				<Modal.Title id="contained-modal-title-vcenter">
-					<big>Add new tour</big>
-				</Modal.Title>
-			</Modal.Header>
-			<Modal.Body>
+		<Modal
+			open={homeDataState.showModal} aria-labelledby="contained-modal-title-vcenter" class="modal-dialog modal-lg" centered onClose={handleModalClose} size="lg">
+
+
+			<Box sx={style}>
 
 
 				<div>
@@ -346,7 +355,7 @@ const AddNewTourForm = (props) => {
 									<form id="contactForm" >
 
 
-								
+
 										<table style={{ marginLeft: "4rem", marginBottom: "4rem" }}>
 											<td width="600rem"  >
 												<div className="control-group">
@@ -355,7 +364,7 @@ const AddNewTourForm = (props) => {
 														<div class="row" >
 															<div class="form-group col-lg-10">
 																<input
-																	   
+
 																	className={"form-control"}
 																	placeholder="Title"
 																	aria-describedby="basic-addon1"
@@ -376,8 +385,8 @@ const AddNewTourForm = (props) => {
 														<label><b>Short description</b></label>
 														<div class="row" >
 															<div class="form-group col-lg-10">
-															<textarea className="form-control" style={{ height: "100px" }} type="textarea" required name="message" placeholder="Short description" value={shortInfo} onChange={(e) => setShortInfo(e.target.value)}></textarea>
-							
+																<textarea className="form-control" style={{ height: "100px" }} type="textarea" required name="message" placeholder="Short description" value={shortInfo} onChange={(e) => setShortInfo(e.target.value)}></textarea>
+
 															</div>
 														</div>
 													</div>
@@ -388,8 +397,8 @@ const AddNewTourForm = (props) => {
 														<label><b>Long description</b></label>
 														<div class="row" >
 															<div class="form-group col-lg-10">
-															<textarea className="form-control" style={{ height: "200px" }} type="textarea" required name="message" placeholder="Long description" value={longInfo} onChange={(e) => setLongInfo(e.target.value)}></textarea>
-						
+																<textarea className="form-control" style={{ height: "200px" }} type="textarea" required name="message" placeholder="Long description" value={longInfo} onChange={(e) => setLongInfo(e.target.value)}></textarea>
+
 															</div>
 														</div>
 													</div>
@@ -469,8 +478,8 @@ const AddNewTourForm = (props) => {
 																	<label><b>Short description </b></label>
 																	<div class="row" >
 																		<div class="form-group col-lg-10">
-																		<textarea className="form-control" style={{ height: "100px" }} type="textarea" required name="message" placeholder="Short description" value={shortInfoPoint} onChange={(e) => setShortInfoPoint(e.target.value)}></textarea>
-							
+																			<textarea className="form-control" style={{ height: "100px" }} type="textarea" required name="message" placeholder="Short description" value={shortInfoPoint} onChange={(e) => setShortInfoPoint(e.target.value)}></textarea>
+
 																		</div>
 																	</div>
 																</div>
@@ -481,8 +490,8 @@ const AddNewTourForm = (props) => {
 																	<label><b>Long description</b></label>
 																	<div class="row" >
 																		<div class="form-group col-lg-10">
-																		<textarea className="form-control" style={{ height: "200px" }} type="textarea" required name="message" placeholder="Long description" value={longInfoPoint} onChange={(e) => setLongInfoPoint(e.target.value)}></textarea>
-						
+																			<textarea className="form-control" style={{ height: "200px" }} type="textarea" required name="message" placeholder="Long description" value={longInfoPoint} onChange={(e) => setLongInfoPoint(e.target.value)}></textarea>
+
 																		</div>
 																	</div>
 																</div>
@@ -574,7 +583,7 @@ const AddNewTourForm = (props) => {
 																	</label>
 																	{!mondayclosed && <div class="row"  >
 
-																		<span  style={{marginLeft:"20px", marginRight: "30px"}}>
+																		<span style={{ marginLeft: "20px", marginRight: "30px" }}>
 																			<LocalizationProvider dateAdapter={AdapterDayjs}>
 																				<TimePicker
 																					label="From"
@@ -582,8 +591,8 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setMondayFrom(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px'}} 
-																					error={false} />}
+																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px' }}
+																						error={false} />}
 																				/>
 																			</LocalizationProvider>
 																		</span>
@@ -595,7 +604,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setMondayTo(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px'}}  error={false} />}
+																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px' }} error={false} />}
 																				/>
 																			</LocalizationProvider></span>
 																	</div>}
@@ -617,7 +626,7 @@ const AddNewTourForm = (props) => {
 																	{!tuesdayclosed && <div class="row" >
 
 
-																	<span  style={{marginLeft:"20px", marginRight: "30px"}}>
+																		<span style={{ marginLeft: "20px", marginRight: "30px" }}>
 																			<LocalizationProvider dateAdapter={AdapterDayjs}>
 																				<TimePicker
 																					label="From"
@@ -625,7 +634,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setTuesdayFrom(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px'}} error={false} />}
+																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px' }} error={false} />}
 																				/>
 																			</LocalizationProvider>
 																		</span>
@@ -637,7 +646,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setTuesdayTo(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params}size="small"  sx={{ width: '170px'}} error={false} />}
+																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px' }} error={false} />}
 																				/>
 																			</LocalizationProvider></span>
 																	</div>}
@@ -659,7 +668,7 @@ const AddNewTourForm = (props) => {
 																	{!wednesdayclosed && <div class="row" >
 
 
-																	<span  style={{marginLeft:"20px", marginRight: "30px"}}>
+																		<span style={{ marginLeft: "20px", marginRight: "30px" }}>
 																			<LocalizationProvider dateAdapter={AdapterDayjs}>
 																				<TimePicker
 																					label="From"
@@ -667,7 +676,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setWednesdayFrom(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px'}}  error={false} />}
+																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px' }} error={false} />}
 																				/>
 																			</LocalizationProvider>
 																		</span>
@@ -679,7 +688,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setWednesdayTo(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px'}} error={false} />}
+																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px' }} error={false} />}
 																				/>
 																			</LocalizationProvider></span>
 																	</div>}
@@ -701,7 +710,7 @@ const AddNewTourForm = (props) => {
 																	{!thursdayclosed && <div class="row" >
 
 
-																	<span  style={{marginLeft:"20px", marginRight: "30px"}}>
+																		<span style={{ marginLeft: "20px", marginRight: "30px" }}>
 																			<LocalizationProvider dateAdapter={AdapterDayjs}>
 																				<TimePicker
 																					label="From"
@@ -709,7 +718,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setThursdayFrom(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px'}} error={false} />}
+																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px' }} error={false} />}
 																				/>
 																			</LocalizationProvider>
 																		</span>
@@ -721,7 +730,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setThursdayTo(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px'}} error={false} />}
+																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px' }} error={false} />}
 																				/>
 																			</LocalizationProvider></span>
 																	</div>}
@@ -742,7 +751,7 @@ const AddNewTourForm = (props) => {
 																	</label>
 																	{!fridayclosed && <div class="row" >
 
-																	<span  style={{marginLeft:"20px", marginRight: "30px"}}>
+																		<span style={{ marginLeft: "20px", marginRight: "30px" }}>
 																			<LocalizationProvider dateAdapter={AdapterDayjs}>
 																				<TimePicker
 																					label="From"
@@ -750,7 +759,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setFridayFrom(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px'}} error={false} />}
+																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px' }} error={false} />}
 																				/>
 																			</LocalizationProvider>
 																		</span>
@@ -762,7 +771,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setFridayTo(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px'}} error={false} />}
+																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px' }} error={false} />}
 																				/>
 																			</LocalizationProvider></span>
 																	</div>}
@@ -784,7 +793,7 @@ const AddNewTourForm = (props) => {
 																	{!saturdayclosed && <div class="row" >
 
 
-																	<span  style={{marginLeft:"20px", marginRight: "30px"}}>
+																		<span style={{ marginLeft: "20px", marginRight: "30px" }}>
 																			<LocalizationProvider dateAdapter={AdapterDayjs}>
 																				<TimePicker
 																					label="From"
@@ -792,7 +801,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setSaturdayFrom(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px'}} error={false} />}
+																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px' }} error={false} />}
 																				/>
 																			</LocalizationProvider>
 																		</span>
@@ -804,7 +813,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setSaturdayTo(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px'}} error={false} />}
+																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px' }} error={false} />}
 																				/>
 																			</LocalizationProvider></span>
 																	</div>}
@@ -826,7 +835,7 @@ const AddNewTourForm = (props) => {
 																	{!sundayclosed && <div class="row" >
 
 
-																	<span  style={{marginLeft:"20px", marginRight: "30px"}}>
+																		<span style={{ marginLeft: "20px", marginRight: "30px" }}>
 																			<LocalizationProvider dateAdapter={AdapterDayjs}>
 																				<TimePicker
 																					label="From"
@@ -834,7 +843,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setSundayFrom(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px'}} error={false} />}
+																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px' }} error={false} />}
 																				/>
 																			</LocalizationProvider>
 																		</span>
@@ -846,7 +855,7 @@ const AddNewTourForm = (props) => {
 																					onChange={(newValue) => {
 																						setSundayTo(newValue);
 																					}}
-																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px'}} error={false} />}
+																					renderInput={(params) => <TextField {...params} size="small" sx={{ width: '170px' }} error={false} />}
 																				/>
 																			</LocalizationProvider></span>
 																	</div>}
@@ -1056,10 +1065,7 @@ const AddNewTourForm = (props) => {
 
 					</Paper>
 
-				</div>
-			</Modal.Body >
-			<Modal.Footer>
-			</Modal.Footer>
+				</div>    </Box>
 
 		</Modal >
 

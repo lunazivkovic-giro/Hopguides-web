@@ -41,6 +41,10 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import Axios from "axios";
 import { deleteLocalStorage, authHeader } from "../helpers/auth-header";
 
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
 var url = process.env.REACT_APP_URL || "http://localhost:3000/";
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -65,6 +69,20 @@ const tableIcons = {
   ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+
 const HomeData = forwardRef((props, ref) => {
 
   const { homeDataState, dispatch } = useContext(HomeDataContext);
@@ -85,8 +103,13 @@ const HomeData = forwardRef((props, ref) => {
     getDocumentsInfoHandler();
   };
 
+  
+  const handleClose = () => {
+    dispatch({ type: homeDataConstants.HIDE_SUCCESS_FAILURE_MODAL });
+  };
+
   const handleLogout = () => {
-   // deleteLocalStorage();
+    // deleteLocalStorage();
     window.location = "#/login";
   };
   const timeout = (delay) => {
@@ -178,7 +201,17 @@ const HomeData = forwardRef((props, ref) => {
     return getUpdateHandlerr();
 
   };
+  const onUpdate = async (oldData, newData) => {
 
+    const getUpdateHandlerr = async () => {
+      return await homeDataService.updateTour(dispatch, oldData);
+    };
+
+
+    return await getUpdateHandlerr();
+
+
+  };
   const handleLogin = () => {
     window.location.href = "#/login"
   };
@@ -219,6 +252,22 @@ const HomeData = forwardRef((props, ref) => {
       </div>
       {/*}*/}
 
+      <Modal
+        open={homeDataState.tours.success}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Text in a modal
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </Typography>
+        </Box>
+      </Modal>
+
       <h1 class="paragraph-box">Tourism Ljubljana</h1>
       <div class="contact-box">
         <TableContainer component={Paper}>
@@ -251,12 +300,6 @@ const HomeData = forwardRef((props, ref) => {
         </TableContainer>
       </div>
       <h4 class="paragraph-box">Tours</h4>
-
-
-      {/*Ovo za sada nije vazno*/}
-      {homeDataState.tours.success && <h4 class="success">Success </h4>}
-      {homeDataState.tours.failure && <h4 class="failure">Failure  </h4>}
-      {/*Kraj nevaznog*/}
 
       <MaterialTable
         stickyHeader
@@ -355,22 +398,8 @@ const HomeData = forwardRef((props, ref) => {
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
               setTimeout(async () => {
-                // onUpdate(newData, oldData)
-                //await props.helpFunction(newData, oldData)
-
-
-                //await timeout(2000);
-                //console.log(homeDataState.tours.tours)
-                //setTours(homeDataState.tours.tours)
-
-                /*  var arr =[]
-                  var a = {
-                   tourName: "jcbskdjnskdjfsd"
-                  }
-                  arr.push(a)
-                   setTours(arr)*/
-                //window.location.reload()
-
+                onUpdate(newData, oldData)
+                setTours(homeDataState.tours.tours)
                 resolve();
 
               }, 1);

@@ -30,7 +30,9 @@ const HomeDataContextProvider = (props) => {
 		},
 
 		toursWithPoints: {
-			toursWithPoints: []
+			toursWithPoints: [],
+			success: false,
+			failure: false,
 		},
 
 		previousReports: {
