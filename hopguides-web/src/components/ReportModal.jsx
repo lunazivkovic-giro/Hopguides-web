@@ -117,14 +117,9 @@ const ReportModal = () => {
 
 	return (
 		<Modal
-			show={reportState.report.showModal} aria-labelledby="contained-modal-title-vcenter" class="modal-dialog modal-lg" centered onHide={handleModalClose} size="lg">
+			open={reportState.report.showModal} aria-labelledby="contained-modal-title-vcenter" class="modal-dialog modal-lg" centered onClose={handleModalClose} size="lg">
 
-			<Modal.Header closeButton>
-				<Modal.Title id="contained-modal-title-vcenter">
-					<big>Add menu</big>
-				</Modal.Title>
-			</Modal.Header>
-			<Modal.Body>
+		
 				<div>
 					<Paper square>
 
@@ -181,9 +176,6 @@ const ReportModal = () => {
 
 					</Paper>
 				</div>
-			</Modal.Body>
-			<Modal.Footer>
-			</Modal.Footer>
 
 		</Modal>
 	);

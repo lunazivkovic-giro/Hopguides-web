@@ -14,21 +14,16 @@ const PreviousReportTourModal = () => {
 	};
  
 	return (
+	
+
 		<Modal 
-		show={homeDataState.previousReports.showModal} aria-labelledby="contained-modal-title-vcenter" class="modal-dialog modal-lg" centered onHide={handleModalClose}   size="lg">
+		open={homeDataState.previousReports.showModal} aria-labelledby="contained-modal-title-vcenter" class="modal-dialog modal-lg" centered onClose={handleModalClose}   size="lg">
 			
-			<Modal.Header closeButton>
-				<Modal.Title id="contained-modal-title-vcenter">
-					<big>Monthly reports</big>
-				</Modal.Title>
-			</Modal.Header>
-			<Modal.Body>
+			
 				<PreviousReportTourForm
 				homeDataState = {homeDataState}
 				dispatch = {dispatch}/>
-			</Modal.Body>
-			<Modal.Footer>
-			</Modal.Footer>
+		
 
 		</Modal>
 	);

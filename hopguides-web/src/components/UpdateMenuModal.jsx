@@ -114,14 +114,9 @@ const UpdateMenuModal = () => {
 
 	return (
 		<Modal
-			show={homeDataState.showEditMenuModal} aria-labelledby="contained-modal-title-vcenter" class="modal-dialog modal-lg" centered onHide={handleModalClose} size="lg">
+			open={homeDataState.showEditMenuModal} aria-labelledby="contained-modal-title-vcenter" class="modal-dialog modal-lg" centered onClose={handleModalClose} size="lg">
 
-			<Modal.Header closeButton>
-				<Modal.Title id="contained-modal-title-vcenter">
-					<big>Add menu</big>
-				</Modal.Title>
-			</Modal.Header>
-			<Modal.Body>
+			
 				<div>
 					<Paper square>
 
@@ -178,9 +173,6 @@ const UpdateMenuModal = () => {
 
 					</Paper>
 				</div>
-			</Modal.Body>
-			<Modal.Footer>
-			</Modal.Footer>
 
 		</Modal>
 	);
