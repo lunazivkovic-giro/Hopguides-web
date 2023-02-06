@@ -3,7 +3,8 @@ import React, { useContext, useEffect, useState, forwardRef, useRef } from "reac
 import Paper from "@material-ui/core/Paper";
 import { homeDataService } from "../services/HomeDataService";
 import { HomeDataContext } from "../contexts/HomeDataContext";
-import { Modal } from "react-bootstrap";
+
+import Modal from '@mui/material/Modal';
 import { homeDataConstants } from "../constants/HomeDataConstants";
 import { reportConstants } from "../constants/ReportConstants";
 import MaterialTable, { MTableToolbar } from "material-table";

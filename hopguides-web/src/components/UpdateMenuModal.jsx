@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { Modal } from "react-bootstrap";
+
+import Modal from '@mui/material/Modal';
 import { homeDataConstants } from "../constants/HomeDataConstants";
 import { HomeDataContext } from "../contexts/HomeDataContext";
 import Paper from "@material-ui/core/Paper";
