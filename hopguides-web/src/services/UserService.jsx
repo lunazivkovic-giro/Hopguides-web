@@ -9,7 +9,8 @@ var url = process.env.REACT_APP_URL || "http://localhost:3000/";
 export const userService = {
 	login,
 	getRoles,
-	sendRegistrationMail
+	sendRegistrationMail,
+	sendSetPassword
 };
 
 
@@ -51,6 +52,40 @@ function login(loginRequest, dispatch) {
 
 
 
+function sendSetPassword(sendEmailRequest, dispatch) {
+	
+
+	console.log(sendEmailRequest)
+	dispatch(request());
+	Axios.post(`${url}api/users/register`, sendEmailRequest, { validateStatus: () => true })
+		.then((res) => {
+			if (res.status === 200) {
+				dispatch(success());
+							
+			} else {
+				dispatch(failure(res.data.error));
+			} 
+		})
+		.catch((err) =>{
+			
+			var error = "Unknown error, please try again later."
+				dispatch(failure(error));
+			})
+
+	function request() {
+		return { type: userConstants.SET_PASSWORD_REQUEST };
+	}
+	function success() {
+		return { type: userConstants.SET_PASSWORD_SUCCESS };
+	}
+	function failure(error) {
+		
+		return { type: userConstants.SET_PASSWORD_FAILURE, error };
+	}
+}
+
+
+
 function sendRegistrationMail(sendEmailRequest, dispatch) {
 	
 
@@ -82,6 +117,8 @@ function sendRegistrationMail(sendEmailRequest, dispatch) {
 		return { type: userConstants.REGISTRATION_MAIL_FAILURE, error };
 	}
 }
+
+
 
 async function getRoles(dispatch) {
 	dispatch(request());

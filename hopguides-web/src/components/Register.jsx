@@ -13,15 +13,12 @@ import { AiOutlineUserAdd, AiOutlineMail } from 'react-icons/ai';
 const Register = () => {
 
 	const { userState, dispatch } = useContext(UserContext);
-	const [role, setRole] = useState(null);
-	const [company, setCompany] = useState(null);
 	const [email, setEmail] = useState("");
 	const [name, setName] = useState("");
 	const [phone, setPhone] = useState("");
 	const [phone2, setPhone2] = useState("");
 	const [contactEmail, setContactEmail] = useState("");
 	const [webURL, setWebURL] = useState("");
-	const [tf, setTf] = useState(true);
 
 	const handleLogout = (event) => {
 
@@ -32,8 +29,6 @@ const Register = () => {
 
 	const handleSubmitNew = (e) => {
 
-
-		console.log("jsdfksdnkfsdkfj")
 
 		e.preventDefault();
 

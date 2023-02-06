@@ -7,6 +7,7 @@ import PageNotFound from "./pages/PageNotFound.jsx";
 import { ProtectedRoute } from "./router/ProtectedRouter.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage";
+import SetPasswordPage from "./pages/SetPasswordPage";
 import UnauthorizedPage from "./pages/UnauthorizedPage.jsx";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
 		<Router>
 			<Switch>
 				<Route path="/register" component={RegisterPage} />
+				<Route path="/setPassword/:email" component={SetPasswordPage} />
 				<Route path="/report/:id" component={ReportPage} />
 				<Route path="/previousReports/:id" component={PreviousReportPage} />
 				<Route path="/404" component={PageNotFound} />
