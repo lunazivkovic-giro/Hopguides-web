@@ -55,7 +55,6 @@ function login(loginRequest, dispatch) {
 function sendSetPassword(sendEmailRequest, dispatch) {
 	
 
-	console.log(sendEmailRequest)
 	dispatch(request());
 	Axios.post(`${url}api/users/register`, sendEmailRequest, { validateStatus: () => true })
 		.then((res) => {

@@ -44,9 +44,8 @@ const Register = () => {
 
 		}
 
-		console.log(sendEmailRequest)
-
-		userService.sendRegistrationMail(sendEmailRequest, dispatch);
+		
+		//userService.sendRegistrationMail(sendEmailRequest, dispatch);
 	};
 
 

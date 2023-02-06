@@ -41,9 +41,7 @@ const SetPassword = () => {
 
 		}
 
-		console.log(sendEmailRequest)
-
-		userService.sendSetPassword(sendEmailRequest, dispatch);
+		//userService.sendSetPassword(sendEmailRequest, dispatch);
 	};
 
 
