@@ -189,8 +189,13 @@ const HomeData = forwardRef((props, ref) => {
         This is Tailwindcss Test
       </div>
 
-      {/*{!role &&*/}
-      <div class=" button-login">
+      <div class="p-10 bg-red-500 rounded-lg">
+        This is Tailwindcss Test
+      </div>
+
+      {/*!role &&*/}
+       <div class=" button-login">
+        
         <button
           type="button"
 
