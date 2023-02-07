@@ -42,6 +42,11 @@ const HomeDataContextProvider = (props) => {
 		},
 
 
+		modalData: {
+			success: false,
+			failure: false,
+			text: "",
+		},
 	});
 
 	return <HomeDataContext.Provider value={{ homeDataState, dispatch }}>{props.children}</HomeDataContext.Provider>;

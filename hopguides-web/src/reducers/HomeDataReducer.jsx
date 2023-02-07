@@ -355,6 +355,25 @@ export const homeDataReducer = (state, action) => {
 			return {
 				...state,
 
+				modalData: {
+					success: true,
+					failure: false,
+					text: "You have successfully added new tour.",
+				},
+
+			};
+
+			case homeDataConstants.TOUR_SUBMIT_FAILURE:
+
+			return {
+				...state,
+
+				modalData: {
+					success: false,
+					failure: true,
+					text: "Error while adding new tour. Please try again later.",
+				},
+
 			};
 
 		case homeDataConstants.TOUR_UPDATE_SUCCESS:
@@ -544,12 +563,13 @@ export const homeDataReducer = (state, action) => {
 
 			return prodCpy;
 
-			case homeDataConstants.HIDE_SUCCESS_FAILURE_MODAL:
-				prodCpy = { ...state };
+		case homeDataConstants.HIDE_SUCCESS_FAILURE_MODAL:
+			prodCpy = { ...state };
 
+			prodCpy.modalData.success = false;
+				prodCpy.modalData.failure = false;
+				prodCpy.modalData.text = "";
 
-			prodCpy.tours.success = false;
-			prodCpy.tours.failure = false;
 			return prodCpy;
 
 		default:
