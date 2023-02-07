@@ -60,8 +60,12 @@ function addTour(tour, dispatch) {
 
 
 function updatePoint( dispatch, point) {
-
-	dispatch(request());
+	function success() {
+		return { type: homeDataConstants.POI_UPDATE_SUCCESS };
+	
+	}
+	dispatch(success());
+	/*dispatch(request());
 	var token = authHeader()
 	Axios.post(`${url}api/poi/update/`+point.point.id, point, {
 		headers: {
@@ -92,7 +96,7 @@ function updatePoint( dispatch, point) {
 	function failure(error) {
 		
 		return { type: homeDataConstants.POI_UPDATE_FAILURE, error };
-	}
+	}*/
 }
 
 
@@ -101,7 +105,7 @@ function updateTour( dispatch, tour) {
 	dispatch(success(data));
 
 	function success(data) {
-		return { type: homeDataConstants.TOUR_UPDATE_SUCCESS, data: data  };
+		return { type: homeDataConstants.TOUR_UPDATE_FAILURE, data: data  };
 	
 	}
 	/*dispatch(request());

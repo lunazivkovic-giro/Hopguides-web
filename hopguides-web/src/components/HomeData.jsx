@@ -483,7 +483,7 @@ const HomeData = forwardRef((props, ref) => {
               onRowUpdate: (newData, oldData) =>
                 new Promise((resolve, reject) => {
                   setTimeout(() => {
-                    //onUpdatePoint(newData, oldData)
+                    onUpdatePoint(newData, oldData)
                     //window.location.reload()
                     resolve();
                   }, 1);

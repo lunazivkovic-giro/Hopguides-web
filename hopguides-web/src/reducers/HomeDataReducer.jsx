@@ -395,26 +395,57 @@ export const homeDataReducer = (state, action) => {
 			array.push(tour)
 			array.push(tour2)
 
-			console.log(array)
 
 
 			prodCpy = { ...state };
 
 			prodCpy.tours.tours = array;
-			prodCpy.tours.success = true;
-
+			prodCpy.modalData.success = true;
+			prodCpy.modalData.text = "You have successfully updated tour.";
 			return prodCpy;
 
 
 		case homeDataConstants.TOUR_UPDATE_FAILURE:
 
 
-			prodCpy = { ...state };
+		return {
+			...state,
 
-			prodCpy.tours.tours = [];
-			prodCpy.tours.failure = true;
+			modalData: {
+				success: false,
+				failure: true,
+				text: "Error while updating tour. Please try again later.",
+			},
 
-			return prodCpy;
+		};
+
+		case homeDataConstants.UPDATE_MENU_PHOTO_SUCCESS:
+
+
+		return {
+			...state,
+
+			modalData: {
+				success: true,
+				failure: false,
+				text: "You have successfully updated menu photo.",
+			},
+
+		};
+
+		case homeDataConstants.UPDATE_MENU_PHOTO_FAILURE:
+
+
+		return {
+			...state,
+
+			modalData: {
+				success: false,
+				failure: true,
+				text: "Error while updating menu photo. Please try again later.",
+			},
+
+		};
 
 		case homeDataConstants.POI_UPDATE_SUCCESS:
 
@@ -436,7 +467,7 @@ export const homeDataReducer = (state, action) => {
 					offerName: "half of a sausage",
 					price: "2.8€ withouth tax",
 					title: {
-						en: "Klobasarna"
+						en: "Klobasarna2"
 					}
 				}
 			}
@@ -455,7 +486,7 @@ export const homeDataReducer = (state, action) => {
 					offerName: "half of a sausage",
 					price: "2.8€ withouth tax",
 					title: {
-						en: "Struklji"
+						en: "Struklji2"
 					}
 				}
 			}
@@ -474,7 +505,7 @@ export const homeDataReducer = (state, action) => {
 					offerName: "half of a sausage",
 					price: "2.8€ withouth tax",
 					title: {
-						en: "Daktari"
+						en: "Daktari2"
 					}
 				}
 			}
@@ -493,7 +524,7 @@ export const homeDataReducer = (state, action) => {
 					offerName: "half of a sausage",
 					price: "2.8€ withouth tax",
 					title: {
-						en: "Point4"
+						en: "Point42"
 					}
 				}
 			}
@@ -512,7 +543,7 @@ export const homeDataReducer = (state, action) => {
 					offerName: "half of a sausage",
 					price: "2.8€ withouth tax",
 					title: {
-						en: "Point 5"
+						en: "Point 52"
 					}
 				}
 			}
@@ -548,7 +579,8 @@ export const homeDataReducer = (state, action) => {
 			prodCpy = { ...state };
 
 			prodCpy.toursWithPoints.toursWithPoints = array;
-			prodCpy.toursWithPoints.success = true;
+			prodCpy.modalData.success = true;
+			prodCpy.modalData.text = "You have successfully updated partners data.";
 
 			return prodCpy;
 
@@ -559,7 +591,8 @@ export const homeDataReducer = (state, action) => {
 
 
 			prodCpy.toursWithPoints.toursWithPoints = [];
-			prodCpy.toursWithPoints.failure = true;
+			prodCpy.modalData.failure = true;
+			prodCpy.modalData.text = "Error while updating data. Please try again later.";
 
 			return prodCpy;
 

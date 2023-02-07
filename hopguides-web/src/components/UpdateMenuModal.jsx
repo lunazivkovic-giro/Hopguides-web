@@ -23,7 +23,7 @@ const UpdateMenuModal = () => {
 
 	const handleModalClose = () => {
 		dispatch({ type: homeDataConstants.HIDE_ADD_MENU_MODAL });
-		window.location.reload()
+		//window.location.reload()
 	};
 
 	useEffect(() => {
@@ -98,11 +98,14 @@ const UpdateMenuModal = () => {
 		statusRef.current.innerHTML = "Success";
 		progressRef.current.value = 100;
 		//reportService.addMenu(true, dispatch);
+		
+		dispatch({ type: homeDataConstants.UPDATE_MENU_PHOTO_SUCCESS });
 	};
 	const ErrorHandler = () => {
 
 		statusRef.current.innerHTML = "Upload failed";
 
+		dispatch({ type: homeDataConstants.UPDATE_MENU_PHOTO_FAILURE });
 		//reportService.addMenu(false, dispatch);
 	};
 	const AbortHandler = () => {
