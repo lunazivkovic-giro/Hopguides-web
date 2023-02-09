@@ -27,7 +27,7 @@ const ReportPrint = () => {
     const someFetchActionCreator = () => {
         const getReportInfoHandler = async () => {
             await reportService.getReport(dispatch, id);
-           // await reportService.getMenu(dispatch, id);
+            await reportService.getMenu(dispatch, id);
         };
 
 
@@ -38,7 +38,7 @@ const ReportPrint = () => {
     useEffect(() => {
 
        
-       /* var token = authHeader()
+        var token = authHeader()
         if (token == "null") {
             // window.location = "#/unauthorized";
         } else {
@@ -63,7 +63,7 @@ const ReportPrint = () => {
 
                 })
         }
-*/
+
 
         someFetchActionCreator()
     }, [dispatch]);
@@ -79,7 +79,7 @@ const ReportPrint = () => {
 
 
     const handleLogout = () => {
-       // deleteLocalStorage();
+        deleteLocalStorage();
         window.location = "#/login";
     };
 
@@ -101,20 +101,7 @@ const ReportPrint = () => {
             <span style={{ color: 'red' }}>{children}</span>
         );
     }
-    const reactToPrintContent = useCallback(() => {
-        return componentRef.current;
-    }, [componentRef.current]);
 
-    const reactToPrintTrigger = useCallback(() => {
-        // NOTE: could just as easily return <SomeComponent />. Do NOT pass an `onClick` prop
-        // to the root node of the returned component as it will be overwritten.
-
-        // Bad: the `onClick` here will be overwritten by `react-to-print`
-        // return <button onClick={() => alert('This will not work')}>Print this out!</button>;
-
-        // Good
-        return <button>Print using a Functional Component</button>;
-    }, []);
     return (
         <div class="login-page">
 
@@ -123,7 +110,7 @@ const ReportPrint = () => {
 
             <div class='parent'>
 
-                {/*{!role && */}<div >
+                {!role && <div >
                     <button
                         type="button"
                         onClick={handleLogin}
@@ -132,9 +119,9 @@ const ReportPrint = () => {
                     >
                         Log in
                     </button>
-                </div>{/*}*/}
+                </div>}
 
-                 {/*{role && */} <div>
+                 {role &&  <div>
                     <button
                         type="button"
                         onClick={handleLogout}
@@ -144,7 +131,7 @@ const ReportPrint = () => {
                         Log out
                     </button>
 
-                </div>{/*}*/}
+                </div>}
 
 
                 <ReactToPrint

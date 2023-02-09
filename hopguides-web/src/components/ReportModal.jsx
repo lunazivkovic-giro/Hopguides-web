@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 
-import Modal from '@mui/material/Modal';
+import { Modal } from "react-bootstrap";
 import { reportConstants } from "../constants/ReportConstants";
 import { ReportContext } from "../contexts/ReportContext";
 import Paper from "@material-ui/core/Paper";
@@ -116,9 +116,18 @@ const ReportModal = () => {
 	};
 
 	return (
-		<Modal
-			open={reportState.report.showModal} aria-labelledby="contained-modal-title-vcenter" class="modal-dialog modal-lg" centered onClose={handleModalClose} size="lg">
 
+		<Modal
+		show={reportState.report.showModal} aria-labelledby="contained-modal-title-vcenter" class="modal-dialog modal-lg" centered onHide={handleModalClose} size="lg">
+
+		<Modal.Header closeButton>
+			<Modal.Title id="contained-modal-title-vcenter">
+				<big>Add new tour</big>
+			</Modal.Title>
+		</Modal.Header>
+		<Modal.Body>
+
+		
 		
 				<div>
 					<Paper square>
@@ -176,6 +185,10 @@ const ReportModal = () => {
 
 					</Paper>
 				</div>
+				</Modal.Body >
+			<Modal.Footer>
+			</Modal.Footer>
+
 
 		</Modal>
 	);

@@ -16,9 +16,7 @@ export const userService = {
 
 function login(loginRequest, dispatch) {
 	
-	window.location.href="/#"
-
-	/*dispatch(request());
+	dispatch(request());
 	Axios.post(`${url}api/users/login`, loginRequest, { validateStatus: () => true })
 		.then((res) => {
 			if (res.status === 200) {
@@ -47,7 +45,7 @@ function login(loginRequest, dispatch) {
 	function failure(error) {
 		
 		return { type: userConstants.LOGIN_FAILURE, error };
-	}*/
+	}
 }
 
 
@@ -88,7 +86,6 @@ function sendSetPassword(sendEmailRequest, dispatch) {
 function sendRegistrationMail(sendEmailRequest, dispatch) {
 	
 
-	console.log(sendEmailRequest)
 	dispatch(request());
 	Axios.post(`${url}api/users/sendRegistrationEmail`, sendEmailRequest, { validateStatus: () => true })
 		.then((res) => {

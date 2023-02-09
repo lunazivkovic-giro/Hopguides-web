@@ -90,7 +90,6 @@ const HomePageData = forwardRef((props, ref) => {
 
     useEffect(() => {
 
-/*
         var token = authHeader()
         if (token == "null") {
             window.location = "#/unauthorized";
@@ -115,7 +114,7 @@ const HomePageData = forwardRef((props, ref) => {
                 .catch((err) => {
 
                 })
-        }*/
+        }
 
         var contactUser = {
             name: "Danijel Omrzel",

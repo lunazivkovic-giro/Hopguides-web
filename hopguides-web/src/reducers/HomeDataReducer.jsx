@@ -71,8 +71,8 @@ export const homeDataReducer = (state, action) => {
 			return {
 				...state,
 				tours: {
-					//tours: action.data
-					tours: array
+					tours: action.data
+					//tours: array
 				},
 			};
 
@@ -215,8 +215,8 @@ export const homeDataReducer = (state, action) => {
 			return {
 				...state,
 				toursWithPoints: {
-					//toursWithPoints: action.data
-					toursWithPoints: array
+					toursWithPoints: action.data
+					//toursWithPoints: array
 				},
 			};
 
@@ -247,7 +247,7 @@ export const homeDataReducer = (state, action) => {
 			array.push(item2)
 
 			var arrReports = []
-			for (var report of array) {//action.data) { 
+			for (var report of action.data) { 
 				if (report.from.length == 5) {
 					var monthNum = report.from.charAt(0)
 					monthNum = parseInt(monthNum) + 1
@@ -399,7 +399,7 @@ export const homeDataReducer = (state, action) => {
 
 			prodCpy = { ...state };
 
-			prodCpy.tours.tours = array;
+			prodCpy.tours.tours = action.data;//array;
 			prodCpy.modalData.success = true;
 			prodCpy.modalData.text = "You have successfully updated tour.";
 			return prodCpy;
@@ -578,7 +578,7 @@ export const homeDataReducer = (state, action) => {
 
 			prodCpy = { ...state };
 
-			prodCpy.toursWithPoints.toursWithPoints = array;
+			prodCpy.toursWithPoints.toursWithPoints = action.data;//array;
 			prodCpy.modalData.success = true;
 			prodCpy.modalData.text = "You have successfully updated partners data.";
 

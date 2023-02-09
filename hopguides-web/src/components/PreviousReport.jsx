@@ -75,7 +75,7 @@ const PreviousReport = forwardRef((props, ref) => {
   useEffect(() => {
 
 
-/*
+
     var token = authHeader()
     if (token == "null") {
       window.location = "#/unauthorized";
@@ -101,7 +101,7 @@ const PreviousReport = forwardRef((props, ref) => {
 
         })
 
-      }*/
+      }
       someFetchActionCreator();
     }, [dispatch]);
 

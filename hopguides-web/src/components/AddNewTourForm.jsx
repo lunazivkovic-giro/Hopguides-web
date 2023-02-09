@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState, forwardRef, useRef } from "reac
 import Paper from "@material-ui/core/Paper";
 import { homeDataService } from "../services/HomeDataService";
 import { HomeDataContext } from "../contexts/HomeDataContext";
-import Modal from '@mui/material/Modal';
+import { Modal } from "react-bootstrap";
 import { homeDataConstants } from "../constants/HomeDataConstants";
 import { reportConstants } from "../constants/ReportConstants";
 import MaterialTable, { MTableToolbar } from "material-table";
@@ -77,12 +77,6 @@ const style = {
 var url = process.env.REACT_APP_URL || "http://localhost:3000/";
 const AddNewTourForm = (props) => {
 
-	//const [addressInput, setAddressInput] =  React.createRef();
-
-	/*const addressInput = React.forwardRef(({ children }, ref) => {
-		return <li ref={ref}>{children}</li>;
-	});
-*/
 	const addressInput = React.createRef(null);
 
 
@@ -230,30 +224,6 @@ const AddNewTourForm = (props) => {
 
 			}
 
-			/*const formData = new FormData();
-	
-			formData.append('files', files);
-			//formData.append("pointId", reportState.report.pointId);
-			formData.append("tour", tour);
-	
-			var xhr = new XMLHttpRequest();
-			xhr.upload.addEventListener("progress", ProgressHandler, false);
-			xhr.addEventListener("load", SuccessHandler, false);
-			xhr.addEventListener("error", ErrorHandler, false);
-			xhr.addEventListener("abort", AbortHandler, false);
-	
-			xhr.open('POST', `${url}api/pnl/tour/add`, true);
-			//xhr.setRequestHeader("Authorization", props.token);
-			xhr.onload = function () {
-				// do something to response
-			};
-	
-			xhr.send(formData);*/
-
-
-
-
-
 			homeDataService.addTour(tour, dispatch);
 
 		}
@@ -336,14 +306,16 @@ const AddNewTourForm = (props) => {
 	return (
 
 		<Modal
-			open={homeDataState.showModal} aria-labelledby="contained-modal-title-vcenter" class="modal-dialog modal-lg" centered onClose={handleModalClose} size="lg">
+			show={homeDataState.showModal} aria-labelledby="contained-modal-title-vcenter" class="modal-dialog modal-lg" centered onHide={handleModalClose} size="lg">
+
+			<Modal.Header closeButton>
+				<Modal.Title id="contained-modal-title-vcenter">
+					<big>Add new tour</big>
+				</Modal.Title>
+			</Modal.Header>
+			<Modal.Body>
 
 
-			<Box sx={style}>
-
-
-				<div>
-					<Paper square>
 
 
 						<div   >
@@ -1061,11 +1033,9 @@ const AddNewTourForm = (props) => {
 
 						</div>
 
-
-
-					</Paper>
-
-				</div>    </Box>
+ </Modal.Body >
+			<Modal.Footer>
+			</Modal.Footer>
 
 		</Modal >
 

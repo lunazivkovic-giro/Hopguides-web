@@ -22,7 +22,7 @@ const Register = () => {
 
 	const handleLogout = (event) => {
 
-		// deleteLocalStorage();
+		 //deleteLocalStorage();
 		window.location = "#/login";
 	}
 
@@ -45,7 +45,7 @@ const Register = () => {
 		}
 
 		
-		//userService.sendRegistrationMail(sendEmailRequest, dispatch);
+		userService.sendRegistrationMail(sendEmailRequest, dispatch);
 	};
 
 

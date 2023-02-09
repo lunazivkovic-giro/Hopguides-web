@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 
-import Modal from '@mui/material/Modal';
+import { Modal } from "react-bootstrap";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { homeDataConstants } from "../constants/HomeDataConstants";
@@ -37,20 +37,20 @@ const SuccessModal = () => {
 
 	return (
 		<Modal
-        open={homeDataState.modalData.failure}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-           Error
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-		  {homeDataState.modalData.text}
-          </Typography>
-        </Box>
-      </Modal>
+		show={homeDataState.modalData.failure} aria-labelledby="contained-modal-title-vcenter" class="modal-dialog modal-lg" centered onHide={handleClose} size="lg">
+
+		<Modal.Header closeButton>
+			<Modal.Title id="contained-modal-title-vcenter">
+				<big>Error</big>
+			</Modal.Title>
+		</Modal.Header>
+		<Modal.Body>
+		{homeDataState.modalData.text}
+
+		</Modal.Body >
+			<Modal.Footer>
+			</Modal.Footer>
+		</Modal>
 	);
 };
 

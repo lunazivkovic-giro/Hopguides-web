@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 
-import Modal from '@mui/material/Modal';
+import { Modal } from "react-bootstrap";
 import { homeDataConstants } from "../constants/HomeDataConstants";
 import { HomeDataContext } from "../contexts/HomeDataContext";
 import Paper from "@material-ui/core/Paper";
@@ -76,7 +76,7 @@ const UpdateMenuModal = () => {
 			xhr.addEventListener("error", ErrorHandler, false);
 			xhr.addEventListener("abort", AbortHandler, false);
 //************************************** */
-			//xhr.open('POST', `${url}api/poi/${homeDataState.id}/uploadMenu`, true);
+			xhr.open('POST', `${url}api/poi/${homeDataState.id}/uploadMenu`, true);
 			//xhr.setRequestHeader("Authorization", props.token);
 			xhr.onload = function () {
 				// do something to response
@@ -116,10 +116,17 @@ const UpdateMenuModal = () => {
 	};
 
 	return (
-		<Modal
-			open={homeDataState.showEditMenuModal} aria-labelledby="contained-modal-title-vcenter" class="modal-dialog modal-lg" centered onClose={handleModalClose} size="lg">
 
-			
+		<Modal
+		show={homeDataState.showEditMenuModal} aria-labelledby="contained-modal-title-vcenter" class="modal-dialog modal-lg" centered onHide={handleModalClose} size="lg">
+
+		<Modal.Header closeButton>
+			<Modal.Title id="contained-modal-title-vcenter">
+				<big>Add new tour</big>
+			</Modal.Title>
+		</Modal.Header>
+		<Modal.Body>
+
 				<div>
 					<Paper square>
 
@@ -176,6 +183,10 @@ const UpdateMenuModal = () => {
 
 					</Paper>
 				</div>
+				</Modal.Body >
+			<Modal.Footer>
+			</Modal.Footer>
+
 
 		</Modal>
 	);

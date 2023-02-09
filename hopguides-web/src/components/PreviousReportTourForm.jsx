@@ -47,27 +47,10 @@ const tableIcons = {
 };
 const PreviousReportTourForm = (props) => {
 
-	let data = props.homeDataState.previousReports.reports;
-	//const [documentTitle, setDocumentTitle] = useState(transferData.documentTitle);
-	//const [documentDescription, setDocumentDescription] = useState(transferData.documentDescription);
-	//const [id, setId] = useState(transferData.id);
 
 	useEffect(() => {
 
 	}, [props.dispatch]);
-	const handleSubmit = (e) => {
-		e.preventDefault();
-
-
-
-		/*	var data = {
-				id: id,
-				documentTitle: documentTitle,
-				documentDescription: documentDescription
-			}
-	
-			documentService.editDocument(data, props.dispatch);*/
-	};
 
 
 	return (

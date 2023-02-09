@@ -91,7 +91,7 @@ const HomeData = forwardRef((props, ref) => {
   
 
   const handleLogout = () => {
-    // deleteLocalStorage();
+     deleteLocalStorage();
     window.location = "#/login";
   };
   const timeout = (delay) => {
@@ -102,7 +102,7 @@ const HomeData = forwardRef((props, ref) => {
     await timeout(1000);
     setTours(homeDataState.tours.tours)
 
-    /* var token = authHeader()
+     var token = authHeader()
      if (token == "null") {
        window.location = "#/unauthorized";
      } else {
@@ -127,7 +127,7 @@ const HomeData = forwardRef((props, ref) => {
  
          })
      }
- */
+ 
     var contactUser = {
       name: "Danijel Omrzel",
       email: "danijel.omrzel@visitlljubljana.si",
@@ -200,10 +200,8 @@ const HomeData = forwardRef((props, ref) => {
   return (
 
     <div class="login-page" >
-      <div class="p-10 bg-red-500 rounded-lg">
-        This is Tailwindcss Test
-      </div>
-      {/*!role &&*/}
+    
+      {!role &&
        <div class=" button-login">
         
         <button
@@ -215,9 +213,9 @@ const HomeData = forwardRef((props, ref) => {
           Log in
         </button>
       </div>
-      {/*}*/}
+      }
 
-      {/*{role &&}*/}
+      {role &&
       <div class=" button-login">
         <button
           type="button"
@@ -227,11 +225,11 @@ const HomeData = forwardRef((props, ref) => {
           Log out
         </button>
       </div>
-      {/*}*/}
+      }
 
      
 
-      <h1 class="paragraph-box">Tourism Ljubljana</h1>
+      <h1 class="paragraph-box" style={{ fontSize: 28 }} ><b>Tourism Ljubljana</b></h1>
       <div class="contact-box">
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -262,7 +260,7 @@ const HomeData = forwardRef((props, ref) => {
           </Table>
         </TableContainer>
       </div>
-      <h4 class="paragraph-box">Tours</h4>
+      <h4 class="paragraph-box" style={{ fontSize: 20 }} >Tours</h4>
 
       <MaterialTable
         stickyHeader
@@ -324,14 +322,10 @@ const HomeData = forwardRef((props, ref) => {
 
         ]}
         onRowClick={(event, rowData) => {
-          // window.location.replace(`#${rowData.tourId}`);
-          //scrollEffect(`#${rowData.tourId}`)
-          //event.stopPropagation();
 
 
           const element = document.getElementById(rowData.tourId);
           if (element) {
-            // 👇 Will scroll smoothly to the top of the next section
             element.scrollIntoView({ behavior: 'smooth' });
           }
 
@@ -447,7 +441,7 @@ const HomeData = forwardRef((props, ref) => {
                       color="inherit"
                       onClick={(event) => {
                         console.log(rowData)
-                        //getQrCode(event, rowData.point.id)
+                        getQrCode(event, rowData.point.id)
                       }}
                     >
                       Get QR code
