@@ -43,7 +43,7 @@ const Report = forwardRef(( props, ref ) => {
                             setRole(true)
                         }
 
-                        if ("ADMIN" == res.data || "TOURISM" == res.data) {
+                        if ("ADMIN" == res.data || "PROVIDER" == res.data) {
 
                             setRole(true)
                             setAdmin(true)

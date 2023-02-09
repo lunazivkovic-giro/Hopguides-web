@@ -65,6 +65,9 @@ export const reportReducer = (state, action) => {
 		 * *********************************
 		 * *********************************
 		 */
+
+		console.log("lunaaa")
+		console.log(action.data)
 			return {
 				...state,
 				report: {

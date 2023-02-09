@@ -116,7 +116,7 @@ const HomeData = forwardRef((props, ref) => {
                setRole(true)
              }
  
-             if ("ADMIN" == res.data || "TOURISM" == res.data) {
+             if ("ADMIN" == res.data || "PROVIDER" == res.data) {
  
                setRole(true)
                setAdmin(true)
@@ -273,14 +273,14 @@ const HomeData = forwardRef((props, ref) => {
                 alignItems: "center"
               }}
             >
-              <Button
+             {admin &&  <Button
                 style={{ height: "fit-content" }}
                 color="primary"
                 variant="contained"
                 onClick={(e) => addNew(e)}
               >
                 Add tour
-              </Button>
+              </Button>}
               <div style={{ width: "13rem" }}>
                 <MTableToolbar {...props} />
               </div>

@@ -36,6 +36,8 @@ async function getReport(dispatch ,id) {
 		return { type: reportConstants.REPORT_GET_REQUEST };
 	}
 	function success(data) {
+		
+		console.log("ckdhfksdkfjlllllll")
 		return { type: reportConstants.REPORT_GET_SUCCESS, data: data };
 	}
 	function failure(message) {
