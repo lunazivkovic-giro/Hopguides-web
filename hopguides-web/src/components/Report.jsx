@@ -160,6 +160,7 @@ const Report = forwardRef(( props, ref ) => {
            <div class=" button-p">
                 <button
                     type="button"
+                    style= {{color: "black" }}
                     onClick={handleShowModal}
                     class="btn btn-primary btn-lg"
                 >

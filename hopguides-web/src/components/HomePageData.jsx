@@ -90,40 +90,9 @@ const HomePageData = forwardRef((props, ref) => {
 
     useEffect(() => {
 
-        var token = authHeader()
-        if (token == "null") {
-            window.location = "#/unauthorized";
-        } else {
+      
 
-            Axios.get(`${url}api/users/getRole`, { headers: { Authorization: token } }, { validateStatus: () => true },
-            )
-                .then((res) => {
-                    if (res.status === 200) {
-                        if ("BPARTNER" == res.data) {
-
-                            setRole(true)
-                        }
-
-                        if ("ADMIN" == res.data || "PROVIDER" == res.data) {
-
-                            setRole(true)
-                            setAdmin(true)
-                        }
-                    }
-                })
-                .catch((err) => {
-
-                })
-        }
-
-        var contactUser = {
-            name: "Danijel Omrzel",
-            email: "danijel.omrzel@visitlljubljana.si",
-            number: "0038641386295"
-        }
-        var arr = []
-        arr.push(contactUser)
-        setUsers(arr)
+     
         someFetchActionCreator();
       
     }, [dispatch]);

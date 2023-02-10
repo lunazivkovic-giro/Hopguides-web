@@ -73,7 +73,6 @@ const HomeData = forwardRef((props, ref) => {
   const { homeDataState, dispatch } = useContext(HomeDataContext);
   const [users, setUsers] = useState([]);
   const [tours, setTours] = useState(props.data);
-
   const [role, setRole] = useState(false);
   const [admin, setAdmin] = useState(false);
   const someFetchActionCreator = () => {
@@ -97,47 +96,41 @@ const HomeData = forwardRef((props, ref) => {
   const timeout = (delay) => {
     return new Promise(res => setTimeout(res, delay));
   }
-  useEffect(async () => {
+  useEffect(() => {
+    var token = authHeader()
+    if (token == "null") {
+        window.location = "#/unauthorized";
+    } else {
 
-    await timeout(1000);
-    setTours(homeDataState.tours.tours)
+        Axios.get(`${url}api/users/getRole`, { headers: { Authorization: token } }, { validateStatus: () => true },
+        )
+            .then((res) => {
+                if (res.status === 200) {
+                    if ("BPARTNER" == res.data) {
 
-     var token = authHeader()
-     if (token == "null") {
-       window.location = "#/unauthorized";
-     } else {
- 
-       Axios.get(`${url}api/users/getRole`, { headers: { Authorization: token } }, { validateStatus: () => true },
-       )
-         .then((res) => {
-           if (res.status === 200) {
-             if ("BPARTNER" == res.data) {
- 
-               setRole(true)
-             }
- 
-             if ("ADMIN" == res.data || "PROVIDER" == res.data) {
- 
-               setRole(true)
-               setAdmin(true)
-             }
-           }
-         })
-         .catch((err) => {
- 
-         })
-     }
- 
-    var contactUser = {
-      name: "Danijel Omrzel",
-      email: "danijel.omrzel@visitlljubljana.si",
-      number: "0038641386295"
+                        setRole(true)
+                    }
+
+                    if ("ADMIN" == res.data || "PROVIDER" == res.data) {
+
+                        setRole(true)
+                        setAdmin(true)
+                    }
+                }
+            })
+            .catch((err) => {
+
+            })
     }
-    var arr = []
-    arr.push(contactUser)
-    setUsers(arr)
-
-
+    setTours(homeDataState.tours.tours)
+   var contactUser = {
+            name: "Danijel Omrzel",
+            email: "danijel.omrzel@visitlljubljana.si",
+            number: "0038641386295"
+        }
+        var arr = []
+        arr.push(contactUser)
+        setUsers(arr)
   }, [dispatch]);
 
   const getHistory = (e, data) => {
@@ -202,33 +195,34 @@ const HomeData = forwardRef((props, ref) => {
     <div class="login-page" >
     
       {!role &&
-       <div class=" button-login">
+       <div class="button-login">
         
-        <button
+        <Button
           type="button"
 
+          style= {{color: "black" }}
           onClick={handleLogin}
           class="btn btn-primary btn-lg"
         >
           Log in
-        </button>
+        </Button>
       </div>
       }
 
       {role &&
       <div class=" button-login">
-        <button
+        <Button
           type="button"
+          style= {{color: "black" }}
           onClick={handleLogout}
           class="btn btn-primary btn-lg"
         >
           Log out
-        </button>
+        </Button>
       </div>
       }
 
-     
-
+    
       <h1 class="paragraph-box" style={{ fontSize: 28 }} ><b>Tourism Ljubljana</b></h1>
       <div class="contact-box">
         <TableContainer component={Paper}>
@@ -355,7 +349,7 @@ const HomeData = forwardRef((props, ref) => {
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
               setTimeout(async () => {
-                onUpdate(newData, oldData)
+                await onUpdate(newData, oldData)
                 setTours(homeDataState.tours.tours)
                 resolve();
 

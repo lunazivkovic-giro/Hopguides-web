@@ -399,9 +399,9 @@ export const homeDataReducer = (state, action) => {
 
 			prodCpy = { ...state };
 
-			prodCpy.tours.tours = action.data;//array;
-			prodCpy.modalData.success = true;
-			prodCpy.modalData.text = "You have successfully updated tour.";
+			prodCpy.tours.tours = array;
+			//prodCpy.modalData.success = true;
+			//prodCpy.modalData.text = "You have successfully updated tour.";
 			return prodCpy;
 
 
