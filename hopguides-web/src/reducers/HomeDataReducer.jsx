@@ -378,7 +378,7 @@ export const homeDataReducer = (state, action) => {
 
 		case homeDataConstants.TOUR_UPDATE_SUCCESS:
 
-			var array = []
+		/*	var array = []
 			var tour = {
 				tourId: "446a706b-baa6-4feb-bc0b-0bcd9b2d2e0b",
 				tourName: "Blablaaaaaaa",
@@ -395,13 +395,13 @@ export const homeDataReducer = (state, action) => {
 			array.push(tour)
 			array.push(tour2)
 
-
+*/
 
 			prodCpy = { ...state };
 
-			prodCpy.tours.tours = array;
-			//prodCpy.modalData.success = true;
-			//prodCpy.modalData.text = "You have successfully updated tour.";
+			prodCpy.tours.tours = action.data;
+			prodCpy.modalData.success = true;
+			prodCpy.modalData.text = "You have successfully updated tour.";
 			return prodCpy;
 
 
@@ -422,6 +422,7 @@ export const homeDataReducer = (state, action) => {
 		case homeDataConstants.UPDATE_MENU_PHOTO_SUCCESS:
 
 
+		//console.log(action.data)
 		return {
 			...state,
 
@@ -578,6 +579,7 @@ export const homeDataReducer = (state, action) => {
 
 			prodCpy = { ...state };
 
+			console.log(action.data)
 			prodCpy.toursWithPoints.toursWithPoints = action.data;//array;
 			prodCpy.modalData.success = true;
 			prodCpy.modalData.text = "You have successfully updated partners data.";

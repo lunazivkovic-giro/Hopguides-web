@@ -84,6 +84,7 @@ const UpdateMenuModal = () => {
 
 			xhr.send(formData);
 
+
 		}
 	};
 	const ProgressHandler = (e) => {

@@ -56,17 +56,17 @@ function addTour(tour, dispatch) {
 }
 
 
-function updatePoint( dispatch, point) {
+async function updatePoint( dispatch, point) {
 
 	dispatch(request());
 	var token = authHeader()
-	Axios.post(`${url}api/poi/update/`+point.point.id, point, {
+	await Axios.post(`${url}api/poi/update/`+point.point.id, point, {
 		headers: {
 		  Authorization: token 
 		}},{ validateStatus: () => true })
 		.then((res) => {
 			if (res.status === 200) {
-				dispatch(success());
+				dispatch(success(res.data));
 			} else if (res.status === 215) {
 				dispatch(failure(res.data.response));
 			}else{
@@ -82,8 +82,8 @@ function updatePoint( dispatch, point) {
 		
 		return { type: homeDataConstants.POI_UPDATE_REQUEST };
 	}
-	function success() {
-		return { type: homeDataConstants.POI_UPDATE_SUCCESS };
+	function success(data) {
+		return { type: homeDataConstants.POI_UPDATE_SUCCESS, data:data };
 	
 	}
 	function failure(error) {
@@ -93,42 +93,42 @@ function updatePoint( dispatch, point) {
 }
 
 
-function updateTour( dispatch, tour) {
-
-	dispatch(request());
-	var token = authHeader()
-	Axios.post(`${url}api/pnl/tour/update/`+tour.id, tour, {
-		headers: {
-		  Authorization: token 
-		}},{ validateStatus: () => true })
-		.then((res) => {
-			if (res.status === 200) {
-				console.log(res.data)
-				dispatch(success(res.data));
-			} else if (res.status === 215) {
-				dispatch(failure(res.data.response));
-			}else{
-				
-				dispatch(failure(res.data.error));
-			}
-		})
-		.catch((err) =>{		
-				dispatch(failure(err));
-			})
-
-	function request() {
-		
-		return { type: homeDataConstants.TOUR_UPDATE_REQUEST };
-	}
-	function success(data) {
-		return { type: homeDataConstants.TOUR_UPDATE_SUCCESS, data: data  };
-	
-	}
-	function failure(error) {
-		
-		return { type: homeDataConstants.TOUR_UPDATE_FAILURE, error };
-	}
-}
+  async function updateTour( dispatch, tour) {
+  
+	  dispatch(request());
+	  var token = authHeader()
+	  await Axios.post(`${url}api/pnl/tour/update/`+tour.id, tour, {
+		  headers: {
+			Authorization: token 
+		  }},{ validateStatus: () => true })
+		  .then((res) => {
+			  if (res.status === 200) {
+				  console.log(res.data)
+				  dispatch(success(res.data));
+			  } else if (res.status === 215) {
+				  dispatch(failure(res.data.response));
+			  }else{
+				  
+				  dispatch(failure(res.data.error));
+			  }
+		  })
+		  .catch((err) =>{		
+				  dispatch(failure(err));
+			  })
+  
+	  function request() {
+		  
+		  return { type: homeDataConstants.TOUR_UPDATE_REQUEST };
+	  }
+	  function success(data) {
+		  return { type: homeDataConstants.TOUR_UPDATE_SUCCESS, data: data  };
+	  
+	  }
+	  function failure(error) {
+		  
+		  return { type: homeDataConstants.TOUR_UPDATE_FAILURE, error };
+	  }
+  }
 
 
 async function getPreviousMonthsData(dispatch ,id) {
@@ -138,7 +138,6 @@ async function getPreviousMonthsData(dispatch ,id) {
 	if(id==""){
 		id = "x"
 	}
-	console.log(id)
 	await Axios.get(`${url}api/pnl/tour/previousReport/` + id, { validateStatus: () => true })
 		.then((res) => {
 			if (res.status === 200) {
