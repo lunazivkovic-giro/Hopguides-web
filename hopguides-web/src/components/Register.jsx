@@ -22,7 +22,7 @@ const Register = () => {
 
 	const handleLogout = (event) => {
 
-		 //deleteLocalStorage();
+		//deleteLocalStorage();
 		window.location = "#/login";
 	}
 
@@ -44,7 +44,7 @@ const Register = () => {
 
 		}
 
-		
+
 		userService.sendRegistrationMail(sendEmailRequest, dispatch);
 	};
 
@@ -61,7 +61,7 @@ const Register = () => {
 							<form method="post" onSubmit={handleSubmitNew} style={{ width: "100%", marginRight: "338px" }} >
 
 
-								<h2 style={{ marginBottom: "80px" }}>Send registration link to the new user</h2>
+								<h1 class="paragraph-box" style={{ fontSize: 28 }} ><b>Send registration mail to new user</b></h1>
 
 								<div className="form-group">
 									<input className="form-control" type="email" style={{ height: "50px" }} required name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}></input>
@@ -90,7 +90,21 @@ const Register = () => {
 
 
 								<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								<div
+									className="form-group text-center"
+									style={{ color: "green", fontSize: "0.8em" }}
+									hidden={!userState.success}
+								>
+									Success
+								</div>
 
+								<div
+									className="form-group text-center"
+									style={{ color: "red", fontSize: "0.8em" }}
+									hidden={!userState.error}
+								>
+									Error
+								</div>
 								<div className="form-group">
 									<input className="btn btn-primary btn-block" id="kayitol" type="submit" style={{ background: "#5e90f6" }} value="Send" />
 								</div>

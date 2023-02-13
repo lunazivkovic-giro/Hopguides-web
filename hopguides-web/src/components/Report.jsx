@@ -149,10 +149,10 @@ const Report = forwardRef(( props, ref ) => {
             </div>
 
             <h4 class="header2">   </h4>
-            <div class="paragraph-box">
+            <div class="paragraph-box" >
 
 
-                <h3><b>Offer name</b>:  {reportState.report.offerName}</h3>
+                <h1 style={{ fontSize: 28 }} ><b>Offer name</b>:  {reportState.report.offerName}</h1>
 
             </div>
 

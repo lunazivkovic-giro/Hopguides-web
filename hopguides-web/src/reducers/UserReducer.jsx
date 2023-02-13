@@ -20,6 +20,23 @@ export const userReducer = (state, action) => {
 				},
 			};
 
+			case userConstants.REGISTRATION_MAIL_SUCCESS:
+				return {
+					success: true
+				};
+			case userConstants.REGISTRATION_MAIL_FAILURE:
+				return {
+					error: true
+				};
+
+				case userConstants.SET_PASSWORD_SUCCESS:
+				return {
+					successPassword: true
+				};
+			case userConstants.SET_PASSWORD_FAILURE:
+				return {
+					errorPassword: true
+				};
 	
 		default:
 			return state;

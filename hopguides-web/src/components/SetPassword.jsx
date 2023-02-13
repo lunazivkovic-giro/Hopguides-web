@@ -57,7 +57,7 @@ const SetPassword = () => {
 							<form method="post" onSubmit={handleSubmitNew} style={{ width: "100%", marginRight: "338px" }} >
 
 
-								<h2 style={{ marginBottom: "80px" }}>Set up password</h2>
+							<h1 class="paragraph-box" style={{ fontSize: 28 }} ><b>Set up password</b></h1>
 
 								<div className="form-group">
 									<input className="form-control" type="password" style={{ height: "50px" }} required name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
@@ -75,7 +75,23 @@ const SetPassword = () => {
 
 								<div className="form-group text-center" style={{ color: "red", fontSize: "0.8em", marginTop: "30px", marginRight: "40px" }} hidden={!errMessage}>
 								{errMessage}
-							</div>
+								</div>
+								<div
+									className="form-group text-center"
+									style={{ color: "green", fontSize: "0.8em" }}
+									hidden={!userState.successPassword}
+								>
+									Success
+								</div>
+
+								<div
+									className="form-group text-center"
+									style={{ color: "red", fontSize: "0.8em" }}
+									hidden={!userState.errorPassword}
+								>
+									Error
+								</div>
+						
 								<div className="form-group">
 									<input className="btn btn-primary btn-block" id="kayitol" type="submit" style={{ background: "#5e90f6" }} value="Send" />
 								</div>

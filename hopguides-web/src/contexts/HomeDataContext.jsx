@@ -24,7 +24,7 @@ const HomeDataContextProvider = (props) => {
 
 		id: "",
 		tours: {
-			tours: []
+			tours: null
 		},
 
 		toursWithPoints: {

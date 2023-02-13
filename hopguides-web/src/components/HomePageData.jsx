@@ -98,7 +98,7 @@ const HomePageData = forwardRef((props, ref) => {
     }, [dispatch]);
 
 
-    if(homeDataState.tours.tours == null || !homeDataState.tours.tours.length) return (<span>loading...</span>);
+    if(homeDataState.tours.tours == null) return (<span>loading...</span>);
     return (
 
         <div>

@@ -75,6 +75,7 @@ const HomeData = forwardRef((props, ref) => {
   const [tours, setTours] = useState(props.data);
   const [role, setRole] = useState(false);
   const [admin, setAdmin] = useState(false);
+  const [adminOnly, setAdminOnly] = useState(false);
   const someFetchActionCreator = () => {
     const getDocumentsInfoHandler = async () => {
       await homeDataService.getData(dispatch);
@@ -87,10 +88,10 @@ const HomeData = forwardRef((props, ref) => {
     getDocumentsInfoHandler();
   };
 
-  
+
 
   const handleLogout = () => {
-     deleteLocalStorage();
+    deleteLocalStorage();
     window.location = "#/login";
   };
   const timeout = (delay) => {
@@ -99,38 +100,44 @@ const HomeData = forwardRef((props, ref) => {
   useEffect(() => {
     var token = authHeader()
     if (token == "null") {
-        window.location = "#/unauthorized";
+      window.location = "#/unauthorized";
     } else {
 
-        Axios.get(`${url}api/users/getRole`, { headers: { Authorization: token } }, { validateStatus: () => true },
-        )
-            .then((res) => {
-                if (res.status === 200) {
-                    if ("BPARTNER" == res.data) {
+      Axios.get(`${url}api/users/getRole`, { headers: { Authorization: token } }, { validateStatus: () => true },
+      )
+        .then((res) => {
+          if (res.status === 200) {
+            if ("BPARTNER" == res.data) {
 
-                        setRole(true)
-                    }
+              setRole(true)
+            }
 
-                    if ("ADMIN" == res.data || "PROVIDER" == res.data) {
+            if ("PROVIDER" == res.data) {
 
-                        setRole(true)
-                        setAdmin(true)
-                    }
-                }
-            })
-            .catch((err) => {
+              setRole(true)
+              setAdmin(true)
+            }
 
-            })
+            if ("ADMIN" == res.data) {
+
+              setAdminOnly(true)
+              setAdmin(true)
+            }
+          }
+        })
+        .catch((err) => {
+
+        })
     }
     setTours(homeDataState.tours.tours)
-   var contactUser = {
-            name: "Danijel Omrzel",
-            email: "danijel.omrzel@visitlljubljana.si",
-            number: "0038641386295"
-        }
-        var arr = []
-        arr.push(contactUser)
-        setUsers(arr)
+    var contactUser = {
+      name: "Danijel Omrzel",
+      email: "danijel.omrzel@visitlljubljana.si",
+      number: "0038641386295"
+    }
+    var arr = []
+    arr.push(contactUser)
+    setUsers(arr)
   }, [dispatch]);
 
   const getHistory = (e, data) => {
@@ -190,39 +197,61 @@ const HomeData = forwardRef((props, ref) => {
   const handleLogin = () => {
     window.location.href = "#/login"
   };
+
+
+  const handleRegister = () => {
+    window.location.href = "#/register"
+  };
   return (
 
     <div class="login-page" >
-    
-      {!role &&
-       <div class="button-login">
-        
-        <Button
-          type="button"
 
-          style= {{color: "black" }}
-          onClick={handleLogin}
-          class="btn btn-primary btn-lg"
-        >
-          Log in
-        </Button>
-      </div>
+      {!role &&
+        <div class="button-login">
+
+          <Button
+            type="button"
+
+            style={{ color: "black" }}
+            onClick={handleLogin}
+            class="btn btn-primary btn-lg"
+          >
+            Log in
+          </Button>
+        </div>
       }
 
       {role &&
-      <div class=" button-login">
-        <Button
-          type="button"
-          style= {{color: "black" }}
-          onClick={handleLogout}
-          class="btn btn-primary btn-lg"
-        >
-          Log out
-        </Button>
-      </div>
+        <div class=" button-login">
+          <Button
+            type="button"
+            style={{ color: "black" }}
+            onClick={handleLogout}
+            class="btn btn-primary btn-lg"
+          >
+            Log out
+          </Button>
+        </div>
+      }
+      <br />
+      {adminOnly &&
+        <div class="button-login">
+
+          <Button
+            type="button"
+            style={{ color: "black" }}
+            onClick={handleRegister}
+            class="btn btn-primary btn-lg"
+          >
+            Register new user
+          </Button>
+        </div>
       }
 
-    
+
+
+
+
       <h1 class="paragraph-box" style={{ fontSize: 28 }} ><b>Tourism Ljubljana</b></h1>
       <div class="contact-box">
         <TableContainer component={Paper}>
@@ -267,7 +296,7 @@ const HomeData = forwardRef((props, ref) => {
                 alignItems: "center"
               }}
             >
-             {admin &&  <Button
+              {admin && <Button
                 style={{ height: "fit-content" }}
                 color="primary"
                 variant="contained"
