@@ -41,9 +41,8 @@ const LoginForm = () => {
             ></img>
           </div>
           <div class="form">
-            <h4>Welcome back </h4>
-            <p></p>
-            <p></p>
+            <h4 style={{ fontSize: 20 }} >Welcome back </h4>
+            <br/>
             <form method="post" onSubmit={handleSubmit}>
               <div className="form-group">
                 <input
@@ -80,7 +79,7 @@ const LoginForm = () => {
                 className="form-group text-center"
                 style={{ color: "red", fontSize: "0.8em" }}
               >
-                <a href = "/#/forgotPassword" style ={{border: "0px"}}> Forgot password? </a>
+                <a href = "#/forgotPassword" style ={{border: "0px"}}> Forgot password? </a>
               </div>
               <input
                 className="btn btn-primary btn-block"
